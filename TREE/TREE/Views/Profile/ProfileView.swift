@@ -1,0 +1,96 @@
+//
+//  ProfileView.swift
+//  TREE
+//
+//  Created by Jaewon Oh on 7/15/25.
+//
+
+import SwiftUI
+
+struct ProfileView: View {
+    
+    var body: some View {
+        NavigationStack {
+            VStack(spacing: 16) {
+                VStack {
+                    HStack {
+                        Image("Sublets")
+                            .resizable()
+                            .frame(width: 120, height: 24)
+                            .padding(.bottom)
+                        
+                        Spacer()
+                    }
+                    
+                    Image("Profile")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 100, height: 100)
+                        .clipShape(.circle)
+                    Text("dragon fighter")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                }
+                .padding(.horizontal)
+                
+                NavigationLink {
+                    ProfileSettingView()
+                } label: {
+                    Text("Edit Profile")
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .frame(width: 360, height: 32)
+                        .foregroundStyle(.black)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 6)
+                                .stroke(Color("AccentColor"), lineWidth: 2)
+                        }
+                }
+            }
+            
+            List {
+                ForEach(0...12, id: \.self) { index in
+                    Post()
+                }
+            }
+        }
+    }
+}
+
+
+struct Post: View {
+    var body: some View {
+        HStack(alignment: .top, spacing: 12) {
+            Image("Image")
+                .resizable()
+                .scaledToFill()
+                .frame(width: 64, height: 64)
+                .clipShape(.circle)
+                
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text("2520 Hillegass")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                
+                Text("sublets")
+                    .font(.subheadline)
+                    .lineLimit(2)
+                    .frame(maxWidth: UIScreen.main.bounds.width - 100, alignment: .leading)
+            }
+            
+            HStack {
+                Text("[07/12-10/23]")
+                
+                Image(systemName: "chevron.right")
+            }
+            .font(.footnote)
+            .foregroundStyle(Color(.gray))
+        }
+        .frame(height: 64)
+    }
+}
+
+#Preview {
+    ProfileView()
+}

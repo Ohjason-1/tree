@@ -1,0 +1,163 @@
+//
+//  DeveloperPreview.swift
+//  TREE
+//
+//  Created by Jaewon Oh on 7/14/25.
+//
+
+import Foundation
+
+class DeveloperPreview {
+    
+    static let shared = DeveloperPreview()
+    
+    var sublets: [Sublets] = [
+        .init(
+            id: NSUUID().uuidString,
+            ownerUid: NSUUID().uuidString,
+            ownerName: "Jason",
+            ownerImageUrl: "profile",
+            numberOfBedrooms: 1,
+            numberOfBathrooms: 1,
+            latitude: 37.871666,
+            longitude: -122.272781,
+            zipcode: "94704",
+            imageURLs: ["Image", "Image1", "Image2"],
+            address: "2520 Hillegass Ave",
+            city: "Berkeley",
+            state: "California",
+            shared: true,
+            leaseTermMonth: "[07/02-10/12]",
+            leaseTermYear: "2025",
+            rentFee: 1500,
+            title: "Cozy 2BR/1BA Apartment in Berkeley",
+            explanation: "Welcome to our bright and spacious 2-bedroom, 1-bathroom apartment located just 10 minutes from UC Berkeley campus!, rent fee and lease terms are negotiable"
+        ),
+        .init(
+            id: NSUUID().uuidString,
+            ownerUid: NSUUID().uuidString,
+            ownerName: "Jason",
+            ownerImageUrl: "profile",
+            numberOfBedrooms: 1,
+            numberOfBathrooms: 1,
+            latitude: 37.871666,
+            longitude: -122.272781,
+            zipcode: "94704",
+            imageURLs: ["Image2", "Image", "Image1"],
+            address: "2520 Hillegass Ave",
+            city: "Berkeley",
+            state: "California",
+            shared: true,
+            leaseTermMonth: "[07/02-10/12]",
+            leaseTermYear: "2025",
+            rentFee: 1500,
+            title: "Cozy 2BR/1BA Apartment in Berkeley",
+            explanation: "Welcome to our bright and spacious 2-bedroom, 1-bathroom apartment located just 10 minutes from UC Berkeley campus!, rent fee and lease terms are negotiable"
+        ),
+        .init(
+            id: NSUUID().uuidString,
+            ownerUid: NSUUID().uuidString,
+            ownerName: "Jason",
+            ownerImageUrl: "profile",
+            numberOfBedrooms: 1,
+            numberOfBathrooms: 1,
+            latitude: 37.871666,
+            longitude: -122.272781,
+            zipcode: "94704",
+            imageURLs: ["Image1", "Image", "Image2"],
+            address: "2520 Hillegass Ave",
+            city: "Berkeley",
+            state: "California",
+            shared: true,
+            leaseTermMonth: "[07/02-10/12]",
+            leaseTermYear: "2025",
+            rentFee: 1500,
+            title: "Cozy 2BR/1BA Apartment in Berkeley",
+            explanation: "Welcome to our bright and spacious 2-bedroom, 1-bathroom apartment located just 10 minutes from UC Berkeley campus!, rent fee and lease terms are negotiable"
+        ),
+        .init(
+            id: NSUUID().uuidString,
+            ownerUid: NSUUID().uuidString,
+            ownerName: "Jason",
+            ownerImageUrl: "profile",
+            numberOfBedrooms: 1,
+            numberOfBathrooms: 1,
+            latitude: 37.871666,
+            longitude: -122.272781,
+            zipcode: "94704",
+            imageURLs: ["Image", "Image2", "Image1"],
+            address: "2520 Hillegass Ave",
+            city: "Berkeley",
+            state: "California",
+            shared: true,
+            leaseTermMonth: "[07/02-10/12]",
+            leaseTermYear: "2025",
+            rentFee: 1500,
+            title: "Cozy 2BR/1BA Apartment in Berkeley",
+            explanation: "Welcome to our bright and spacious 2-bedroom, 1-bathroom apartment located just 10 minutes from UC Berkeley campus!, rent fee and lease terms are negotiable"
+        ),
+        .init(
+            id: NSUUID().uuidString,
+            ownerUid: NSUUID().uuidString,
+            ownerName: "Jason",
+            ownerImageUrl: "profile",
+            numberOfBedrooms: 1,
+            numberOfBathrooms: 1,
+            latitude: 37.871666,
+            longitude: -122.272781,
+            zipcode: "94704",
+            imageURLs: ["Image2", "Image", "Image1"],
+            address: "2520 Hillegass Ave",
+            city: "Berkeley",
+            state: "California",
+            shared: true,
+            leaseTermMonth: "[07/02-10/12]",
+            leaseTermYear: "2025",
+            rentFee: 1500,
+            title: "Cozy 2BR/1BA Apartment in Berkeley",
+            explanation: "Welcome to our bright and spacious 2-bedroom, 1-bathroom apartment located just 10 minutes from UC Berkeley campus!, rent fee and lease terms are negotiable"
+        ),
+        .init(
+            id: NSUUID().uuidString,
+            ownerUid: NSUUID().uuidString,
+            ownerName: "Jason",
+            ownerImageUrl: "profile",
+            numberOfBedrooms: 1,
+            numberOfBathrooms: 1,
+            latitude: 37.871666,
+            longitude: -122.272781,
+            zipcode: "94704",
+            imageURLs: ["Image", "Image1", "Image2"],
+            address: "2520 Hillegass Ave",
+            city: "Berkeley",
+            state: "California",
+            shared: true,
+            leaseTermMonth: "[07/02-10/12]",
+            leaseTermYear: "2025",
+            rentFee: 1500,
+            title: "Cozy 2BR/1BA Apartment in Berkeley",
+            explanation: "Welcome to our bright and spacious 2-bedroom, 1-bathroom apartment located just 10 minutes from UC Berkeley campus!, rent fee and lease terms are negotiable"
+        ),
+        .init(
+            id: NSUUID().uuidString,
+            ownerUid: NSUUID().uuidString,
+            ownerName: "Jason",
+            ownerImageUrl: "profile",
+            numberOfBedrooms: 1,
+            numberOfBathrooms: 1,
+            latitude: 37.871666,
+            longitude: -122.272781,
+            zipcode: "94704",
+            imageURLs: ["Image", "Image1", "Image2"],
+            address: "2520 Hillegass Ave",
+            city: "Berkeley",
+            state: "California",
+            shared: true,
+            leaseTermMonth: "[07/02-10/12]",
+            leaseTermYear: "2025",
+            rentFee: 1500,
+            title: "Cozy 2BR/1BA Apartment in Berkeley",
+            explanation: "Welcome to our bright and spacious 2-bedroom, 1-bathroom apartment located just 10 minutes from UC Berkeley campus!, rent fee and lease terms are negotiable"
+        )
+    ]
+}
