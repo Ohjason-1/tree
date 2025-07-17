@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct SubletListingModifier: View {
-    let sublet: Sublets
+struct TreeListingModifier: View {
+    let tree: any Tree
     
     var body: some View {
         VStack(spacing: 8) {
             // images
             TabView {
-                ForEach(sublet.imageURLs, id: \.self) { image in
+                ForEach(tree.imageURLs, id: \.self) { image in
                     Image(image)
                         .resizable()
                         .scaledToFill()
@@ -26,5 +26,5 @@ struct SubletListingModifier: View {
 }
 
 #Preview {
-    SubletListingModifier(sublet: DeveloperPreview.shared.sublets[0])
+    TreeListingModifier(tree: DeveloperPreview.shared.sublets[0])
 }

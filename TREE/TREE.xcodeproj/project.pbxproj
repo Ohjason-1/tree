@@ -12,7 +12,7 @@
 		5317BF3B2E24EA8600DE0BD2 /* SubletListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5317BF3A2E24EA8600DE0BD2 /* SubletListingView.swift */; };
 		5317BF422E25D93300DE0BD2 /* SearchAndFilterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5317BF412E25D93300DE0BD2 /* SearchAndFilterBar.swift */; };
 		5317BF442E25F4A500DE0BD2 /* SubletListingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5317BF432E25F4A500DE0BD2 /* SubletListingDetailView.swift */; };
-		5317BF462E25F70D00DE0BD2 /* SubletListingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5317BF452E25F70D00DE0BD2 /* SubletListingModifier.swift */; };
+		5317BF462E25F70D00DE0BD2 /* TreeListingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5317BF452E25F70D00DE0BD2 /* TreeListingModifier.swift */; };
 		5317BF482E2616A500DE0BD2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5317BF472E2616A500DE0BD2 /* HomeView.swift */; };
 		536BA19B2E275775005B25F1 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536BA19A2E275775005B25F1 /* ProfileView.swift */; };
 		5393035D2E23AAED000B88FB /* TREE.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 539303582E23AAED000B88FB /* TREE.xcdatamodeld */; };
@@ -23,17 +23,20 @@
 		539303722E23ABB1000B88FB /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539303712E23ABB1000B88FB /* MainTabView.swift */; };
 		539303742E23AC94000B88FB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539303732E23AC94000B88FB /* ContentView.swift */; };
 		53A8628B2E2714C700280C2F /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A8628A2E2714C700280C2F /* Users.swift */; };
-		53A8628D2E271B6100280C2F /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A8628C2E271B6100280C2F /* Messages.swift */; };
-		53A8628F2E27220A00280C2F /* MessageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A8628E2E27220A00280C2F /* MessageRow.swift */; };
+		53A8628D2E271B6100280C2F /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A8628C2E271B6100280C2F /* MessagesView.swift */; };
+		53A8628F2E27220A00280C2F /* MessageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A8628E2E27220A00280C2F /* MessageRowView.swift */; };
 		53A862912E27431100280C2F /* ProfileSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A862902E27431100280C2F /* ProfileSettingView.swift */; };
-		53E249A42E26203C00068C1B /* Sublets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E249A32E26203C00068C1B /* Sublets.swift */; };
+		53E249A42E26203C00068C1B /* Trees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E249A32E26203C00068C1B /* Trees.swift */; };
 		53E249A62E26262A00068C1B /* DeveloperPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E249A52E26262A00068C1B /* DeveloperPreview.swift */; };
-		53E249A92E26295B00068C1B /* SubletsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E249A82E26295B00068C1B /* SubletsViewModel.swift */; };
-		53E249AB2E2629AC00068C1B /* SubletsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E249AA2E2629AC00068C1B /* SubletsService.swift */; };
+		53E249A92E26295B00068C1B /* TreeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E249A82E26295B00068C1B /* TreeViewModel.swift */; };
+		53E249AB2E2629AC00068C1B /* TreeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E249AA2E2629AC00068C1B /* TreeService.swift */; };
 		53E249AD2E26332E00068C1B /* LogoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E249AC2E26332E00068C1B /* LogoScreen.swift */; };
 		53E249B02E26423700068C1B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E249AF2E26423700068C1B /* LoginView.swift */; };
 		53E249B22E26490000068C1B /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E249B12E26490000068C1B /* RegistrationView.swift */; };
 		53E249B42E26498D00068C1B /* AuthenticationModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E249B32E26498D00068C1B /* AuthenticationModifier.swift */; };
+		53F2DD7B2E287A3E003A9EE8 /* StoreListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F2DD7A2E287A3E003A9EE8 /* StoreListingView.swift */; };
+		53F2DD7D2E28B786003A9EE8 /* CautionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F2DD7C2E28B786003A9EE8 /* CautionView.swift */; };
+		53F2DD7F2E28D3DC003A9EE8 /* StoreListingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F2DD7E2E28D3DC003A9EE8 /* StoreListingDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,7 +62,7 @@
 		5317BF3A2E24EA8600DE0BD2 /* SubletListingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubletListingView.swift; sourceTree = "<group>"; };
 		5317BF412E25D93300DE0BD2 /* SearchAndFilterBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAndFilterBar.swift; sourceTree = "<group>"; };
 		5317BF432E25F4A500DE0BD2 /* SubletListingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubletListingDetailView.swift; sourceTree = "<group>"; };
-		5317BF452E25F70D00DE0BD2 /* SubletListingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubletListingModifier.swift; sourceTree = "<group>"; };
+		5317BF452E25F70D00DE0BD2 /* TreeListingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeListingModifier.swift; sourceTree = "<group>"; };
 		5317BF472E2616A500DE0BD2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		536BA19A2E275775005B25F1 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		539303572E23AAED000B88FB /* TREE.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TREE.entitlements; sourceTree = "<group>"; };
@@ -71,20 +74,23 @@
 		539303712E23ABB1000B88FB /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		539303732E23AC94000B88FB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		53A8628A2E2714C700280C2F /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
-		53A8628C2E271B6100280C2F /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
-		53A8628E2E27220A00280C2F /* MessageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRow.swift; sourceTree = "<group>"; };
+		53A8628C2E271B6100280C2F /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
+		53A8628E2E27220A00280C2F /* MessageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRowView.swift; sourceTree = "<group>"; };
 		53A862902E27431100280C2F /* ProfileSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingView.swift; sourceTree = "<group>"; };
 		53A989B12DD8001E00FADC05 /* TREE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TREE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53A989C42DD8002200FADC05 /* TREETests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TREETests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		53A989CE2DD8002200FADC05 /* TREEUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TREEUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		53E249A32E26203C00068C1B /* Sublets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sublets.swift; sourceTree = "<group>"; };
+		53E249A32E26203C00068C1B /* Trees.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trees.swift; sourceTree = "<group>"; };
 		53E249A52E26262A00068C1B /* DeveloperPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperPreview.swift; sourceTree = "<group>"; };
-		53E249A82E26295B00068C1B /* SubletsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubletsViewModel.swift; sourceTree = "<group>"; };
-		53E249AA2E2629AC00068C1B /* SubletsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubletsService.swift; sourceTree = "<group>"; };
+		53E249A82E26295B00068C1B /* TreeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeViewModel.swift; sourceTree = "<group>"; };
+		53E249AA2E2629AC00068C1B /* TreeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeService.swift; sourceTree = "<group>"; };
 		53E249AC2E26332E00068C1B /* LogoScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoScreen.swift; sourceTree = "<group>"; };
 		53E249AF2E26423700068C1B /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		53E249B12E26490000068C1B /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		53E249B32E26498D00068C1B /* AuthenticationModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationModifier.swift; sourceTree = "<group>"; };
+		53F2DD7A2E287A3E003A9EE8 /* StoreListingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreListingView.swift; sourceTree = "<group>"; };
+		53F2DD7C2E28B786003A9EE8 /* CautionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CautionView.swift; sourceTree = "<group>"; };
+		53F2DD7E2E28D3DC003A9EE8 /* StoreListingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreListingDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,19 +118,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5317BF372E24EA3000DE0BD2 /* Listings */ = {
-			isa = PBXGroup;
-			children = (
-				5317BF3A2E24EA8600DE0BD2 /* SubletListingView.swift */,
-				5317BF432E25F4A500DE0BD2 /* SubletListingDetailView.swift */,
-			);
-			path = Listings;
-			sourceTree = "<group>";
-		};
 		5317BF3C2E25D47700DE0BD2 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				5317BF452E25F70D00DE0BD2 /* SubletListingModifier.swift */,
+				5317BF452E25F70D00DE0BD2 /* TreeListingModifier.swift */,
 				53E249B32E26498D00068C1B /* AuthenticationModifier.swift */,
 			);
 			path = Components;
@@ -133,8 +130,8 @@
 		5317BF3D2E25D4B300DE0BD2 /* Messages */ = {
 			isa = PBXGroup;
 			children = (
-				53A8628C2E271B6100280C2F /* Messages.swift */,
-				53A8628E2E27220A00280C2F /* MessageRow.swift */,
+				53A8628C2E271B6100280C2F /* MessagesView.swift */,
+				53A8628E2E27220A00280C2F /* MessageRowView.swift */,
 			);
 			path = Messages;
 			sourceTree = "<group>";
@@ -173,6 +170,7 @@
 				539303672E23AAF7000B88FB /* App */,
 				539303692E23AB16000B88FB /* Models */,
 				5317BF3E2E25D66D00DE0BD2 /* Views */,
+				53E249A72E26292200068C1B /* ViewModel */,
 				539303682E23AB0F000B88FB /* Core */,
 				5393036A2E23AB1D000B88FB /* Services */,
 				5317BF3C2E25D47700DE0BD2 /* Components */,
@@ -222,7 +220,7 @@
 		539303692E23AB16000B88FB /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				53E249A32E26203C00068C1B /* Sublets.swift */,
+				53E249A32E26203C00068C1B /* Trees.swift */,
 				53A8628A2E2714C700280C2F /* Users.swift */,
 			);
 			path = Models;
@@ -231,7 +229,7 @@
 		5393036A2E23AB1D000B88FB /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				53E249AA2E2629AC00068C1B /* SubletsService.swift */,
+				53E249AA2E2629AC00068C1B /* TreeService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -257,6 +255,7 @@
 			children = (
 				53A862902E27431100280C2F /* ProfileSettingView.swift */,
 				536BA19A2E275775005B25F1 /* ProfileView.swift */,
+				53F2DD7C2E28B786003A9EE8 /* CautionView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -264,7 +263,8 @@
 		5393036E2E23AB52000B88FB /* Sublets */ = {
 			isa = PBXGroup;
 			children = (
-				5317BF372E24EA3000DE0BD2 /* Listings */,
+				5317BF3A2E24EA8600DE0BD2 /* SubletListingView.swift */,
+				5317BF432E25F4A500DE0BD2 /* SubletListingDetailView.swift */,
 			);
 			path = Sublets;
 			sourceTree = "<group>";
@@ -274,8 +274,8 @@
 			children = (
 				5317BF312E24E00900DE0BD2 /* TreeView.swift */,
 				5317BF412E25D93300DE0BD2 /* SearchAndFilterBar.swift */,
+				53F2DD712E281DDA003A9EE8 /* Store */,
 				5393036E2E23AB52000B88FB /* Sublets */,
-				53E249A72E26292200068C1B /* ViewModel */,
 			);
 			path = Tree;
 			sourceTree = "<group>";
@@ -311,7 +311,7 @@
 		53E249A72E26292200068C1B /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				53E249A82E26295B00068C1B /* SubletsViewModel.swift */,
+				53E249A82E26295B00068C1B /* TreeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -323,6 +323,15 @@
 				53E249B12E26490000068C1B /* RegistrationView.swift */,
 			);
 			path = Authentication;
+			sourceTree = "<group>";
+		};
+		53F2DD712E281DDA003A9EE8 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				53F2DD7A2E287A3E003A9EE8 /* StoreListingView.swift */,
+				53F2DD7E2E28D3DC003A9EE8 /* StoreListingDetailView.swift */,
+			);
+			path = Store;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -463,6 +472,8 @@
 			files = (
 				5317BF322E24E00900DE0BD2 /* TreeView.swift in Sources */,
 				5393035D2E23AAED000B88FB /* TREE.xcdatamodeld in Sources */,
+				53F2DD7F2E28D3DC003A9EE8 /* StoreListingDetailView.swift in Sources */,
+				53F2DD7D2E28B786003A9EE8 /* CautionView.swift in Sources */,
 				5393035E2E23AAED000B88FB /* TREEApp.swift in Sources */,
 				53E249AD2E26332E00068C1B /* LogoScreen.swift in Sources */,
 				5317BF482E2616A500DE0BD2 /* HomeView.swift in Sources */,
@@ -471,17 +482,18 @@
 				53E249B42E26498D00068C1B /* AuthenticationModifier.swift in Sources */,
 				5317BF422E25D93300DE0BD2 /* SearchAndFilterBar.swift in Sources */,
 				53E249A62E26262A00068C1B /* DeveloperPreview.swift in Sources */,
-				5317BF462E25F70D00DE0BD2 /* SubletListingModifier.swift in Sources */,
-				53A8628D2E271B6100280C2F /* Messages.swift in Sources */,
+				5317BF462E25F70D00DE0BD2 /* TreeListingModifier.swift in Sources */,
+				53F2DD7B2E287A3E003A9EE8 /* StoreListingView.swift in Sources */,
+				53A8628D2E271B6100280C2F /* MessagesView.swift in Sources */,
 				539303742E23AC94000B88FB /* ContentView.swift in Sources */,
 				5317BF3B2E24EA8600DE0BD2 /* SubletListingView.swift in Sources */,
-				53E249A92E26295B00068C1B /* SubletsViewModel.swift in Sources */,
-				53E249A42E26203C00068C1B /* Sublets.swift in Sources */,
+				53E249A92E26295B00068C1B /* TreeViewModel.swift in Sources */,
+				53E249A42E26203C00068C1B /* Trees.swift in Sources */,
 				539303722E23ABB1000B88FB /* MainTabView.swift in Sources */,
 				536BA19B2E275775005B25F1 /* ProfileView.swift in Sources */,
-				53E249AB2E2629AC00068C1B /* SubletsService.swift in Sources */,
+				53E249AB2E2629AC00068C1B /* TreeService.swift in Sources */,
 				53E249B02E26423700068C1B /* LoginView.swift in Sources */,
-				53A8628F2E27220A00280C2F /* MessageRow.swift in Sources */,
+				53A8628F2E27220A00280C2F /* MessageRowView.swift in Sources */,
 				53A862912E27431100280C2F /* ProfileSettingView.swift in Sources */,
 				5317BF442E25F4A500DE0BD2 /* SubletListingDetailView.swift in Sources */,
 			);

@@ -13,6 +13,7 @@ struct RegistrationView: View {
     @State private var userName = ""
     @State private var phoneNumber = ""
     @Environment(\.dismiss) var dismiss
+    @Binding var isLoggedIn: Bool
     
     var body: some View {
         NavigationStack {
@@ -43,10 +44,9 @@ struct RegistrationView: View {
                         .foregroundStyle(Color(.systemGray))
                 }
                 
-                NavigationLink(destination: {
-                    MainTabView()
-                        .navigationBarBackButtonHidden()
-                }, label: {
+                Button {
+                    isLoggedIn = true
+                } label: {
                     Text("Sign Up")
                         .font(.subheadline)
                         .fontWeight(.semibold)
@@ -54,7 +54,7 @@ struct RegistrationView: View {
                         .frame(width: 360, height: 44)
                         .background(Color("AccentColor"))
                         .cornerRadius(10)
-                })
+                }
                 .padding(.vertical)
                 
                 Spacer()
@@ -80,5 +80,5 @@ struct RegistrationView: View {
 }
 
 #Preview {
-    RegistrationView()
+    RegistrationView(isLoggedIn: .constant(false))
 }

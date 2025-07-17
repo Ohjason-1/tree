@@ -8,39 +8,28 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Environment(\.scenePhase) private var scenePhase
-        @State private var showLoginView = false
-        @State private var showLogoScreen = false
-        
-        var body: some View {
-            ZStack {
+    @State private var isLoggedIn = false
+    @State private var showingLogo = true
+    // hard coded to show logo screen and login screen >,<
+    var body: some View {
+        if showingLogo {
+            LogoScreen()
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        withAnimation {
+                            showingLogo = false
+                        }
+                    }
+                }
+        } else {
+            if isLoggedIn {
                 MainTabView()
-                
-                if showLoginView {
-                    LoginView()
-                }
-                
-                if showLogoScreen {
-                    LogoScreen()
-                }
-            }
-            .onChange(of: scenePhase) { oldPhase, newPhase in
-                switch newPhase {
-                case .active:
-                    showLoginView = true
-                    showLogoScreen = false
-                case .inactive:
-                    showLoginView = false
-                    showLogoScreen = false
-                case .background:
-                    showLoginView = false
-                    showLogoScreen = true
-                @unknown default:
-                    break
-                }
+            } else {
+                LoginView(isLoggedIn: $isLoggedIn)
             }
         }
     }
+}
 
 #Preview {
     ContentView()

@@ -13,7 +13,7 @@ struct SubletListingDetailView: View {
     
     var body: some View {
         ScrollView {
-            SubletListingModifier(sublet: sublet)
+            TreeListingModifier(tree: sublet)
                 .frame(height: 320)
             
             VStack(alignment: .leading, spacing: 16) {
@@ -59,6 +59,11 @@ struct SubletListingDetailView: View {
                             Text("**\(sublet.numberOfBedrooms)** bathrooms")
                                 
                         }
+                        
+                        Spacer()
+                        
+                        Text(sublet.shared ? "Shared \(Image(systemName: "person.2.fill"))" : "Not shared \(Image(systemName: "person.fill"))")
+                        
                     }
                     .font(.footnote)
                     

@@ -35,7 +35,7 @@ struct MainTabView: View {
                 .onAppear { selectedTab = 1 }
                 .tag(1)
             
-            Messages()
+            MessagesView()
                 .tabItem {
                     VStack {
                         Image(systemName: selectedTab == 2 ? "message.fill" : "message")

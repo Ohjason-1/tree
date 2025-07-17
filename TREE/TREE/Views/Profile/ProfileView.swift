@@ -14,10 +14,10 @@ struct ProfileView: View {
             VStack(spacing: 16) {
                 VStack {
                     HStack {
-                        Image("Sublets")
+                        Image("Profile1")
                             .resizable()
-                            .frame(width: 120, height: 24)
-                            .padding(.bottom)
+                            .frame(width: 100, height: 24)
+                            .padding(.vertical)
                         
                         Spacer()
                     }

@@ -7,7 +7,16 @@
 
 import Foundation
 
-struct Sublets: Identifiable, Codable, Hashable {
+struct Tree: Identifiable, Codable, Hashable {
+    let id: String
+    let imageURLs: [String]
+    let city: String
+    let state: String
+    let title: String
+    let explanation: String
+}
+
+struct Sublets: TreePost {
     let id: String
     let ownerUid: String
     let ownerName: String
@@ -27,6 +36,4 @@ struct Sublets: Identifiable, Codable, Hashable {
     var rentFee: Int
     let title: String
     let explanation: String
-}
-
-
+} 
