@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct MessagesView: View {
-    
+    @StateObject var viewModel = MessagesViewModel()
+    // list of all users; fix it
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
@@ -24,11 +25,11 @@ struct MessagesView: View {
                 
                 List {
                     
-                    ForEach(0...10, id: \.self) { message in
+                    ForEach(viewModel.users) { user in
                         NavigationLink {
-                            Text("message")
+                            ChatView(user: user)
                         } label: {
-                            MessageRowView()
+                            MessageRowView(user: user)
                         }
                     }
                 }

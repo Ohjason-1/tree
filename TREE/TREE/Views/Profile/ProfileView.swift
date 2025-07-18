@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @StateObject var viewModel = ProfileViewModel()
+    var user: Users? { return viewModel.currentUser }
     
     var body: some View {
         NavigationStack {
@@ -22,12 +24,9 @@ struct ProfileView: View {
                         Spacer()
                     }
                     
-                    Image("Profile")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 100, height: 100)
-                        .clipShape(.circle)
-                    Text("dragon fighter")
+                    CircularProfileImageView(user: user, size: .large)
+                        
+                    Text(user?.userName ?? "User 1")
                         .font(.title2)
                         .fontWeight(.bold)
                 }

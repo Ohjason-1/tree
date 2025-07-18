@@ -8,13 +8,8 @@
 import SwiftUI
 
 struct RegistrationView: View {
-    @State private var email = ""
-    @State private var password = ""
-    @State private var userName = ""
-    @State private var phoneNumber = ""
+    @StateObject var viewModel = RegistrationViewModel()
     @Environment(\.dismiss) var dismiss
-    @Binding var isLoggedIn: Bool
-    
     var body: some View {
         NavigationStack {
             VStack {
@@ -27,16 +22,16 @@ struct RegistrationView: View {
                     .padding()
                 
                 VStack {
-                    TextField("Enter your userName", text: $userName)
+                    TextField("Enter your userName", text: $viewModel.userName)
                         .modifier(TextFieldModifier())
                     
-                    TextField("Enter your phone number", text: $phoneNumber)
+                    TextField("Enter your phone number", text: $viewModel.phoneNumber)
                         .modifier(TextFieldModifier())
                 
-                    TextField("Enter your email", text: $email)
+                    TextField("Enter your email", text: $viewModel.email)
                         .modifier(TextFieldModifier())
                     
-                    SecureField("Enter your password", text: $password)
+                    SecureField("Enter your password", text: $viewModel.password)
                         .modifier(TextFieldModifier())
                     
                     Text("Your password must be at least 7 characters in length")
@@ -45,7 +40,7 @@ struct RegistrationView: View {
                 }
                 
                 Button {
-                    isLoggedIn = true
+                    Task { try await viewModel.createUser() }
                 } label: {
                     Text("Sign Up")
                         .font(.subheadline)
@@ -80,5 +75,5 @@ struct RegistrationView: View {
 }
 
 #Preview {
-    RegistrationView(isLoggedIn: .constant(false))
+    RegistrationView()
 }

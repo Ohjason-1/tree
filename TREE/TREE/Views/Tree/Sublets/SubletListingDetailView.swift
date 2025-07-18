@@ -10,6 +10,8 @@ import SwiftUI
 struct SubletListingDetailView: View {
     //@Environment(\.dismiss) var dismiss
     let sublet: Sublets
+    @StateObject var viewModel = ProfileViewModel()
+    var user: Users? { return viewModel.currentUser }
     
     var body: some View {
         ScrollView {
@@ -41,6 +43,8 @@ struct SubletListingDetailView: View {
                             Text("\(sublet.address), \(sublet.city), \(sublet.state)")
                             Text("\(sublet.zipcode)")
                         }
+                        
+                        CircularProfileImageView(user: user, size: .small)
                     }
                     .font(.footnote)
                     

@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var isLoggedIn = false
     @State private var showingLogo = true
-    // hard coded to show logo screen and login screen >,<
+    @StateObject var viewModel = ContentViewModel()
+    // hard coded to show logo screen >,<
     var body: some View {
         if showingLogo {
             LogoScreen()
@@ -22,10 +22,10 @@ struct ContentView: View {
                     }
                 }
         } else {
-            if isLoggedIn {
+            if viewModel.userSession != nil {
                 MainTabView()
             } else {
-                LoginView(isLoggedIn: $isLoggedIn)
+                LoginView()
             }
         }
     }

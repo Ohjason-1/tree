@@ -43,7 +43,7 @@ struct TreeView: View {
                 SubletListingDetailView(sublet: sublet)
             }
             .navigationDestination(for: Stores.self) { store in
-                //StoreListingDetailView(store: store)
+                StoreListingDetailView(store: store)
             }
         }
         // instead of fetching all the data, fetch data that we only need

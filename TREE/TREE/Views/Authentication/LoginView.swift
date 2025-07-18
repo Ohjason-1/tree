@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State private var email = ""
-    @State private var password = ""
-    @Binding var isLoggedIn: Bool
+    @StateObject var viewModel = LoginViewModel()
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -23,10 +22,10 @@ struct LoginView: View {
                     .padding()
                 
                 VStack {
-                    TextField("Enter your email", text: $email)
+                    TextField("Enter your email", text: $viewModel.email)
                         .modifier(TextFieldModifier())
                     
-                    SecureField("Enter your password", text: $password)
+                    SecureField("Enter your password", text: $viewModel.password)
                         .modifier(TextFieldModifier())
                 }
                 
@@ -46,7 +45,7 @@ struct LoginView: View {
 
                 // check whether the email and pw exist
                 Button {
-                    isLoggedIn = true
+                    Task { try await viewModel.login() }
                 } label: {
                     Text("Login")
                         .font(.subheadline)
@@ -63,7 +62,7 @@ struct LoginView: View {
                 Divider()
                 
                 NavigationLink {
-                    RegistrationView(isLoggedIn: $isLoggedIn)
+                    RegistrationView()
                         .navigationBarBackButtonHidden()
                 } label: {
                     HStack(spacing: 3) {
@@ -82,5 +81,5 @@ struct LoginView: View {
 }
 
 #Preview {
-    LoginView(isLoggedIn: .constant(false))
+    LoginView()
 }

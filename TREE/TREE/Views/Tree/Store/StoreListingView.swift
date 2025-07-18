@@ -29,16 +29,14 @@ struct StoreListingView: View {
                         .font(.subheadline)
                         .fontWeight(.semibold)
                         .lineLimit(2)
+                    
                     Spacer()
                     
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 8) {
                         Text("$\(store.price)")
-                            .font(.subheadline)
+                            .font(.headline)
                             .fontWeight(.bold)
-                            .frame(height: 30)
-                            .frame(maxWidth: .infinity)
-                            .background(Color(.systemGreen).opacity(0.5))
-                            .cornerRadius(10)
+                            
                         
                         Text("\(store.address), \(store.city), \(store.state)")
                             .font(.caption)

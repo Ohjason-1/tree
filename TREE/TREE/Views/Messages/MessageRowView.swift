@@ -8,17 +8,15 @@
 import SwiftUI
 
 struct MessageRowView: View {
+    let user: Users?
+    
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
-            Image("Profile")
-                .resizable()
-                .scaledToFill()
-                .frame(width: 56, height: 56)
-                .clipShape(.circle)
+            CircularProfileImageView(user: user, size: .small)
                 
             
             VStack(alignment: .leading, spacing: 4) {
-                Text("Dragon Fighter")
+                Text(user?.userName ?? "Bob")
                     .font(.subheadline)
                     .fontWeight(.semibold)
                 
@@ -42,5 +40,5 @@ struct MessageRowView: View {
 }
 
 #Preview {
-    MessageRowView()
+    MessageRowView(user: Users(uid: NSUUID().uuidString, email: "oho@gmail.com", userName: "Dog", phoneNumber: "1232142", userImageUrl: "Profile"))
 }
