@@ -66,7 +66,7 @@ struct RegistrationView: View {
                             .fontWeight(.semibold)
                     }
                     .font(.footnote)
-                    .foregroundStyle(.black)
+                    .foregroundStyle(Color(UIColor.label))
                 }
                 .padding(.vertical)
             }

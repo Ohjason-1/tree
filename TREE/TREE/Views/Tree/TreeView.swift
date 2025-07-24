@@ -10,7 +10,7 @@ import SwiftUI
 struct TreeView: View {
     @State private var selectedType: DropDownMenu.TreeType = .sublets
     @StateObject var viewModel = TreeViewModel(service: TreeService())
-    
+    @StateObject var subletViewModel = SubletsViewModel()
     
     var body: some View {
         NavigationStack {
@@ -32,8 +32,7 @@ struct TreeView: View {
                 .padding()
                 
                 if selectedType == .sublets {
-                    SubletsContentView(viewModel: viewModel)
-                        .task { await viewModel.fetchData() }
+                    SubletsContentView(viewModel: subletViewModel)
                 } else {
                     StoresContentView(viewModel: viewModel)
                         .task { await viewModel.fetchData() }
@@ -46,23 +45,16 @@ struct TreeView: View {
                 StoreListingDetailView(store: store)
             }
         }
+        .foregroundStyle(.primary)
         // instead of fetching all the data, fetch data that we only need
-        .onChange(of: selectedType) { oldType, newType in
-            switch newType {
-            case .sublets:
-                viewModel.selectedType = .sublets
-            case .stores:
-                viewModel.selectedType = .stores
-            }
-        }
     }
 }
 
 // MARK: - Sublets Content View
 struct SubletsContentView: View {
-    @ObservedObject var viewModel: TreeViewModel
+    @ObservedObject var viewModel: SubletsViewModel
     var body: some View {
-        LazyVStack(spacing: 32) {
+        LazyVStack(spacing: 16) {
             ForEach(viewModel.sublets) { sublet in
                 NavigationLink(value: sublet) {
                     SubletListingView(sublet: sublet)
@@ -130,7 +122,7 @@ struct DropDownMenu: View {
                     
                     Image(systemName: "chevron.up.chevron.down")
                 }
-                .foregroundColor(.black)
+                .foregroundColor(Color(UIColor.label))
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }

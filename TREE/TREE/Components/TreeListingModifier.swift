@@ -3,9 +3,10 @@
 //  TREE
 //
 //  Created by Jaewon Oh on 7/14/25.
-//
+
 
 import SwiftUI
+import Kingfisher
 
 struct TreeListingModifier: View {
     let tree: any Tree
@@ -15,7 +16,7 @@ struct TreeListingModifier: View {
             // images
             TabView {
                 ForEach(tree.imageURLs, id: \.self) { image in
-                    Image(image)
+                    KFImage(URL(string: image))
                         .resizable()
                         .scaledToFill()
                 }

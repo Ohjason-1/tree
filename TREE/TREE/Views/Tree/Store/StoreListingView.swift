@@ -49,7 +49,7 @@ struct StoreListingView: View {
                 }
                 
             }
-            .foregroundStyle(.black)
+            .foregroundStyle(.primary)
             .frame(maxHeight: 120)
             .padding()
         }

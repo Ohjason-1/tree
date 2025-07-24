@@ -1,13 +1,5 @@
-//
-//  Sublets.swift
-//  TREE
-//
-//  Created by Jaewon Oh on 7/14/25.
-//
-
 import Foundation
-
-
+import FirebaseCore
 protocol Tree: Identifiable, Codable, Hashable {
     var id: String { get }
     var ownerUid: String { get }
@@ -18,32 +10,29 @@ protocol Tree: Identifiable, Codable, Hashable {
     var city: String { get }
     var state: String { get }
     var title: String { get }
-    var explanation: String { get }
-    var latitude: Double { get }
-    var longitude: Double { get }
+    var description: String { get }
     var zipcode: String { get }
 }
-
+// add timestamp
 struct Sublets: Tree {
     let id: String
     let ownerUid: String
     let ownerName: String
     let ownerImageUrl: String
-    let numberOfBedrooms: Int
-    let numberOfBathrooms: Int
-    let latitude: Double
-    let longitude: Double
+    let numberOfBedrooms: String
+    let numberOfBathrooms: String
     let zipcode: String
     let imageURLs: [String]
     let address: String
     let city: String
     let state: String
     let shared: Bool
-    let leaseTermMonth: String
-    let leaseTermYear: String
+    let leaseStartDate: Date
+    let leaseEndDate: Date
     var rentFee: Int
     let title: String
-    let explanation: String
+    let description: String
+    let timeStamp: Timestamp
 }
 
 struct Stores: Tree {
@@ -52,8 +41,6 @@ struct Stores: Tree {
     let ownerUid: String
     let ownerName: String
     let ownerImageUrl: String
-    let latitude: Double
-    let longitude: Double
     let zipcode: String
     let imageURLs: [String]
     let address: String
@@ -61,6 +48,6 @@ struct Stores: Tree {
     let state: String
     var price: Int
     let title: String
-    let explanation: String
+    let description: String
+    let timeStamp: Timestamp
 }
-

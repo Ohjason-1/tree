@@ -15,7 +15,7 @@ struct SubletListingView: View {
             // images
 //            Divider()
 //                .frame(maxWidth: UIScreen.main.bounds.width - 30)
-//                .background(.black)
+//                .background(.primary)
                 
             
             TreeListingModifier(tree: sublet)
@@ -32,7 +32,7 @@ struct SubletListingView: View {
                 }
                 Divider()
                     .frame(height: 40)
-                    .background(.black)
+                    .background(.primary)
                 
                 
                 VStack(alignment: .leading, spacing: 10) {
@@ -43,22 +43,22 @@ struct SubletListingView: View {
                     
                     
                     HStack {
-                        Text("\(sublet.leaseTermMonth), \(sublet.leaseTermYear)")
-                            .foregroundStyle(.black)
+                        Text("\(sublet.leaseStartDate.formatted(.dateTime.month().day().year())) - \(sublet.leaseEndDate.formatted(.dateTime.month().day().year()))")
+                            .foregroundStyle(.primary)
                         
                         Spacer()
                         
                         Text("\(sublet.numberOfBedrooms) bed • \(sublet.numberOfBathrooms) bath")
                     }
                     .font(.caption)
-                    .foregroundStyle(.black.opacity(0.7))
+                    .foregroundStyle(.primary.opacity(0.7))
                     
                 }
             }
             .padding(.horizontal, 8)
             
         }
-        .foregroundStyle(.black)
+        .foregroundStyle(.primary)
         .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 }

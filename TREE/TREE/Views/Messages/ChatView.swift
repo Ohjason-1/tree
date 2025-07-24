@@ -31,7 +31,7 @@ struct ChatView: View {
                         Text("TREE")
                             .font(.footnote)
                             .fontWeight(.semibold)
-                            .foregroundStyle(.gray)
+                            .foregroundStyle(.secondary)
                     }
                 }
                 .padding(.bottom)

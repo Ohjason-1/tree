@@ -10,6 +10,7 @@ import PhotosUI
 
 struct ProfileSettingView: View {
     @StateObject var viewModel = ProfileImageViewModel()
+    let user: Users
     
     var body: some View {
         NavigationStack {
@@ -19,17 +20,14 @@ struct ProfileSettingView: View {
                     
                     ZStack(alignment: .bottomTrailing) {
                         PhotosPicker(selection: $viewModel.selectedItem) {
-                            if let image = viewModel.profileImage {
+                            if let image = MainActor.assumeIsolated({ viewModel.profileImage }) {
                                 image
                                     .resizable()
                                     .scaledToFill()
                                     .frame(width: 80, height: 80)
                                     .clipShape(Circle())
                             } else {
-                                Image(systemName: "person.circle.fill")
-                                    .resizable()
-                                    .frame(width: 80, height: 80)
-                                    .foregroundStyle(Color(.systemGray))
+                                CircularProfileImageView(user: user, size: .medium)
                             }
                         }
                         
@@ -43,7 +41,7 @@ struct ProfileSettingView: View {
                     }
                     
                     
-                    Text("dragon fighter")
+                    Text(user.userName)
                         .font(.title2)
                         .fontWeight(.bold)
                 }
@@ -106,5 +104,5 @@ struct ProfileSettingView: View {
 }
 
 #Preview {
-    ProfileSettingView()
+    ProfileSettingView(user: DeveloperPreview.shared.user)
 }

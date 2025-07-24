@@ -8,37 +8,52 @@
 import SwiftUI
 
 struct MessageRowView: View {
-    let user: Users?
+    @ObservedObject var viewModel: MessagesViewModel
     
+    let message: Messages
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
-            CircularProfileImageView(user: user, size: .small)
+            CircularProfileImageView(user: message.user, size: .small)
                 
-            
+            // username
             VStack(alignment: .leading, spacing: 4) {
-                Text(user?.userName ?? "Bob")
+                Text(message.user?.userName ?? "unknown boy")
                     .font(.subheadline)
                     .fontWeight(.semibold)
                 
-                Text("Can I book a tour on August 2nd?")
+                Text(message.messageText)
                     .font(.subheadline)
                     .lineLimit(2)
                     .frame(maxWidth: UIScreen.main.bounds.width - 100, alignment: .leading)
             }
             
             HStack {
-                Text("Yesterday")
+                Text(message.timestampString)
                 
                 Image(systemName: "chevron.right")
             }
             .font(.footnote)
-            .foregroundStyle(Color(.gray))
+            .foregroundStyle(.secondary)
         }
         .frame(height: 64)
+        .swipeActions {
+            Button {
+                onDelete()
+            } label: {
+                Image(systemName: "trash")
+            }
+            .tint(Color(.systemRed))
+        }
         
     }
 }
 
+private extension MessageRowView {
+    func onDelete() {
+        Task { await viewModel.deleteRecentMessage(message)}
+    }
+}
+
 #Preview {
-    MessageRowView(user: Users(uid: NSUUID().uuidString, email: "oho@gmail.com", userName: "Dog", phoneNumber: "1232142", userImageUrl: "Profile"))
+    MessageRowView(viewModel: MessagesViewModel(), message: DeveloperPreview.shared.message)
 }

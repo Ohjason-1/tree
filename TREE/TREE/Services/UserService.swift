@@ -27,4 +27,21 @@ class UserService {
         let rawData = try await FirestoreConstants.UserCollection.getDocuments()
         return rawData.documents.compactMap({ try? $0.data(as: Users.self)})
     }
+    
+    static func fetchUser(withUid uid: String, completion: @escaping(Users) -> Void) {
+        FirestoreConstants.UserCollection.document(uid).getDocument { snapshot, error in
+            guard let user = try? snapshot?.data(as: Users.self) else { return }
+            completion(user)
+        }
+    }
+    
+    func updateUserProfileImage(_ imageUrl: String) async throws {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        try await FirestoreConstants.UserCollection.document(uid).updateData([
+            "userImageUrl": imageUrl
+        ])
+        
+        currentUser?.userImageUrl = imageUrl
+    }
 }

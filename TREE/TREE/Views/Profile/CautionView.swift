@@ -10,10 +10,6 @@ import SwiftUI
 struct CautionView: View {
     var body: some View {
         VStack(alignment: .leading) {
-            Image("TREE")
-                .resizable()
-                .frame(width: 90, height: 24)
-                .padding(.bottom, 24)
         
             
             VStack(alignment: .leading, spacing: 20) {
@@ -22,7 +18,7 @@ struct CautionView: View {
                     .fontWeight(.bold)
                 
                 Divider()
-                    .background(.black)
+                    .background(.primary)
                 
                 Group {
                     Text("1. Verify Before You Meet Always confirm the person's identity and listing details before meeting in person. Ask for additional photos, proof of ownership, and verify their contact information matches the listing.")

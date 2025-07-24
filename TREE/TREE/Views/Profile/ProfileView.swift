@@ -32,18 +32,31 @@ struct ProfileView: View {
                 }
                 .padding(.horizontal)
                 
-                NavigationLink {
-                    ProfileSettingView()
-                } label: {
+                if let user = user {
+                    NavigationLink {
+                        ProfileSettingView(user: user)
+                    } label: {
+                        Text("Edit Profile")
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(Color(UIColor.label))
+                            .frame(width: 360, height: 32)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 6)
+                                    .stroke(Color("AccentColor"), lineWidth: 2)
+                            }
+                    }
+                } else {
                     Text("Edit Profile")
                         .font(.subheadline)
                         .fontWeight(.semibold)
                         .frame(width: 360, height: 32)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(Color(UIColor.label))
                         .overlay {
                             RoundedRectangle(cornerRadius: 6)
                                 .stroke(Color("AccentColor"), lineWidth: 2)
                         }
+                        .disabled(true)
                 }
             }
             
@@ -84,7 +97,7 @@ struct Post: View {
                 Image(systemName: "chevron.right")
             }
             .font(.footnote)
-            .foregroundStyle(Color(.gray))
+            .foregroundStyle(.secondary)
         }
         .frame(height: 64)
     }

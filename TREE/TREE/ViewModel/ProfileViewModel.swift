@@ -11,6 +11,7 @@ import Firebase
 import _PhotosUI_SwiftUI
 import SwiftUICore
 
+@MainActor
 class ProfileViewModel: ObservableObject {
     @Published var currentUser: Users?
     
@@ -20,6 +21,7 @@ class ProfileViewModel: ObservableObject {
         setupScribers()
     }
     
+    
     private func setupScribers() {
         UserService.shared.$currentUser.sink { [weak self] user in
             self?.currentUser = user
@@ -28,6 +30,7 @@ class ProfileViewModel: ObservableObject {
 }
  
 // MARK:  - profile image viewmodel
+@MainActor
 class ProfileImageViewModel: ObservableObject {
     @Published var selectedItem: PhotosPickerItem? {
         didSet { Task { try await loadImage() } }  // without didset, we need to manually call loadimage in UI .onChange
@@ -40,5 +43,8 @@ class ProfileImageViewModel: ObservableObject {
         guard let imageData = try await item.loadTransferable(type: Data.self) else { return }
         guard let uiImage = UIImage(data: imageData) else { return }
         self.profileImage = Image(uiImage: uiImage)
+        
+        guard let imageUrl = try await ImageUploader().uploadImage(uiImage) else { return }
+        try await UserService.shared.updateUserProfileImage(imageUrl)
     }
 }

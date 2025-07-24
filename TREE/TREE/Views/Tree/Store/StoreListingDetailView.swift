@@ -24,14 +24,14 @@ struct StoreListingDetailView: View {
                     .multilineTextAlignment(.leading)
                 
                 Divider()
-                    .background(.black)
+                    .background(.primary)
                 // with required info like number of baths and bds, AI can write this down
-                Text("\(store.explanation)")
+                Text("\(store.description)")
                     .font(.subheadline)
                 
                 
                 Divider()
-                    .background(.black)
+                    .background(.primary)
                 Group {
                     HStack(alignment: .center, spacing: 20) {
                         Image(systemName: "mappin.and.ellipse.circle")
@@ -69,7 +69,7 @@ struct StoreListingDetailView: View {
                             .foregroundStyle(Color("AccentColor"))
                             .fontWeight(.semibold)
                             .frame(width: 360, height: 32)
-                            .foregroundStyle(.black)
+                            .foregroundStyle(Color(UIColor.label))
                             .overlay {
                                 RoundedRectangle(cornerRadius: 6)
                                     .stroke(Color("AccentColor"), lineWidth: 1)

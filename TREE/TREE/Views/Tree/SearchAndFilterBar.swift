@@ -30,7 +30,7 @@ struct SearchAndFilterBar: View {
                 Text("Put your Location")
                     .font(.footnote)
                     .fontWeight(.semibold)
-                    .foregroundStyle(.gray)
+                    .foregroundStyle(.secondary)
 
             }
             .padding(.horizontal)

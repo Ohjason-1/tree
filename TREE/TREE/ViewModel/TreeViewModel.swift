@@ -26,10 +26,11 @@ class TreeViewModel: ObservableObject {
     @MainActor
     func fetchData() async {
         do {
-            self.sublets = try await service.fetchSublets()
             self.stores = try await service.fetchStores()
         } catch {
             print("DEBUG: Failed to fetch tree data with error: \(error.localizedDescription)")
         }
     }
 }
+
+

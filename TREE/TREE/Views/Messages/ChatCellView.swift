@@ -37,7 +37,7 @@ struct ChatCellView: View {
                         .font(.subheadline)
                         .padding(12)
                         .background(Color("Color").opacity(0.6))
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.primary)
                         .clipShape(
                             UnevenRoundedRectangle(
                                 topLeadingRadius: 10,

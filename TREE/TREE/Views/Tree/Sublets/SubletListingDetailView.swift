@@ -25,14 +25,14 @@ struct SubletListingDetailView: View {
                     .multilineTextAlignment(.center)
                 
                 Divider()
-                    .background(.black)
+                    .background(.primary)
                 // with required info like number of baths and bds, AI can write this down
-                Text("\(sublet.explanation)")
+                Text("\(sublet.description)")
                     .font(.subheadline)
                 
                 
                 Divider()
-                    .background(.black)
+                    .background(.primary)
                 Group {
                     HStack(alignment: .center, spacing: 20) {
                         Image(systemName: "mappin.and.ellipse.circle")
@@ -43,6 +43,8 @@ struct SubletListingDetailView: View {
                             Text("\(sublet.address), \(sublet.city), \(sublet.state)")
                             Text("\(sublet.zipcode)")
                         }
+                        
+                        Spacer()
                         
                         CircularProfileImageView(user: user, size: .small)
                     }
@@ -60,7 +62,7 @@ struct SubletListingDetailView: View {
                         HStack {
                             Image(systemName: "bathtub")
                             
-                            Text("**\(sublet.numberOfBedrooms)** bathrooms")
+                            Text("**\(sublet.numberOfBathrooms)** bathrooms")
                                 
                         }
                         
@@ -88,25 +90,31 @@ struct SubletListingDetailView: View {
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
                             
-                            Text("\(sublet.leaseTermMonth), \(sublet.leaseTermYear)")
-                                .font(.footnote)
+                            HStack {
+                                Text("**Start**: \(sublet.leaseStartDate.formatted(date: .abbreviated, time: .omitted))")
+                                Spacer()
+                                Text("**End**: \(sublet.leaseEndDate.formatted(date: .abbreviated, time: .omitted))")
+                                    
+                            }
+                            .font(.footnote)
+                            .padding(.trailing, 20)
                         }
                     }
                     .frame(height: 80)
-                    .padding(.leading, 15)
+                    .padding(.horizontal, 15)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(.gray.opacity(0.2))
+                    .background(.secondary.opacity(0.2))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                         
                     NavigationLink {
                         
                     } label: {
-                        Text("Cheap Furnitures !")
+                        Text("Chat with Renter !")
                             .font(.subheadline)
                             .foregroundStyle(Color("AccentColor"))
                             .fontWeight(.semibold)
                             .frame(width: 360, height: 32)
-                            .foregroundStyle(.black)
+                            .foregroundStyle(Color(UIColor.label))
                             .overlay {
                                 RoundedRectangle(cornerRadius: 6)
                                     .stroke(Color("AccentColor"), lineWidth: 1)
