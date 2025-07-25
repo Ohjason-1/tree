@@ -166,8 +166,14 @@ struct SubletPhotoPostView: View {
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
                             
-                            Text("\(viewModel.leaseStartDate), \(viewModel.leaseEndDate)")
-                                .font(.footnote)
+                            HStack {
+                                Text("**Start**: \(viewModel.leaseStartDate.formatted(date: .abbreviated, time: .omitted))")
+                                Spacer()
+                                Text("**End**: \(viewModel.leaseEndDate.formatted(date: .abbreviated, time: .omitted))")
+                                    
+                            }
+                            .font(.footnote)
+                            .padding(.trailing, 20)
                         }
                     }
                     .frame(height: 80)

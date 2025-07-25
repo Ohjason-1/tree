@@ -10,8 +10,6 @@ import SwiftUI
 struct SubletListingDetailView: View {
     //@Environment(\.dismiss) var dismiss
     let sublet: Sublets
-    @StateObject var viewModel = ProfileViewModel()
-    var user: Users? { return viewModel.currentUser }
     
     var body: some View {
         ScrollView {
@@ -46,7 +44,7 @@ struct SubletListingDetailView: View {
                         
                         Spacer()
                         
-                        CircularProfileImageView(user: user, size: .small)
+                        CircularProfileImageView(user: sublet.user, size: .small)
                     }
                     .font(.footnote)
                     
@@ -107,7 +105,7 @@ struct SubletListingDetailView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                         
                     NavigationLink {
-                        
+                        ChatView(user: sublet.user!)
                     } label: {
                         Text("Chat with Renter !")
                             .font(.subheadline)
@@ -120,8 +118,7 @@ struct SubletListingDetailView: View {
                                     .stroke(Color("AccentColor"), lineWidth: 1)
                             }
                     }
-
-                        
+                    .disabled(UserInfo.currentUserId == sublet.ownerUid)
                 }
                 .padding(.horizontal, 8)
             }

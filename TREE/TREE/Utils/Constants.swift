@@ -10,9 +10,11 @@ import Firebase
 
 
 struct FirestoreConstants {
-    
     static let UserCollection = Firestore.firestore().collection("users")
     static let MessagesCollection = Firestore.firestore().collection("messages")
     static let SubletsCollection = Firestore.firestore().collection("sublets")
-    
+}
+
+struct UserInfo {
+    static var currentUserId = ""
 }

@@ -210,6 +210,18 @@ struct SubletPostView: View {
                                     .modifier(PostModifier())
                             }
                             
+                            Spacer()
+                                .frame(width: 16)
+                            
+                            VStack(alignment: .leading) {
+                                Text("zip code \(Text("*").foregroundColor(.red))")
+                                    .font(.headline)
+                                    .fontWeight(.semibold)
+                                
+                                TextField("zip code", text: $viewModel.zipcode)
+                                    .modifier(PostModifier())
+                                    .keyboardType(.numberPad)
+                            }
                         }
                     }
                     

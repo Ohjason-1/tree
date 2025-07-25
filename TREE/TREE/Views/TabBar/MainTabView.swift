@@ -44,6 +44,7 @@ struct MainTabView: View {
                 }
                 .onAppear { selectedTab = 2 }
                 .tag(2)
+                .toolbar(.hidden, for: .tabBar)
             
             ProfileView()
                 .tabItem {

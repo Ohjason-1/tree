@@ -21,6 +21,7 @@ class UserService {
         let userData = try await FirestoreConstants.UserCollection.document(uid).getDocument()
         let user = try userData.data(as: Users.self) //decode
         self.currentUser = user
+        UserInfo.currentUserId = uid
     }
     
     static func fetchAllUsers() async throws -> [Users] {
