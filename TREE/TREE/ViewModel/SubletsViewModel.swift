@@ -64,7 +64,7 @@ class SubletsViewModel: ObservableObject {
                 let sublet = subletData[i]
                 UserService.fetchUser(withUid: sublet.ownerUid) { user in
                     subletData[i].user = user
-                    self.sublets.append(subletData[i])
+                    self.sublets.insert(subletData[i], at: 0)
                 }
             }
             

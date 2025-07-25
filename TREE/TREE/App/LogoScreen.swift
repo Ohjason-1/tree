@@ -12,18 +12,18 @@ struct LogoScreen: View {
         VStack {
             Spacer()
             
-            Image("App")
+            Image("Appicon")
                 .resizable()
-                .frame(width:150, height: 150)
+                .frame(width:70, height: 75)
             
             Spacer()
             
             Image("TREE")
                 .resizable()
-                .frame(width:60, height: 20)
+                .frame(width:70, height: 25)
+                .padding(.bottom)
         }
         .frame(maxWidth: .infinity)
-        .background(Color("Background"))
     }
 }
 

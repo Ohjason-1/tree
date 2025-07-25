@@ -34,7 +34,9 @@ struct SubletPhotoPostView: View {
                 
                 Button {
                     Task {
+                        
                         try await viewModel.uploadSublet()
+                        
                         clearPostDataAndReturnToFeed() // inside task, make sure it runs after uploadsulet()
                     }
                 } label: {
@@ -201,7 +203,7 @@ struct SubletPhotoPostView: View {
         .onAppear {
             imagePresented.toggle()
         }
-        .photosPicker(isPresented: $imagePresented, selection: $viewModel.selectedImage, maxSelectionCount: 10, matching: .images)
+        .photosPicker(isPresented: $imagePresented, selection: $viewModel.selectedImage, maxSelectionCount: 5, matching: .images)
     }
     
     func clearPostDataAndReturnToFeed() {

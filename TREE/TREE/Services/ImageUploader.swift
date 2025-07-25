@@ -26,7 +26,7 @@ struct ImageUploader {
         for image in images {
             guard let imageData = image.jpegData(compressionQuality: 0.5) else { return  nil } // smaller quality -> worse quality but smaller filesize
             let filename = NSUUID().uuidString
-            let ref = Storage.storage().reference(withPath: "/profile_images/\(filename)")
+            let ref = Storage.storage().reference(withPath: "/sublet_images/\(filename)")
             let _ = try await ref.putDataAsync(imageData)
             let url = try await ref.downloadURL()
             result.append(url.absoluteString)

@@ -43,8 +43,8 @@ struct SubletListingView: View {
                     
                     
                     HStack {
-                        Text("\(sublet.leaseStartDate.formatted(.dateTime.month().day().year())) - \(sublet.leaseEndDate.formatted(.dateTime.month().day().year()))")
-                            .foregroundStyle(.primary)
+                        Text("\(sublet.leaseStartDate.formatted(date: .numeric, time: .omitted)) - \(sublet.leaseEndDate.formatted(date: .numeric, time: .omitted))")
+                            
                         
                         Spacer()
                         
