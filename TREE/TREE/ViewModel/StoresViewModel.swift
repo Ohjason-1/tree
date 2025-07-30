@@ -56,14 +56,9 @@ class StoresViewModel: ObservableObject {
     private func setupStores() {
         service.$storeChanges.sink { [weak self] changes in
             guard let self else { return }
-            var storeData = changes.compactMap({ try? $0.document.data(as: Stores.self )})
-            for i in 0..<storeData.count {
-                let store = storeData[i]
-                UserService.fetchUser(withUid: store.ownerUid) { user in
-                    storeData[i].user = user
-                    self.stores.insert(storeData[i], at: 0)
-                }
-            }
+            let storeData = changes.compactMap({ try? $0.document.data(as: Stores.self )})
+            self.stores.append(contentsOf: storeData)
+            self.stores.sort { $0.timeStamp.dateValue() > $1.timeStamp.dateValue() }
             
         }.store(in: &cancellables)
     }

@@ -21,7 +21,7 @@ struct ChatView: View {
         VStack {
             ScrollView {
                 VStack {
-                    CircularProfileImageView(user: user, size: .medium)
+                    CircularProfileImageView(userImageUrl: user.userImageUrl, size: .medium)
                     
                     VStack(spacing: 4) {
                         Text(user.userName)

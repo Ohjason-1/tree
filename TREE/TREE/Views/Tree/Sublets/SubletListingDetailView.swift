@@ -10,6 +10,8 @@ import SwiftUI
 struct SubletListingDetailView: View {
     //@Environment(\.dismiss) var dismiss
     let sublet: Sublets
+    @State private var chatUser: Users?
+    @State private var showingChat = false
     
     var body: some View {
         ScrollView {
@@ -44,7 +46,7 @@ struct SubletListingDetailView: View {
                         
                         Spacer()
                         
-                        CircularProfileImageView(user: sublet.user, size: .small)
+                        CircularProfileImageView(userImageUrl: sublet.ownerImageUrl, size: .small)
                     }
                     .font(.footnote)
                     
@@ -104,8 +106,15 @@ struct SubletListingDetailView: View {
                     .background(.secondary.opacity(0.2))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                         
-                    NavigationLink {
-                        ChatView(user: sublet.user!)
+                    
+                    
+                    Button {
+                        UserService.fetchUser(withUid: sublet.ownerUid) { user in
+                            DispatchQueue.main.async {
+                                self.chatUser = user
+                                self.showingChat = true
+                            }
+                        }
                     } label: {
                         Text("Chat with Renter !")
                             .font(.subheadline)
@@ -119,6 +128,13 @@ struct SubletListingDetailView: View {
                             }
                     }
                     .disabled(UserInfo.currentUserId == sublet.ownerUid)
+                    .navigationDestination(isPresented: $showingChat) {
+                        if let user = chatUser {
+                            ChatView(user: user)
+                        }
+                    }
+                    
+                    
                 }
                 .padding(.horizontal, 8)
             }

@@ -25,11 +25,11 @@ enum Size {
 }
 
 struct CircularProfileImageView: View {
-    var user: Users?
+    let userImageUrl: String?
     let size: Size
     
     var body: some View {
-        if let image = user?.userImageUrl {
+        if let image = userImageUrl {
             KFImage(URL(string: image))
                 .resizable()
                 .scaledToFill()
@@ -48,5 +48,5 @@ struct CircularProfileImageView: View {
 }
 
 #Preview {
-    CircularProfileImageView(user: Users(uid: NSUUID().uuidString, email: "o@gmail.com", userName: "bob", phoneNumber: "2131242213", userImageUrl: "Profile"), size: .xSmall)
+    CircularProfileImageView(userImageUrl: "Profile", size: .xSmall)
 }

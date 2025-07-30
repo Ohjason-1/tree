@@ -27,7 +27,7 @@ struct ProfileSettingView: View {
                                     .frame(width: 80, height: 80)
                                     .clipShape(Circle())
                             } else {
-                                CircularProfileImageView(user: user, size: .medium)
+                                CircularProfileImageView(userImageUrl: user.userImageUrl, size: .medium)
                             }
                         }
                         

@@ -13,7 +13,7 @@ struct MessageRowView: View {
     let message: Messages
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
-            CircularProfileImageView(user: message.user, size: .small)
+            CircularProfileImageView(userImageUrl: message.user?.userImageUrl, size: .small)
                 
             // username
             VStack(alignment: .leading, spacing: 4) {

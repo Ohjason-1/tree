@@ -59,14 +59,10 @@ class SubletsViewModel: ObservableObject {
     private func setupSublets() {
         service.$subletChanges.sink { [weak self] changes in
             guard let self else { return }
-            var subletData = changes.compactMap({ try? $0.document.data(as: Sublets.self )})
-            for i in 0..<subletData.count {
-                let sublet = subletData[i]
-                UserService.fetchUser(withUid: sublet.ownerUid) { user in
-                    subletData[i].user = user
-                    self.sublets.insert(subletData[i], at: 0)
-                }
-            }
+            let subletData = changes.compactMap({ try? $0.document.data(as: Sublets.self )})
+            
+            self.sublets.append(contentsOf: subletData)
+            self.sublets.sort { $0.timeStamp.dateValue() > $1.timeStamp.dateValue() }
             
         }.store(in: &cancellables)
     }

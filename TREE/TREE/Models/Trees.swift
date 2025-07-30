@@ -35,7 +35,6 @@ struct Sublets: Tree {
     let description: String
     let timeStamp: Timestamp
     
-    var user: Users?
 }
 
 struct Stores: Tree {

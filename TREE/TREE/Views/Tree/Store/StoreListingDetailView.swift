@@ -9,6 +9,8 @@ import SwiftUI
 
 struct StoreListingDetailView: View {
     let store: Stores
+    @State private var chatUser: Users?
+    @State private var showingChat = false
     
     var body: some View {
         ScrollView {
@@ -43,7 +45,7 @@ struct StoreListingDetailView: View {
                         
                         Spacer()
                         
-                        CircularProfileImageView(user: store.user, size: .small)
+                        CircularProfileImageView(userImageUrl: store.ownerImageUrl, size: .small)
 
                     }
                     .font(.footnote)
@@ -61,10 +63,15 @@ struct StoreListingDetailView: View {
                     
                     
                     
-                    NavigationLink {
-                        ChatView(user: store.user!)
+                    Button {
+                        UserService.fetchUser(withUid: store.ownerUid) { user in
+                            DispatchQueue.main.async {
+                                self.chatUser = user
+                                self.showingChat = true
+                            }
+                        }
                     } label: {
-                        Text("Chat with Seller !")
+                        Text("Chat with Renter !")
                             .font(.subheadline)
                             .foregroundStyle(Color("AccentColor"))
                             .fontWeight(.semibold)
@@ -76,6 +83,11 @@ struct StoreListingDetailView: View {
                             }
                     }
                     .disabled(UserInfo.currentUserId == store.ownerUid)
+                    .navigationDestination(isPresented: $showingChat) {
+                        if let user = chatUser {
+                            ChatView(user: user)
+                        }
+                    }
                     
                     
                 }
