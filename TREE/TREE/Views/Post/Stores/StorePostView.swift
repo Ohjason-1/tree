@@ -1,31 +1,23 @@
 //
-//  PostPictureView.swift
+//  StorePostView.swift
 //  TREE
 //
-//  Created by Jaewon Oh on 7/23/25.
+//  Created by Jaewon Oh on 7/29/25.
 //
 
 import SwiftUI
 
-struct SubletPostView: View {
-    @ObservedObject var viewModel = SubletsViewModel()
-    let propertyTypes = ["Shared", "Not Shared"]
-    var sharedBinding: Binding<String> {
-            Binding(
-                get: { viewModel.shared ? "Shared" : "Not Shared" },
-                set: { newValue in
-                    viewModel.shared = (newValue == "Shared")
-                }
-            )
-        }
-    let bedandBaths = ["0", "1", "2", "3", "4+"]
+struct StorePostView: View {
+    @ObservedObject var viewModel = StoresViewModel()
+    let productType = ["Microwave", "Television", "Shoes", "Sofa", "Chair", "Desk", "Others"]
     @Binding var tabIndex: Int
     private var isFormValid: Bool {
-        return viewModel.rentFee >= 0 &&
-               !viewModel.address.trimmingCharacters(in: .whitespaces).isEmpty &&
-               !viewModel.city.trimmingCharacters(in: .whitespaces).isEmpty &&
-               !viewModel.state.trimmingCharacters(in: .whitespaces).isEmpty && !viewModel.zipcode.trimmingCharacters(in: .whitespaces).isEmpty &&
-               viewModel.leaseStartDate < viewModel.leaseEndDate
+        return viewModel.price >= 0 &&
+        !viewModel.title.trimmingCharacters(in: .whitespaces).isEmpty &&
+        !viewModel.description.trimmingCharacters(in: .whitespaces).isEmpty &&
+        !viewModel.address.trimmingCharacters(in: .whitespaces).isEmpty &&
+        !viewModel.city.trimmingCharacters(in: .whitespaces).isEmpty &&
+        !viewModel.state.trimmingCharacters(in: .whitespaces).isEmpty && !viewModel.zipcode.trimmingCharacters(in: .whitespaces).isEmpty
     }
     @State private var shouldNavigateToPhotos = false
     @Binding var selectedType: PostDropDownMenuView.TreeType
@@ -33,9 +25,10 @@ struct SubletPostView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
+                
                 HStack {
                     Button {
-                        clearSubletPostDataAndReturnToFeed()
+                        clearStorePostDataAndReturnToFeed()
                     } label: {
                         Text("Cancel")
                     }
@@ -54,7 +47,7 @@ struct SubletPostView: View {
                     }
                     .disabled(!isFormValid)
                     .navigationDestination(isPresented: $shouldNavigateToPhotos) {
-                        SubletPhotoPostView(viewModel: viewModel, tabIndex: $tabIndex, shouldNavigateToPhotos: $shouldNavigateToPhotos)
+                        StorePhotoPostView(viewModel: viewModel, tabIndex: $tabIndex, shouldNavigateToPhotos: $shouldNavigateToPhotos)
                             .navigationBarBackButtonHidden()
                     }
 
@@ -81,32 +74,35 @@ struct SubletPostView: View {
                 .padding(.vertical)
                 .padding(.horizontal, 24)
                 
+                
+                
+                
                 VStack(alignment: .leading, spacing: 16) {
                     
-                    // MARK: - Property Details
+                    // MARK: - Product Details
                     VStack(alignment: .leading, spacing: 8) {
                         HStack {
-                            Image(systemName: "house")
+                            Image(systemName: "storefront")
                                 .foregroundStyle(Color("AccentColor").gradient)
                             
-                            Text("Property Details")
+                            Text("Product Details")
                         }
                         .font(.title2)
                         .fontWeight(.semibold)
                         
-                        Text("Tell us about your place")
+                        Text("Tell us about your product")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                     }
                     
-                        // property, bed, baths dropdownmenus
+                    // price and productname
                     HStack {
                         VStack(alignment: .leading) {
-                            Text("Rent Fee ($) \(Text("*").foregroundColor(.red))")
+                            Text("Price ($) \(Text("*").foregroundColor(.red))")
                                 .font(.headline)
                                 .fontWeight(.semibold)
                             
-                            TextField("$1,500", value: $viewModel.rentFee, formatter: NumberFormatter())
+                            TextField("Used products should be cheaper!", value: $viewModel.price, formatter: NumberFormatter())
                                 .modifier(PostModifier())
                                 .keyboardType(.numberPad)
                         }
@@ -115,50 +111,34 @@ struct SubletPostView: View {
                             .frame(width: 16)
                         
                         VStack(alignment: .leading) {
-                            Text("Property Type \(Text("*").foregroundColor(.red))")
+                            Text("Product Name \(Text("*").foregroundColor(.red))")
                                 .font(.headline)
                                 .fontWeight(.semibold)
                             
-                            DropDownPost(menus: propertyTypes, selected: sharedBinding)
+                            DropDownPost(menus: productType, selected: $viewModel.productName)
                                 .frame(height: 48)
                         }
                     }
                     
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text("Bedrooms")
-                                .font(.headline)
-                                .fontWeight(.semibold)
-                            
-                            DropDownPost(menus: bedandBaths, selected: $viewModel.numberOfBedrooms)
-                                .frame(height: 48)
-                        }
+                    VStack(alignment: .leading) {
+                        Text("Title \(Text("*").foregroundColor(.red))")
+                            .font(.headline)
+                            .fontWeight(.semibold)
                         
-                        Spacer()
-                            .frame(width: 16)
-                        
-                        VStack(alignment: .leading) {
-                            Text("Bathrooms")
-                                .font(.headline)
-                                .fontWeight(.semibold)
-                            
-                            DropDownPost(menus: bedandBaths, selected: $viewModel.numberOfBathrooms)
-                                .frame(height: 48)
-                        }
-                        
+                        TextField("Spacious work desk", text: $viewModel.title)
+                            .modifier(PostModifier())
                     }
                     
-                    // Start Date
-                    DatePicker("Lease Start Date \(Text("*").foregroundColor(.red))", selection: $viewModel.leaseStartDate, displayedComponents: .date)
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                        .modifier(PostModifier())
                     
-                    DatePicker("Lease End Date \(Text("*").foregroundColor(.red))", selection: $viewModel.leaseEndDate, displayedComponents: .date)
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                        .modifier(PostModifier())
                     
+                    VStack(alignment: .leading) {
+                        Text("Description \(Text("*").foregroundColor(.red))")
+                            .font(.headline)
+                            .fontWeight(.semibold)
+                        
+                        TextField("The price is negotiable~", text: $viewModel.description, axis: .vertical)
+                            .modifier(PostModifier())
+                    }
                     
                     Spacer()
                         .frame(height: 16)
@@ -225,69 +205,22 @@ struct SubletPostView: View {
                             }
                         }
                     }
-                    
-                    Spacer()
-                        .frame(height: 16)
-                    
-                    
-                    // MARK: - Description
-                    VStack(alignment: .leading, spacing: 16) {
-                        VStack(alignment: .leading, spacing: 8) {
-                            HStack(spacing: 12) {
-                                Image(systemName: "pencil.line")
-                                    .foregroundStyle(Color("AccentColor").gradient)
-                                
-                                Text("Feed")
-                            }
-                            .font(.title2)
-                            .fontWeight(.semibold)
-                            
-                            Text("Write a title and description for your feed!")
-                                .font(.subheadline)
-                                .foregroundStyle(.secondary)
-                        }
-                    }
-                    
-                    VStack(alignment: .leading) {
-                        Text("Title")
-                            .font(.headline)
-                            .fontWeight(.semibold)
-                        
-                        TextField("1BD 1Bath Cozy Place!", text: $viewModel.title)
-                            .modifier(PostModifier())
-                    }
-                    
-                    
-                    
-                    VStack(alignment: .leading) {
-                        Text("Description")
-                            .font(.headline)
-                            .fontWeight(.semibold)
-                        
-                        TextField("The rent fee is negotiable~!", text: $viewModel.description, axis: .vertical)
-                            .modifier(PostModifier())
-                    }
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal, 24)
             }
         }
-        
     }
-    func clearSubletPostDataAndReturnToFeed() {
-        viewModel.numberOfBedrooms = ""
-        viewModel.numberOfBathrooms = ""
+    func clearStorePostDataAndReturnToFeed() {
         viewModel.zipcode = ""
         viewModel.images = []
         viewModel.address = ""
         viewModel.city = ""
         viewModel.state = ""
-        viewModel.shared = false
-        viewModel.leaseStartDate = Date()
-        viewModel.leaseEndDate = Date()
-        viewModel.rentFee = 0
+        viewModel.price = 0
         viewModel.title = ""
         viewModel.description = ""
+        viewModel.productName = "Microwave"
         
         tabIndex = 0
         shouldNavigateToPhotos = false
@@ -295,5 +228,5 @@ struct SubletPostView: View {
 }
 
 #Preview {
-    SubletPostView(tabIndex: .constant(0), selectedType: .constant(.sublets))
+    StorePostView(tabIndex: .constant(1), selectedType: .constant(.stores))
 }

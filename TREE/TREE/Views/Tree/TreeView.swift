@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct TreeView: View {
-    @State private var selectedType: DropDownMenu.TreeType = .sublets
-    @StateObject var viewModel = TreeViewModel(service: TreeService())
+    @State private var selectedType: DropDownMenuTreeView.TreeType = .sublets
+    @StateObject var storeViewModel = StoresViewModel()
     @StateObject var subletViewModel = SubletsViewModel()
     
     var body: some View {
@@ -23,7 +23,7 @@ struct TreeView: View {
                         
                         Spacer()
                         
-                        DropDownMenu(selectedType: $selectedType)
+                        DropDownMenuTreeView(selectedType: $selectedType)
                     }
                     .padding(.bottom)
                     SearchAndFilterBar()
@@ -34,8 +34,7 @@ struct TreeView: View {
                 if selectedType == .sublets {
                     SubletsContentView(viewModel: subletViewModel)
                 } else {
-                    StoresContentView(viewModel: viewModel)
-                        .task { await viewModel.fetchData() }
+                    StoresContentView(viewModel: storeViewModel)
                 }
             }
             .navigationDestination(for: Sublets.self) { sublet in
@@ -70,7 +69,7 @@ struct SubletsContentView: View {
 
 // MARK: - Stores Content View
 struct StoresContentView: View {
-    @ObservedObject var viewModel: TreeViewModel
+    @ObservedObject var viewModel: StoresViewModel
     var body: some View {
         LazyVStack(spacing: 8) {
             ForEach(viewModel.stores) { store in
@@ -86,51 +85,6 @@ struct StoresContentView: View {
     }
 }
 
-// MARK: - Dropdown Menu
-struct DropDownMenu: View {
-    enum TreeType: String, CaseIterable {
-        case sublets = "house.circle"
-        case stores = "storefront.circle"
-        var displayName: String {
-            switch self {
-            case .sublets: return "Sublets"
-            case .stores: return "Store"
-            }
-        }
-    }
-    
-    @Binding var selectedType: TreeType
-    
-    var body: some View {
-        VStack {
-            Menu {
-                ForEach(TreeType.allCases, id: \.self) { type in
-                    Button(action: {
-                        selectedType = type
-                    }) {
-                        HStack {
-                            Image(systemName: type.rawValue)
-                            Text(type.displayName)
-                            Spacer()
-                        }
-                    }
-                }
-            } label: {
-                HStack {
-                    Image(systemName: selectedType.rawValue)
-                        .font(.title3)
-                    
-                    Image(systemName: "chevron.up.chevron.down")
-                }
-                .foregroundColor(Color(UIColor.label))
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
-        }
-        .frame(width: 65, height: 35)
-        .background(Color(.systemGray2).gradient)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
-    }
-}
 
 #Preview {
     TreeView()

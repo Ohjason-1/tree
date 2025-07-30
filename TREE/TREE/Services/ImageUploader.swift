@@ -20,13 +20,14 @@ struct ImageUploader {
         return url.absoluteString
     }
     
-    func uploadPostImage(_ images: [UIImage]) async throws -> [String]? {
+    func uploadPostImage(_ images: [UIImage], _ sublet: Bool) async throws -> [String]? {
         // 0.1 for profile, 0.5 for feed
         var result = [String]()
         for image in images {
             guard let imageData = image.jpegData(compressionQuality: 0.5) else { return  nil } // smaller quality -> worse quality but smaller filesize
             let filename = NSUUID().uuidString
-            let ref = Storage.storage().reference(withPath: "/sublet_images/\(filename)")
+            let basePath = sublet ? "/sublet_images/" : "/store_images/"
+            let ref = Storage.storage().reference(withPath: "\(basePath)\(filename)")
             let _ = try await ref.putDataAsync(imageData)
             let url = try await ref.downloadURL()
             result.append(url.absoluteString)

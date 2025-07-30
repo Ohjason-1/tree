@@ -9,8 +9,6 @@ import SwiftUI
 
 struct StoreListingDetailView: View {
     let store: Stores
-    @StateObject var viewModel = ProfileViewModel()
-    var user: Users? { return viewModel.currentUser }
     
     var body: some View {
         ScrollView {
@@ -43,7 +41,9 @@ struct StoreListingDetailView: View {
                             Text("\(store.zipcode)")
                         }
                         
-                        CircularProfileImageView(user: user, size: .small)
+                        Spacer()
+                        
+                        CircularProfileImageView(user: store.user, size: .small)
 
                     }
                     .font(.footnote)
@@ -62,9 +62,9 @@ struct StoreListingDetailView: View {
                     
                     
                     NavigationLink {
-                        
+                        ChatView(user: store.user!)
                     } label: {
-                        Text("Chat!")
+                        Text("Chat with Seller !")
                             .font(.subheadline)
                             .foregroundStyle(Color("AccentColor"))
                             .fontWeight(.semibold)
@@ -75,6 +75,7 @@ struct StoreListingDetailView: View {
                                     .stroke(Color("AccentColor"), lineWidth: 1)
                             }
                     }
+                    .disabled(UserInfo.currentUserId == store.ownerUid)
                     
                     
                 }

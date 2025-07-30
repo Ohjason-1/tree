@@ -1,5 +1,5 @@
 //
-//  TreeService.swift
+//  SubletsService.swift
 //  TREE
 //
 //  Created by Jaewon Oh on 7/14/25.
@@ -9,7 +9,7 @@ import Foundation
 import FirebaseAuth
 import FirebaseFirestore
 
-class TreeService {
+class SubletsService {
     // MARK: - Sublet service
     @Published var subletChanges = [DocumentChange]()
     
@@ -38,8 +38,8 @@ class TreeService {
     
     
     // MARK: - Store service
-    func fetchStores() async throws -> [Stores] {
-        return DeveloperPreview.shared.stores
-    }
+//    func fetchStores() async throws -> [Stores] {
+//        return DeveloperPreview.shared.stores
+//    }
     
 }

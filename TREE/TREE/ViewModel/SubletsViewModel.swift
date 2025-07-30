@@ -31,7 +31,7 @@ class SubletsViewModel: ObservableObject {
     @Published var description: String = ""
     @Published var images = [UIImage]()
     
-    let service = TreeService()
+    let service = SubletsService()
     
     init() {
           setupSublets()
@@ -52,7 +52,7 @@ class SubletsViewModel: ObservableObject {
     }
     
     func uploadSublet() async throws {
-        guard let imageURLs = try await ImageUploader().uploadPostImage(images) else { return }
+        guard let imageURLs = try await ImageUploader().uploadPostImage(images, true) else { return }
         try await service.createSubletsPost(numberOfBedrooms: numberOfBedrooms, numberOfBathrooms: numberOfBathrooms, zipcode: zipcode, imageURLs: imageURLs, address: address, city: city, state: state, shared: shared, leaseStartDate: leaseStartDate, leaseEndDate: leaseEndDate, rentFee: rentFee, title: title, description: description)
     }
     

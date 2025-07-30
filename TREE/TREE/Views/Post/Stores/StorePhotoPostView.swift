@@ -1,16 +1,15 @@
 //
-//  SubletPhotoPostView.swift
+//  StorePhotoView.swift
 //  TREE
 //
-//  Created by Jaewon Oh on 7/23/25.
+//  Created by Jaewon Oh on 7/29/25.
 //
 
 import SwiftUI
-import _PhotosUI_SwiftUI
 
-struct SubletPhotoPostView: View {
+struct StorePhotoPostView: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var viewModel: SubletsViewModel
+    @ObservedObject var viewModel: StoresViewModel
     @State private var imagePresented = false
     
     // After upload, navigate to home view w/ errors
@@ -27,7 +26,7 @@ struct SubletPhotoPostView: View {
                 
                 Spacer()
                 
-                Text("New Sublet")
+                Text("New Store")
                     .fontWeight(.bold)
                 
                 Spacer()
@@ -35,22 +34,20 @@ struct SubletPhotoPostView: View {
                 Button {
                     Task {
                         
-                        try await viewModel.uploadSublet()
+                        try await viewModel.uploadStore()
                         
-                        clearSubletPostDataAndReturnToFeed() // inside task, make sure it runs after uploadsulet()
+                        clearStorePostDataAndReturnToFeed() // inside task, make sure it runs after uploadsulet()
                     }
                 } label: {
                     Text("Upload")
                         .fontWeight(.semibold)
                 }
-                .disabled(viewModel.images.isEmpty)
 
             }
             .padding()
             
-            Divider()
             
-            //MARK: - capsule showing progress
+            // capsule showing progress
             GeometryReader { geometry in
                 Capsule()
                     .fill(.secondary.opacity(0.1))
@@ -68,7 +65,6 @@ struct SubletPhotoPostView: View {
             }
             .padding(.vertical)
             .padding(.horizontal, 24)
-            
             
             // MARK: - photopicker
             if !viewModel.images.isEmpty {
@@ -98,13 +94,12 @@ struct SubletPhotoPostView: View {
                     
             }
             
-            
-            // MARK: - sublet info preview
+            // MARK: - product info preview
             VStack(alignment: .leading, spacing: 16) {
                 Text("\(viewModel.title)")
                     .font(.title2)
                     .fontWeight(.semibold)
-                    .multilineTextAlignment(.center)
+                    .multilineTextAlignment(.leading)
                 
                 Divider()
                     .background(.primary)
@@ -126,65 +121,23 @@ struct SubletPhotoPostView: View {
                             Text("\(viewModel.zipcode)")
                         }
                         
+                        CircularProfileImageView(user: DeveloperPreview.shared.user, size: .small)
+
                     }
                     .font(.footnote)
                     
                     
-                    HStack(spacing: 12) {
-                        HStack {
-                            Image(systemName: "bed.double")
-                            
-                            Text("**\(viewModel.numberOfBedrooms)** bedrooms")
-                        }
-                        
-                        HStack {
-                            Image(systemName: "bathtub")
-                            
-                            Text("**\(viewModel.numberOfBathrooms)** bathrooms")
-                                
-                        }
-                        
-                        Spacer()
-                        
-                        Text(viewModel.shared ? "Shared \(Image(systemName: "person.2.fill"))" : "Not shared \(Image(systemName: "person.fill"))")
-                        
-                    }
-                    .font(.footnote)
                     
-                    Text("$ **\(viewModel.rentFee)** /month")
+                    Text("$ **\(viewModel.price)**")
+                        .font(.title2)
                         .foregroundStyle(Color("AccentColor"))
                         .frame(height: 50)
                         .padding(.leading, 15)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(maxWidth: .infinity, alignment: .center)
                         .background(Color("Color").opacity(0.5))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                     
-                    HStack(alignment: .top, spacing: 12) {
-                        Image(systemName: "calendar")
-                            .padding(.top, 2)
-                        
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("Lease Term")
-                                .font(.subheadline)
-                                .fontWeight(.semibold)
-                            
-                            HStack {
-                                Text("**Start**: \(viewModel.leaseStartDate.formatted(date: .abbreviated, time: .omitted))")
-                                Spacer()
-                                Text("**End**: \(viewModel.leaseEndDate.formatted(date: .abbreviated, time: .omitted))")
-                                    
-                            }
-                            .font(.footnote)
-                            .padding(.trailing, 20)
-                        }
-                    }
-                    .frame(height: 80)
-                    .padding(.leading, 15)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(.secondary.opacity(0.2))
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                        
-                    Text("Cheap Furnitures !")
+                    Text("Chat!")
                         .font(.subheadline)
                         .foregroundStyle(Color("AccentColor"))
                         .fontWeight(.semibold)
@@ -194,41 +147,33 @@ struct SubletPhotoPostView: View {
                             RoundedRectangle(cornerRadius: 6)
                                 .stroke(Color("AccentColor"), lineWidth: 1)
                         }
+                    
                 }
                 .padding(.horizontal, 8)
             }
             .padding()
-                
         }
         .onAppear {
             imagePresented.toggle()
         }
         .photosPicker(isPresented: $imagePresented, selection: $viewModel.selectedImage, maxSelectionCount: 5, matching: .images)
     }
-    
-    func clearSubletPostDataAndReturnToFeed() {
-        viewModel.numberOfBedrooms = ""
-        viewModel.numberOfBathrooms = ""
+    func clearStorePostDataAndReturnToFeed() {
         viewModel.zipcode = ""
         viewModel.images = []
         viewModel.address = ""
         viewModel.city = ""
         viewModel.state = ""
-        viewModel.shared = false
-        viewModel.leaseStartDate = Date()
-        viewModel.leaseEndDate = Date()
-        viewModel.rentFee = 0
+        viewModel.price = 0
         viewModel.title = ""
         viewModel.description = ""
+        viewModel.productName = "Microwave"
         
         tabIndex = 0
         shouldNavigateToPhotos = false
     }
 }
 
-
-
-
 #Preview {
-    SubletPhotoPostView(viewModel: SubletsViewModel(), tabIndex: .constant(0), shouldNavigateToPhotos: .constant(false))
+    StorePhotoPostView(viewModel: StoresViewModel(), tabIndex: .constant(1), shouldNavigateToPhotos: .constant(false))
 }

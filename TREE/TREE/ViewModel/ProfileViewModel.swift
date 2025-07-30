@@ -21,7 +21,7 @@ class ProfileViewModel: ObservableObject {
         setupScribers()
     }
     
-    
+    @MainActor
     private func setupScribers() {
         UserService.shared.$currentUser.sink { [weak self] user in
             self?.currentUser = user

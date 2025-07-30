@@ -162,7 +162,6 @@ class DeveloperPreview {
     var stores: [Stores] = [
         .init(
             id: NSUUID().uuidString,
-            productName: "Television",
             ownerUid: NSUUID().uuidString,
             ownerName: "Bob",
             ownerImageUrl: "Profile",
@@ -172,13 +171,13 @@ class DeveloperPreview {
             city: "Berkeley",
             state: "California",
             price: 80,
+            productName: "Television",
             title: "stunning 65-inch 4K Smart TV 📺 featuring vibrant colors 🌈 and crystal-clear picture quality! 💎🔥🏠",
             description: "Bought this for $130, 5 months ago. Selling this $50 cheaper than original price!",
             timeStamp: Timestamp()
         ),
         .init(
             id: NSUUID().uuidString,
-            productName: "Microwave",
             ownerUid: NSUUID().uuidString,
             ownerName: "Dobby",
             ownerImageUrl: "Profile",
@@ -188,13 +187,13 @@ class DeveloperPreview {
             city: "Berkeley",
             state: "California",
             price: 20,
+            productName: "Microwave",
             title: "Cheap Microwave",
             description: "Bought this for $100, 3 months ago. Selling this $80 cheaper than original price!",
             timeStamp: Timestamp()
         ),
         .init(
             id: NSUUID().uuidString,
-            productName: "Television",
             ownerUid: NSUUID().uuidString,
             ownerName: "Bob",
             ownerImageUrl: "Profile",
@@ -204,13 +203,13 @@ class DeveloperPreview {
             city: "Berkeley",
             state: "California",
             price: 80,
+            productName: "Television",
             title: "Cheap TV",
             description: "stunning 65-inch 4K Smart TV 📺 featuring vibrant colors 🌈 and crystal-clear picture quality! 💎🔥🏠",
             timeStamp: Timestamp()
         ),
         .init(
             id: NSUUID().uuidString,
-            productName: "Microwave",
             ownerUid: NSUUID().uuidString,
             ownerName: "Dobby",
             ownerImageUrl: "Profile",
@@ -220,13 +219,13 @@ class DeveloperPreview {
             city: "Berkeley",
             state: "California",
             price: 20,
+            productName: "Microwave",
             title: "Cheap Microwave",
             description: "Bought this for $100, 3 months ago. Selling this $80 cheaper than original price!",
             timeStamp: Timestamp()
         ),
         .init(
             id: NSUUID().uuidString,
-            productName: "Television",
             ownerUid: NSUUID().uuidString,
             ownerName: "Bob",
             ownerImageUrl: "Profile",
@@ -236,13 +235,13 @@ class DeveloperPreview {
             city: "Berkeley",
             state: "California",
             price: 80,
+            productName: "Television",
             title: "Cheap TV",
             description: "stunning 65-inch 4K Smart TV 📺 featuring vibrant colors 🌈 and crystal-clear picture quality! 💎🔥🏠",
             timeStamp: Timestamp()
         ),
         .init(
             id: NSUUID().uuidString,
-            productName: "Microwave",
             ownerUid: NSUUID().uuidString,
             ownerName: "Dobby",
             ownerImageUrl: "Profile",
@@ -252,13 +251,13 @@ class DeveloperPreview {
             city: "Berkeley",
             state: "California",
             price: 20,
+            productName: "Microwave",
             title: "Cheap Microwave",
             description: "Bought this for $100, 3 months ago. Selling this $80 cheaper than original price!",
             timeStamp: Timestamp()
         ),
         .init(
             id: NSUUID().uuidString,
-            productName: "Television",
             ownerUid: NSUUID().uuidString,
             ownerName: "Bob",
             ownerImageUrl: "Profile",
@@ -268,13 +267,13 @@ class DeveloperPreview {
             city: "Berkeley",
             state: "California",
             price: 80,
+            productName: "Television",
             title: "Cheap TV",
             description: "Bought this for $130, 5 months ago. Selling this $50 cheaper than original price!",
             timeStamp: Timestamp()
         ),
         .init(
             id: NSUUID().uuidString,
-            productName: "Microwave",
             ownerUid: NSUUID().uuidString,
             ownerName: "Dobby",
             ownerImageUrl: "Profile",
@@ -284,13 +283,13 @@ class DeveloperPreview {
             city: "Berkeley",
             state: "California",
             price: 20,
+            productName: "Microwave",
             title: "Cheap Microwave",
             description: "Bought this for $100, 3 months ago. Selling this $80 cheaper than original price!",
             timeStamp: Timestamp()
         ),
         .init(
             id: NSUUID().uuidString,
-            productName: "Television",
             ownerUid: NSUUID().uuidString,
             ownerName: "Bob",
             ownerImageUrl: "Profile",
@@ -300,13 +299,13 @@ class DeveloperPreview {
             city: "Berkeley",
             state: "California",
             price: 80,
+            productName: "Television",
             title: "Cheap TV",
             description: "Bought this for $130, 5 months ago. Selling this $50 cheaper than original price!",
             timeStamp: Timestamp()
         ),
         .init(
             id: NSUUID().uuidString,
-            productName: "Microwave",
             ownerUid: NSUUID().uuidString,
             ownerName: "Dobby",
             ownerImageUrl: "Profile",
@@ -316,13 +315,13 @@ class DeveloperPreview {
             city: "Berkeley",
             state: "California",
             price: 20,
+            productName: "Microwave",
             title: "Cheap Microwave",
             description: "Bought this for $100, 3 months ago. Selling this $80 cheaper than original price!",
             timeStamp: Timestamp()
         ),
         .init(
             id: NSUUID().uuidString,
-            productName: "Television",
             ownerUid: NSUUID().uuidString,
             ownerName: "Bob",
             ownerImageUrl: "Profile",
@@ -332,13 +331,13 @@ class DeveloperPreview {
             city: "Berkeley",
             state: "California",
             price: 80,
+            productName: "Television",
             title: "Cheap TV",
             description: "Bought this for $130, 5 months ago. Selling this $50 cheaper than original price!",
             timeStamp: Timestamp()
         ),
         .init(
             id: NSUUID().uuidString,
-            productName: "Microwave",
             ownerUid: NSUUID().uuidString,
             ownerName: "Dobby",
             ownerImageUrl: "Profile",
@@ -348,6 +347,7 @@ class DeveloperPreview {
             city: "Berkeley",
             state: "California",
             price: 20,
+            productName: "Microwave",
             title: "Cheap Microwave",
             description: "Bought this for $100, 3 months ago. Selling this $80 cheaper than original price!",
             timeStamp: Timestamp()

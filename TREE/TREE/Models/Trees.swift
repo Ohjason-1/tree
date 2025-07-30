@@ -13,6 +13,7 @@ protocol Tree: Identifiable, Codable, Hashable {
     var description: String { get }
     var zipcode: String { get }
 }
+
 // add timestamp
 struct Sublets: Tree {
     let id: String
@@ -39,7 +40,6 @@ struct Sublets: Tree {
 
 struct Stores: Tree {
     let id: String
-    let productName: String
     let ownerUid: String
     let ownerName: String
     let ownerImageUrl: String
@@ -49,7 +49,10 @@ struct Stores: Tree {
     let city: String
     let state: String
     var price: Int
+    let productName: String // didn't use it in feed post, but will be useful for categorization
     let title: String
     let description: String
     let timeStamp: Timestamp
+    
+    var user: Users?
 }

@@ -34,7 +34,7 @@ struct MainTabView: View {
                 .onAppear { selectedTab = 1 }
                 .tag(1)
             
-            SubletPostView(tabIndex: $selectedTab)
+            PostView(tabIndex: $selectedTab)
                 .tabItem {
                     VStack {
                         Image(systemName: selectedTab == 1 ? "plus.square" : "plus.square.fill")
