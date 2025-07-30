@@ -18,8 +18,8 @@ class ChatViewModel: ObservableObject {
     }
     
     func observeMessages() {
-        service.observeMessages() { newMessages in
-            self.messages.append(contentsOf: newMessages)
+        service.observeMessages() { message in
+            self.messages.append(contentsOf: message)
         }
     }
     

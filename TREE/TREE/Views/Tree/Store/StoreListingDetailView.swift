@@ -71,7 +71,7 @@ struct StoreListingDetailView: View {
                             }
                         }
                     } label: {
-                        Text("Chat with Renter !")
+                        Text("Chat with Seller !")
                             .font(.subheadline)
                             .foregroundStyle(Color("AccentColor"))
                             .fontWeight(.semibold)

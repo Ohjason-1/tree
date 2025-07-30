@@ -49,7 +49,7 @@ struct ChatService {
         let query = FirestoreConstants.MessagesCollection
             .document(currentUid)
             .collection(chatPartnerId)
-            .order(by: "timeStamp", descending: true)
+            .order(by: "timeStamp", descending: false)
         
         /* firebase cloud function that updates data in real time
          // snapshot.documentChanges contains an array of DocumentChange objects

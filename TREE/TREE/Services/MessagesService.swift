@@ -20,7 +20,7 @@ class MessagesService {
             .MessagesCollection
             .document(uid)
             .collection("recent-messages")
-            .order(by: "timeStamp", descending: false)
+            .order(by: "timeStamp", descending: true)
         
         query.addSnapshotListener { snapshot, error in
             guard let changes = snapshot?.documentChanges.filter({ $0.type == .added || $0.type == .modified }) else { return }

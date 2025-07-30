@@ -53,7 +53,7 @@ class MessagesViewModel: ObservableObject {
                 messages[i].user = user
                 self.recentMessages.append(messages[i])
                 
-                
+                self.recentMessages.sort { $0.timeStamp.dateValue() > $1.timeStamp.dateValue() }
                 if i == messages.count - 1 {
                     self.didCompleteInitialLoad = true
                 }
