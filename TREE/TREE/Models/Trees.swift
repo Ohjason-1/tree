@@ -3,8 +3,6 @@ import FirebaseCore
 protocol Tree: Identifiable, Codable, Hashable {
     var id: String { get }
     var ownerUid: String { get }
-    var ownerName: String { get }
-    var ownerImageUrl: String { get }
     var imageURLs: [String] { get }
     var address: String { get }
     var city: String { get }
@@ -18,8 +16,6 @@ protocol Tree: Identifiable, Codable, Hashable {
 struct Sublets: Tree {
     let id: String
     let ownerUid: String
-    let ownerName: String
-    let ownerImageUrl: String
     let numberOfBedrooms: String
     let numberOfBathrooms: String
     let zipcode: String
@@ -35,13 +31,12 @@ struct Sublets: Tree {
     let description: String
     let timeStamp: Timestamp
     
+    var user: Users?
 }
 
 struct Stores: Tree {
     let id: String
     let ownerUid: String
-    let ownerName: String
-    let ownerImageUrl: String
     let zipcode: String
     let imageURLs: [String]
     let address: String

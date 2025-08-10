@@ -40,8 +40,6 @@ class DeveloperPreview {
         .init(
             id: NSUUID().uuidString,
             ownerUid: NSUUID().uuidString,
-            ownerName: "Jason",
-            ownerImageUrl: "Profile",
             numberOfBedrooms: "1",
             numberOfBathrooms: "1",
             zipcode: "94704",
@@ -60,8 +58,6 @@ class DeveloperPreview {
         .init(
             id: NSUUID().uuidString,
             ownerUid: NSUUID().uuidString,
-            ownerName: "Jason",
-            ownerImageUrl: "Profile",
             numberOfBedrooms: "1",
             numberOfBathrooms: "1",
             zipcode: "94704",
@@ -80,8 +76,6 @@ class DeveloperPreview {
         .init(
             id: NSUUID().uuidString,
             ownerUid: NSUUID().uuidString,
-            ownerName: "Jason",
-            ownerImageUrl: "Profile",
             numberOfBedrooms: "1",
             numberOfBathrooms: "1",
             zipcode: "94704",
@@ -100,8 +94,6 @@ class DeveloperPreview {
         .init(
             id: NSUUID().uuidString,
             ownerUid: NSUUID().uuidString,
-            ownerName: "Jason",
-            ownerImageUrl: "Profile",
             numberOfBedrooms: "1",
             numberOfBathrooms: "1",
             zipcode: "94704",
@@ -120,8 +112,6 @@ class DeveloperPreview {
         .init(
             id: NSUUID().uuidString,
             ownerUid: NSUUID().uuidString,
-            ownerName: "Jason",
-            ownerImageUrl: "Profile",
             numberOfBedrooms: "1",
             numberOfBathrooms: "1",
             zipcode: "94704",
@@ -140,8 +130,6 @@ class DeveloperPreview {
         .init(
             id: NSUUID().uuidString,
             ownerUid: NSUUID().uuidString,
-            ownerName: "Jason",
-            ownerImageUrl: "Profile",
             numberOfBedrooms: "1",
             numberOfBathrooms: "1",
             zipcode: "94704",
@@ -163,8 +151,6 @@ class DeveloperPreview {
         .init(
             id: NSUUID().uuidString,
             ownerUid: NSUUID().uuidString,
-            ownerName: "Bob",
-            ownerImageUrl: "Profile",
             zipcode: "94704",
             imageURLs: ["Image3", "Image3", "Image3"],
             address: "2520 Hillegass Ave",
@@ -179,8 +165,6 @@ class DeveloperPreview {
         .init(
             id: NSUUID().uuidString,
             ownerUid: NSUUID().uuidString,
-            ownerName: "Dobby",
-            ownerImageUrl: "Profile",
             zipcode: "94704",
             imageURLs: ["Image4", "Image4", "Image1"],
             address: "2520 Hillegass Ave",
@@ -195,8 +179,6 @@ class DeveloperPreview {
         .init(
             id: NSUUID().uuidString,
             ownerUid: NSUUID().uuidString,
-            ownerName: "Bob",
-            ownerImageUrl: "Profile",
             zipcode: "94704",
             imageURLs: ["Image3", "Image3", "Image3"],
             address: "2520 Hillegass Ave",
@@ -211,8 +193,6 @@ class DeveloperPreview {
         .init(
             id: NSUUID().uuidString,
             ownerUid: NSUUID().uuidString,
-            ownerName: "Dobby",
-            ownerImageUrl: "Profile",
             zipcode: "94704",
             imageURLs: ["Image4", "Image4", "Image1"],
             address: "2520 Hillegass Ave",
@@ -227,8 +207,6 @@ class DeveloperPreview {
         .init(
             id: NSUUID().uuidString,
             ownerUid: NSUUID().uuidString,
-            ownerName: "Bob",
-            ownerImageUrl: "Profile",
             zipcode: "94704",
             imageURLs: ["Image3", "Image3", "Image3"],
             address: "2520 Hillegass Ave",
@@ -243,8 +221,6 @@ class DeveloperPreview {
         .init(
             id: NSUUID().uuidString,
             ownerUid: NSUUID().uuidString,
-            ownerName: "Dobby",
-            ownerImageUrl: "Profile",
             zipcode: "94704",
             imageURLs: ["Image4", "Image4", "Image1"],
             address: "2520 Hillegass Ave",
@@ -259,8 +235,6 @@ class DeveloperPreview {
         .init(
             id: NSUUID().uuidString,
             ownerUid: NSUUID().uuidString,
-            ownerName: "Bob",
-            ownerImageUrl: "Profile",
             zipcode: "94704",
             imageURLs: ["Image3", "Image3", "Image3"],
             address: "2520 Hillegass Ave",
@@ -275,8 +249,6 @@ class DeveloperPreview {
         .init(
             id: NSUUID().uuidString,
             ownerUid: NSUUID().uuidString,
-            ownerName: "Dobby",
-            ownerImageUrl: "Profile",
             zipcode: "94704",
             imageURLs: ["Image4", "Image4", "Image1"],
             address: "2520 Hillegass Ave",
@@ -291,8 +263,6 @@ class DeveloperPreview {
         .init(
             id: NSUUID().uuidString,
             ownerUid: NSUUID().uuidString,
-            ownerName: "Bob",
-            ownerImageUrl: "Profile",
             zipcode: "94704",
             imageURLs: ["Image3", "Image3", "Image3"],
             address: "2520 Hillegass Ave",
@@ -307,8 +277,6 @@ class DeveloperPreview {
         .init(
             id: NSUUID().uuidString,
             ownerUid: NSUUID().uuidString,
-            ownerName: "Dobby",
-            ownerImageUrl: "Profile",
             zipcode: "94704",
             imageURLs: ["Image4", "Image4", "Image1"],
             address: "2520 Hillegass Ave",
@@ -323,8 +291,6 @@ class DeveloperPreview {
         .init(
             id: NSUUID().uuidString,
             ownerUid: NSUUID().uuidString,
-            ownerName: "Bob",
-            ownerImageUrl: "Profile",
             zipcode: "94704",
             imageURLs: ["Image3", "Image3", "Image3"],
             address: "2520 Hillegass Ave",
@@ -339,8 +305,6 @@ class DeveloperPreview {
         .init(
             id: NSUUID().uuidString,
             ownerUid: NSUUID().uuidString,
-            ownerName: "Dobby",
-            ownerImageUrl: "Profile",
             zipcode: "94704",
             imageURLs: ["Image4", "Image4", "Image1"],
             address: "2520 Hillegass Ave",

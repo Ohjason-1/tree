@@ -24,7 +24,7 @@ struct ProfileView: View {
                         Spacer()
                     }
                     
-                    CircularProfileImageView(userImageUrl: user?.userImageUrl, size: .large)
+                    CircularProfileImageView(user: user, size: .large)
                         
                     Text(user?.userName ?? "User 1")
                         .font(.title2)

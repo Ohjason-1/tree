@@ -61,8 +61,15 @@ class SubletsViewModel: ObservableObject {
             guard let self else { return }
             let subletData = changes.compactMap({ try? $0.document.data(as: Sublets.self )})
             
-            self.sublets.append(contentsOf: subletData)
-            self.sublets.sort { $0.timeStamp.dateValue() > $1.timeStamp.dateValue() }
+            for sublet in subletData {
+                self.sublets.append(sublet)
+                UserService.fetchUser(withUid: sublet.ownerUid) { [weak self] user in
+                    guard let self else { return }
+                    if let index = self.sublets.firstIndex(where: { $0.id == sublet.id }) {
+                        self.sublets[index].user = user
+                    }
+                }
+            }
             
         }.store(in: &cancellables)
     }

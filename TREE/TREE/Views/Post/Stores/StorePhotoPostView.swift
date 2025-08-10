@@ -121,7 +121,7 @@ struct StorePhotoPostView: View {
                             Text("\(viewModel.zipcode)")
                         }
                         
-                        CircularProfileImageView(userImageUrl: DeveloperPreview.shared.user.userImageUrl, size: .small)
+                        CircularProfileImageView(user: DeveloperPreview.shared.user, size: .small)
 
                     }
                     .font(.footnote)

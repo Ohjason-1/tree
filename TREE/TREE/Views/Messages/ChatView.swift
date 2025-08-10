@@ -21,7 +21,7 @@ struct ChatView: View {
         VStack {
             ScrollView {
                 VStack {
-                    CircularProfileImageView(userImageUrl: user.userImageUrl, size: .medium)
+                    CircularProfileImageView(user: user, size: .medium)
                     
                     VStack(spacing: 4) {
                         Text(user.userName)
@@ -60,6 +60,9 @@ struct ChatView: View {
                 .padding(.horizontal)
             }
             .padding()
+        }
+        .onAppear {
+            viewModel.markAllMessagesAsRead()
         }
     }
 }

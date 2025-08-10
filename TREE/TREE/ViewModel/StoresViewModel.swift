@@ -27,6 +27,7 @@ class StoresViewModel: ObservableObject {
     @Published var description: String = ""
     @Published var images = [UIImage]()
     
+    
     let service = StoresService()
     
     init() {
@@ -57,8 +58,16 @@ class StoresViewModel: ObservableObject {
         service.$storeChanges.sink { [weak self] changes in
             guard let self else { return }
             let storeData = changes.compactMap({ try? $0.document.data(as: Stores.self )})
-            self.stores.append(contentsOf: storeData)
-            self.stores.sort { $0.timeStamp.dateValue() > $1.timeStamp.dateValue() }
+            
+            for store in storeData {
+                self.stores.append(store)
+                UserService.fetchUser(withUid: store.ownerUid) { [weak self] user in
+                    guard let self else { return }
+                    if let index = self.stores.firstIndex(where: { $0.id == store.id }) {
+                        self.stores[index].user = user
+                    }
+                }
+            }
             
         }.store(in: &cancellables)
     }

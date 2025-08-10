@@ -24,6 +24,7 @@ class MessagesService {
         
         query.addSnapshotListener { snapshot, error in
             guard let changes = snapshot?.documentChanges.filter({ $0.type == .added || $0.type == .modified }) else { return }
+            guard changes.count > 0 else { return }
             self.documentChanges = changes
         }
     }

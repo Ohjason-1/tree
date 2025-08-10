@@ -62,7 +62,6 @@ struct ChatService {
         query.addSnapshotListener { snapshot, _ in
             guard let changes = snapshot?.documentChanges.filter({ $0.type == .added }) else { return }
             var messages = changes.compactMap({ try? $0.document.data(as: Messages.self)})
-            
             for (index, message) in messages.enumerated() where message.fromId != currentUid {
                 messages[index].user = chatPartner
                 

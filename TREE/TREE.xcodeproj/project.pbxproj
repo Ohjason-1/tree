@@ -41,6 +41,7 @@
 		53A8628D2E271B6100280C2F /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A8628C2E271B6100280C2F /* MessagesView.swift */; };
 		53A8628F2E27220A00280C2F /* MessageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A8628E2E27220A00280C2F /* MessageRowView.swift */; };
 		53A862912E27431100280C2F /* ProfileSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A862902E27431100280C2F /* ProfileSettingView.swift */; };
+		53BE40262E46DE7200190947 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 53BE40252E46DE7200190947 /* FirebaseMessaging */; };
 		53E249A42E26203C00068C1B /* Trees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E249A32E26203C00068C1B /* Trees.swift */; };
 		53E249A62E26262A00068C1B /* DeveloperPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E249A52E26262A00068C1B /* DeveloperPreview.swift */; };
 		53E249AB2E2629AC00068C1B /* SubletsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E249AA2E2629AC00068C1B /* SubletsService.swift */; };
@@ -162,6 +163,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53BE40262E46DE7200190947 /* FirebaseMessaging in Frameworks */,
 				53F2DD902E2987C9003A9EE8 /* FirebaseDatabase in Frameworks */,
 				53F2DD982E2987C9003A9EE8 /* FirebaseStorageCombine-Community in Frameworks */,
 				53F2DD922E2987C9003A9EE8 /* FirebaseFirestore in Frameworks */,
@@ -322,12 +324,12 @@
 		5393036A2E23AB1D000B88FB /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				53E249AA2E2629AC00068C1B /* SubletsService.swift */,
 				53F2DD9E2E29BE95003A9EE8 /* AuthService.swift */,
 				53F2DDA22E29DCA3003A9EE8 /* UserService.swift */,
 				53F2DDAA2E2A1CD0003A9EE8 /* ChatService.swift */,
 				5353BE7F2E2AEB7600C2FEAE /* MessagesService.swift */,
 				5353BE842E2B4E8B00C2FEAE /* ImageUploader.swift */,
+				53E249AA2E2629AC00068C1B /* SubletsService.swift */,
 				532DAEB62E39C4020074C97F /* StoresService.swift */,
 			);
 			path = Services;
@@ -387,6 +389,7 @@
 				5393035A2E23AAED000B88FB /* TREE */,
 				539303602E23AAEF000B88FB /* TREETests */,
 				539303642E23AAF1000B88FB /* TREEUITests */,
+				53BE40242E46DE7200190947 /* Frameworks */,
 				53A989B22DD8001E00FADC05 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -399,6 +402,13 @@
 				53A989CE2DD8002200FADC05 /* TREEUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		53BE40242E46DE7200190947 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		53E249A72E26292200068C1B /* ViewModel */ = {
@@ -467,6 +477,7 @@
 				53F2DD952E2987C9003A9EE8 /* FirebaseStorage */,
 				53F2DD972E2987C9003A9EE8 /* FirebaseStorageCombine-Community */,
 				5353BE872E2B527000C2FEAE /* Kingfisher */,
+				53BE40252E46DE7200190947 /* FirebaseMessaging */,
 			);
 			productName = TREE;
 			productReference = 53A989B12DD8001E00FADC05 /* TREE.app */;
@@ -1029,6 +1040,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5353BE862E2B527000C2FEAE /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		53BE40252E46DE7200190947 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 53F2DD8A2E2987C9003A9EE8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 		53F2DD8B2E2987C9003A9EE8 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
