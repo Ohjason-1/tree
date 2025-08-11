@@ -62,7 +62,7 @@ struct ChatView: View {
             .padding()
         }
         .onAppear {
-            viewModel.markAllMessagesAsRead()
+            
         }
     }
 }

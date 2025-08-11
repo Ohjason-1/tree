@@ -27,9 +27,4 @@ class ChatViewModel: ObservableObject {
         service.sendMessage(messageText)
     }
     
-    func markAllMessagesAsRead() {
-        for i in 0..<messages.count {
-            messages[i].unread = false
-        }
-    }
 }

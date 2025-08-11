@@ -10,8 +10,13 @@ import FirebaseFirestore
 import Combine
 import UserNotifications
 
+struct RecentMessage {
+    var message: Messages
+    var unread: Bool
+}
+
 class MessagesViewModel: ObservableObject {
-    @Published var recentMessages = [Messages]()
+    @Published var recentMessages = [RecentMessage]() // (recent message, unread)
     
     private var cancellables = Set<AnyCancellable>()
     private let service = MessagesService()
@@ -21,12 +26,11 @@ class MessagesViewModel: ObservableObject {
     init() {
         setupMessages()
         service.observeRecentMessages()
-        requestNotificationPermission()
     }
     
     func deleteRecentMessage(_ message: Messages) async {
         do {
-            guard let index = self.recentMessages.firstIndex(where: { $0.id == message.id }) else { return }
+            guard let index = self.recentMessages.firstIndex(where: { $0.message.id == message.id }) else { return }
             recentMessages.remove(at: index)
             try await service.deleteConversation(recentMessage: message)
         } catch {
@@ -38,6 +42,7 @@ class MessagesViewModel: ObservableObject {
         service.$documentChanges.sink { [weak self] changes in
             guard let self else { return }
             if didCompleteInitialLoad {
+                print("here")
                 updateMessages(changes)
             } else {
                 loadInitialMessages(fromChanges: changes)
@@ -47,17 +52,24 @@ class MessagesViewModel: ObservableObject {
     
     private func loadInitialMessages(fromChanges changes: [DocumentChange]) {
         let messages = changes.compactMap({ try? $0.document.data(as: Messages.self )})
+        var loadedCount = 0
+        let totalCount = messages.count
+        print("messages \(messages)")
         for message in messages {
-            self.recentMessages.append(message)
+            self.recentMessages.append(RecentMessage(message: message, unread: true))
             UserService.fetchUser(withUid: message.chatPartnerId) { [weak self] user in
                 guard let self else { return }
-                if let index = self.recentMessages.firstIndex(where: { $0.id == message.id }) {
-                    self.recentMessages[index].user = user
+                if let index = self.recentMessages.firstIndex(where: { $0.message.id == message.id }) {
+                    self.recentMessages[index].message.user = user
+                }
+                print("1")
+                loadedCount += 1
+                if loadedCount == totalCount {
+                    self.didCompleteInitialLoad = true
+                    
                 }
             }
         }
-        self.didCompleteInitialLoad = true
-        
     }
     
     private func updateMessages(_ changes: [DocumentChange]) {
@@ -75,7 +87,7 @@ class MessagesViewModel: ObservableObject {
         guard var message = try? change.document.data(as: Messages.self) else { return }
         UserService.fetchUser(withUid: message.chatPartnerId) { [weak self] user in
             message.user = user
-            self?.recentMessages.insert(message, at: 0)
+            self?.recentMessages.insert(RecentMessage(message: message, unread: true), at: 0)
             
             self?.sendNewMessageNotification(message: message, user: user)
         }
@@ -84,12 +96,12 @@ class MessagesViewModel: ObservableObject {
     // find message inbox from the recent messages, remove it, and update it, place it at index 0
     private func updateMessagesFromExistingConversation(_ change: DocumentChange) {
         guard var message = try? change.document.data(as: Messages.self) else { return }
-        guard let index = self.recentMessages.firstIndex(where: { $0.user?.id == message.chatPartnerId }) else { return }
-        let previousText = recentMessages[index]
-        message.user = recentMessages[index].user
+        guard let index = self.recentMessages.firstIndex(where: { $0.message.user?.id == message.chatPartnerId }) else { return }
+        let previousText = recentMessages[index].message
+        message.user = recentMessages[index].message.user
         
         recentMessages.remove(at: index)
-        recentMessages.insert(message, at: 0)
+        recentMessages.insert(RecentMessage(message: message, unread: true), at: 0)
         
         if previousText != message {
             sendNewMessageNotification(message: message, user: message.user)
@@ -97,15 +109,6 @@ class MessagesViewModel: ObservableObject {
     }
     
     // MARK: - Notification Methods
-    private func requestNotificationPermission() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
-            if granted {
-                print("Notification Permission Granted")
-            } else if let error = error {
-                print("DEBUG: Error requesting notification permission \(error.localizedDescription)")
-            }
-        }
-    }
     
     private func sendNewMessageNotification(message: Messages, user: Users?) {
         guard let user = user else { return }

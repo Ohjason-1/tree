@@ -24,15 +24,22 @@ struct MessagesView: View {
                 .listRowSeparator(.hidden)
                 .padding(.vertical, 12)
                 
-                ForEach(viewModel.recentMessages) { message in
-                    ZStack {
-                        NavigationLink {
-                            ChatView(user: message.user!)
-                        } label: {
-                            EmptyView()
+                ForEach(viewModel.recentMessages, id: \.message.id) { recentMessage in
+                    if let user = recentMessage.message.user {
+                        ZStack {
+                            NavigationLink {
+                                ChatView(user: user)
+                                    .onTapGesture {
+                                        if let index = viewModel.recentMessages.firstIndex(where: { recentMessage.message.id == $0.message.id }) {
+                                            viewModel.recentMessages[index].unread = false
+                                        }
+                                    }
+                            } label: {
+                                EmptyView()
+                            }
+                            .opacity(0.0)
+                            MessageRowView(viewModel: viewModel, message: recentMessage.message)
                         }
-                        .opacity(0.0)
-                        MessageRowView(viewModel: viewModel, message: message)
                     }
                 }
             }
