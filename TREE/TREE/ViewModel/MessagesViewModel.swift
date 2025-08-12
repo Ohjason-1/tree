@@ -42,7 +42,6 @@ class MessagesViewModel: ObservableObject {
         service.$documentChanges.sink { [weak self] changes in
             guard let self else { return }
             if didCompleteInitialLoad {
-                print("here")
                 updateMessages(changes)
             } else {
                 loadInitialMessages(fromChanges: changes)
@@ -54,7 +53,6 @@ class MessagesViewModel: ObservableObject {
         let messages = changes.compactMap({ try? $0.document.data(as: Messages.self )})
         var loadedCount = 0
         let totalCount = messages.count
-        print("messages \(messages)")
         for message in messages {
             self.recentMessages.append(RecentMessage(message: message, unread: true))
             UserService.fetchUser(withUid: message.chatPartnerId) { [weak self] user in
@@ -62,7 +60,6 @@ class MessagesViewModel: ObservableObject {
                 if let index = self.recentMessages.firstIndex(where: { $0.message.id == message.id }) {
                     self.recentMessages[index].message.user = user
                 }
-                print("1")
                 loadedCount += 1
                 if loadedCount == totalCount {
                     self.didCompleteInitialLoad = true
@@ -89,7 +86,7 @@ class MessagesViewModel: ObservableObject {
             message.user = user
             self?.recentMessages.insert(RecentMessage(message: message, unread: true), at: 0)
             
-            self?.sendNewMessageNotification(message: message, user: user)
+            self?.sendNewMessageNotification(message: message)
         }
     }
     
@@ -97,28 +94,25 @@ class MessagesViewModel: ObservableObject {
     private func updateMessagesFromExistingConversation(_ change: DocumentChange) {
         guard var message = try? change.document.data(as: Messages.self) else { return }
         guard let index = self.recentMessages.firstIndex(where: { $0.message.user?.id == message.chatPartnerId }) else { return }
-        let previousText = recentMessages[index].message
         message.user = recentMessages[index].message.user
-        
+        print("update")
         recentMessages.remove(at: index)
         recentMessages.insert(RecentMessage(message: message, unread: true), at: 0)
         
-        if previousText != message {
-            sendNewMessageNotification(message: message, user: message.user)
-        }
+        sendNewMessageNotification(message: message)
     }
     
     // MARK: - Notification Methods
     
-    private func sendNewMessageNotification(message: Messages, user: Users?) {
-        guard let user = user else { return }
+    private func sendNewMessageNotification(message: Messages) {
+        guard let user = UserService().currentUser else { return }
         let content = UNMutableNotificationContent()
         content.title = user.userName
         content.body = message.messageText
         content.sound = .default
         content.badge = NSNumber(value: getUnreadMessageCount())
         content.userInfo = [
-            "userId": message.chatPartnerId,
+            "userId": user.id,
             "messageId": message.id
         ]
         
@@ -138,7 +132,25 @@ class MessagesViewModel: ObservableObject {
     
     private func getUnreadMessageCount() -> Int {
         return recentMessages.filter { $0.unread }.count
+    }
+    
+    func markMessageAsRead(messageId: String) {
+        if let index = recentMessages.firstIndex(where: { $0.message.id == messageId }) {
+            recentMessages[index].unread = false
+            updateBadgeCount() // Update badge after marking as read
         }
+    }
+    
+    private func updateBadgeCount() {
+        let unreadCount = getUnreadMessageCount()
+        DispatchQueue.main.async {
+            UNUserNotificationCenter.current().setBadgeCount(unreadCount) { error in
+                if let error = error {
+                    print("DEBUG: Error updating badge count: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
 }
 
 
