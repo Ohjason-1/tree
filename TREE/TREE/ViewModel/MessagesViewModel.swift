@@ -82,11 +82,13 @@ class MessagesViewModel: ObservableObject {
     // add new message inbox at index 0
     private func createNewConversation(_ change: DocumentChange) {
         guard var message = try? change.document.data(as: Messages.self) else { return }
+        guard !recentMessages.contains(where: { $0.message.id == message.id }) else { return }
+        
         UserService.fetchUser(withUid: message.chatPartnerId) { [weak self] user in
             message.user = user
-            self?.recentMessages.insert(RecentMessage(message: message, unread: true), at: 0)
-            
-            self?.sendNewMessageNotification(message: message)
+            let isIncoming = !message.isFromCurrentUser
+            self?.recentMessages.insert(RecentMessage(message: message, unread: isIncoming), at: 0)
+            if isIncoming { self?.sendNewMessageNotification(message: message) }
         }
     }
     
@@ -94,12 +96,17 @@ class MessagesViewModel: ObservableObject {
     private func updateMessagesFromExistingConversation(_ change: DocumentChange) {
         guard var message = try? change.document.data(as: Messages.self) else { return }
         guard let index = self.recentMessages.firstIndex(where: { $0.message.user?.id == message.chatPartnerId }) else { return }
-        message.user = recentMessages[index].message.user
-        print("update")
-        recentMessages.remove(at: index)
-        recentMessages.insert(RecentMessage(message: message, unread: true), at: 0)
         
-        sendNewMessageNotification(message: message)
+        
+        message.user = recentMessages[index].message.user
+        let isIncoming = !message.isFromCurrentUser
+        recentMessages.remove(at: index)
+        recentMessages.insert(RecentMessage(message: message, unread: isIncoming), at: 0)
+        var seen = Set<String>()
+        recentMessages = recentMessages.filter { seen.insert($0.message.id).inserted }
+        
+        // Only send notification if the message was from other user
+        if isIncoming { sendNewMessageNotification(message: message) }
     }
     
     // MARK: - Notification Methods
@@ -131,12 +138,15 @@ class MessagesViewModel: ObservableObject {
     }
     
     private func getUnreadMessageCount() -> Int {
-        return recentMessages.filter { $0.unread }.count
+        let count = recentMessages.filter { $0.unread }.count
+        print("count of unread \(count)")
+        return count
     }
     
     func markMessageAsRead(messageId: String) {
         if let index = recentMessages.firstIndex(where: { $0.message.id == messageId }) {
             recentMessages[index].unread = false
+            print("it worked \(recentMessages)")
             updateBadgeCount() // Update badge after marking as read
         }
     }

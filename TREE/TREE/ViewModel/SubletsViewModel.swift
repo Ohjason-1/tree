@@ -59,9 +59,16 @@ class SubletsViewModel: ObservableObject {
     private func setupSublets() {
         service.$subletChanges.sink { [weak self] changes in
             guard let self else { return }
+            
+            // Clear existing data when new changes arrive
+            self.sublets.removeAll()
+            
             let subletData = changes.compactMap({ try? $0.document.data(as: Sublets.self )})
             
-            for sublet in subletData {
+            // Sort by timestamp to ensure consistent order
+            let sortedSublets = subletData.sorted { $0.timeStamp.dateValue() > $1.timeStamp.dateValue() }
+            
+            for sublet in sortedSublets {
                 self.sublets.append(sublet)
                 UserService.fetchUser(withUid: sublet.ownerUid) { [weak self] user in
                     guard let self else { return }

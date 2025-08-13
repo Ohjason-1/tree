@@ -61,9 +61,6 @@ struct ChatView: View {
             }
             .padding()
         }
-        .onAppear {
-            
-        }
     }
 }
 

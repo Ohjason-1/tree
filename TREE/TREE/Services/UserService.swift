@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseAuth
 import FirebaseFirestore
+import FirebaseMessaging
 
 class UserService {
     
@@ -44,5 +45,21 @@ class UserService {
         ])
         
         currentUser?.userImageUrl = imageUrl
+    }
+    
+    func updateFCMToken() async throws {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        do {
+            let token = try await Messaging.messaging().token()
+            try await FirestoreConstants.UserCollection.document(uid).updateData([
+                "fcmToken": token
+            ])
+            // Update local user object if it exists
+            currentUser?.fcmToken = token
+            
+        } catch {
+            print("DEBUG: Error getting FCM token: \(error.localizedDescription)")
+            throw error
+        }
     }
 }

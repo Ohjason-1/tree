@@ -9,6 +9,7 @@ import Foundation
 import FirebaseAuth
 import Firebase
 import FirebaseFirestore
+import FirebaseMessaging
 
 class AuthService {
     
@@ -59,13 +60,23 @@ class AuthService {
     
     // populates data into database
     private func uploadUserData(email: String, userName: String, phoneNumber: String, id: String) async throws {
-        let user = Users(uid: id, email: email, userName: userName, phoneNumber: phoneNumber)
+        let fcmToken = try await Messaging.messaging().token()
+        let user = Users(
+            uid: id,
+            email: email,
+            userName: userName,
+            phoneNumber: phoneNumber,
+            fcmToken: fcmToken
+        )
         guard let encodedUser = try? Firestore.Encoder().encode(user) else { return }
         try await Firestore.firestore().collection("users").document(id).setData(encodedUser)
     }
     
     // call it in login and createuser as well
     private func loadCurrentUserData() {
-        Task { try await UserService.shared.fetchCurrentUser()}
+        Task {
+            try await UserService.shared.fetchCurrentUser()
+            try await UserService.shared.updateFCMToken()
+        }
     }
 }

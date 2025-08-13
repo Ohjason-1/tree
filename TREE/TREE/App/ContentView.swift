@@ -13,27 +13,20 @@ struct ContentView: View {
     @StateObject var viewModel = ContentViewModel()
     // hard coded to show logo screen >,<
     var body: some View {
-        if showingLogo {
-            LogoScreen()
-                .onAppear {
-                    UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-                        if success {
-                            DispatchQueue.main.async {
-                                UIApplication.shared.registerForRemoteNotifications()
-                            }
-                        }
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                        withAnimation {
-                            showingLogo = false
-                        }
-                    }
-                }
-        } else {
-            if viewModel.userSession != nil {
+        Group {
+            if showingLogo {
+                LogoScreen()
+            } else if viewModel.userSession != nil {
                 MainTabView()
             } else {
                 LoginView()
+            }
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                withAnimation {
+                    showingLogo = false
+                }
             }
         }
     }
