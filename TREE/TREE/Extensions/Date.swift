@@ -25,7 +25,7 @@ extension Date {
         return timeFormatter.string(from: self)
     }
     
-    private func dateString() -> String {
+    func dateString() -> String {
         return dayFormatter.string(from: self)
     }
     

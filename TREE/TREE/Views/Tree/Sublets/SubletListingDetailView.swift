@@ -105,18 +105,9 @@ struct SubletListingDetailView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                         
                     NavigationLink {
-                        ChatView(user: sublet.user!)
+                        if let user = sublet.user { ChatView(user: user) }
                     } label: {
-                        Text("Chat with Renter !")
-                            .font(.subheadline)
-                            .foregroundStyle(Color("AccentColor"))
-                            .fontWeight(.semibold)
-                            .frame(width: 360, height: 32)
-                            .foregroundStyle(Color(UIColor.label))
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 6)
-                                    .stroke(Color("AccentColor"), lineWidth: 1)
-                            }
+                        chatButton(label: "Renter")
                     }
                     .disabled(UserInfo.currentUserId == sublet.ownerUid)
                 }

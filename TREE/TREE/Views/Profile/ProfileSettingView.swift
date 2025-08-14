@@ -9,7 +9,7 @@ import SwiftUI
 import PhotosUI
 
 struct ProfileSettingView: View {
-    @StateObject var viewModel = ProfileImageViewModel()
+    @EnvironmentObject var viewModel: ProfileViewModel
     let user: Users
     
     var body: some View {
@@ -85,7 +85,7 @@ struct ProfileSettingView: View {
                     
                     Section {
                         Button("Log Out") {
-                            AuthService.shared.signOut()
+                            Task { await AuthService.shared.signOut() }
                         }
                         
                         Button("Delete Account") {

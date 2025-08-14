@@ -27,6 +27,7 @@ class StoresViewModel: ObservableObject {
     @Published var description: String = ""
     @Published var images = [UIImage]()
     
+    private let profile = ProfileViewModel.shared
     
     let service = StoresService()
     
@@ -57,19 +58,54 @@ class StoresViewModel: ObservableObject {
     private func setupStores() {
         service.$storeChanges.sink { [weak self] changes in
             guard let self else { return }
-            let storeData = changes.compactMap({ try? $0.document.data(as: Stores.self )})
             
-            for store in storeData {
-                self.stores.append(store)
-                UserService.fetchUser(withUid: store.ownerUid) { [weak self] user in
-                    guard let self else { return }
-                    if let index = self.stores.firstIndex(where: { $0.id == store.id }) {
-                        self.stores[index].user = user
-                    }
+            for change in changes {
+                switch change.type {
+                case .added:
+                    self.handleAddedStore(change)
+                case .modified:
+                    self.handleModifiedStore(change)
+                case .removed:
+                    self.handleRemovedStore(change)
                 }
             }
             
         }.store(in: &cancellables)
+    }
+
+    private func handleAddedStore(_ change: DocumentChange) {
+        guard let store = try? change.document.data(as: Stores.self) else { return }
+        
+        // Check if already exists to avoid duplicates
+        guard !stores.contains(where: { $0.id == store.id }) else { return }
+        
+        stores.append(store)
+        stores.sort { $0.timeStamp.dateValue() > $1.timeStamp.dateValue() }
+        
+        UserService.fetchUser(withUid: store.ownerUid) { [weak self] user in
+            guard let self else { return }
+            if let index = self.stores.firstIndex(where: { $0.id == store.id }) {
+                self.stores[index].user = user
+            }
+            if user.id == UserInfo.currentUserId {
+                profile.addUserPost(store)
+            }
+        }
+    }
+
+    private func handleModifiedStore(_ change: DocumentChange) {
+        guard let modifiedStore = try? change.document.data(as: Stores.self) else { return }
+
+        if let index = stores.firstIndex(where: { $0.id == modifiedStore.id }) {
+            stores[index] = modifiedStore
+        }
+    }
+
+    private func handleRemovedStore(_ change: DocumentChange) {
+        guard let removedSublet = try? change.document.data(as: Stores.self) else { return }
+        
+        stores.removeAll { $0.id == removedSublet.id }
+        // Remove from profile as well
     }
     
 }

@@ -62,4 +62,18 @@ class UserService {
             throw error
         }
     }
+    
+    func deleteFeed(treeFeed: any Tree) async throws {
+        if treeFeed is Sublets {
+            try await FirestoreConstants
+                .SubletsCollection
+                .document(treeFeed.id)
+                .delete()
+        } else {
+            try await FirestoreConstants
+                .StoresCollection
+                .document(treeFeed.id)
+                .delete()
+        }
+    }
 }

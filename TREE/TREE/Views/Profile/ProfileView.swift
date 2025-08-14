@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @StateObject var viewModel = ProfileViewModel()
+    @EnvironmentObject var viewModel: ProfileViewModel
     var user: Users? { return viewModel.currentUser }
     
     var body: some View {
@@ -61,47 +61,23 @@ struct ProfileView: View {
             }
             
             List {
-                ForEach(0...12, id: \.self) { index in
-                    Post()
+                ForEach(viewModel.treeFeed, id: \.id) { tree in
+                    NavigationLink(value: tree) {
+                        ProfileElementView(tree: tree)
+                    }
                 }
             }
+            .navigationDestination(for: Sublets.self) { sublet in
+                SubletListingDetailView(sublet: sublet)
+            }
+            .navigationDestination(for: Stores.self) { store in
+                StoreListingDetailView(store: store)
+            }
         }
     }
 }
 
 
-struct Post: View {
-    var body: some View {
-        HStack(alignment: .top, spacing: 12) {
-            Image("Image")
-                .resizable()
-                .scaledToFill()
-                .frame(width: 64, height: 64)
-                .clipShape(.circle)
-                
-            
-            VStack(alignment: .leading, spacing: 4) {
-                Text("2520 Hillegass")
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                
-                Text("sublets")
-                    .font(.subheadline)
-                    .lineLimit(2)
-                    .frame(maxWidth: UIScreen.main.bounds.width - 100, alignment: .leading)
-            }
-            
-            HStack {
-                Text("[07/12-10/23]")
-                
-                Image(systemName: "chevron.right")
-            }
-            .font(.footnote)
-            .foregroundStyle(.secondary)
-        }
-        .frame(height: 64)
-    }
-}
 
 #Preview {
     ProfileView()

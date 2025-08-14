@@ -41,6 +41,9 @@
 		53A8628D2E271B6100280C2F /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A8628C2E271B6100280C2F /* MessagesView.swift */; };
 		53A8628F2E27220A00280C2F /* MessageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A8628E2E27220A00280C2F /* MessageRowView.swift */; };
 		53A862912E27431100280C2F /* ProfileSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A862902E27431100280C2F /* ProfileSettingView.swift */; };
+		53BC4F412E4D58A900ED7EEE /* ProfileElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC4F402E4D58A900ED7EEE /* ProfileElementView.swift */; };
+		53BC4F432E4D6F9100ED7EEE /* chatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC4F422E4D6F9100ED7EEE /* chatButton.swift */; };
+		53BC4F452E4D833100ED7EEE /* ViewModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC4F442E4D833100ED7EEE /* ViewModelManager.swift */; };
 		53BE40262E46DE7200190947 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 53BE40252E46DE7200190947 /* FirebaseMessaging */; };
 		53E249A42E26203C00068C1B /* Trees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E249A32E26203C00068C1B /* Trees.swift */; };
 		53E249A62E26262A00068C1B /* DeveloperPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E249A52E26262A00068C1B /* DeveloperPreview.swift */; };
@@ -131,6 +134,9 @@
 		53A989B12DD8001E00FADC05 /* TREE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TREE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53A989C42DD8002200FADC05 /* TREETests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TREETests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		53A989CE2DD8002200FADC05 /* TREEUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TREEUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		53BC4F402E4D58A900ED7EEE /* ProfileElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileElementView.swift; sourceTree = "<group>"; };
+		53BC4F422E4D6F9100ED7EEE /* chatButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatButton.swift; sourceTree = "<group>"; };
+		53BC4F442E4D833100ED7EEE /* ViewModelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelManager.swift; sourceTree = "<group>"; };
 		53E249A32E26203C00068C1B /* Trees.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trees.swift; sourceTree = "<group>"; };
 		53E249A52E26262A00068C1B /* DeveloperPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperPreview.swift; sourceTree = "<group>"; };
 		53E249AA2E2629AC00068C1B /* SubletsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubletsService.swift; sourceTree = "<group>"; };
@@ -198,6 +204,7 @@
 				5317BF452E25F70D00DE0BD2 /* TreeListingModifier.swift */,
 				53E249B32E26498D00068C1B /* TextFieldModifier.swift */,
 				53F2DD822E29711A003A9EE8 /* CircularProfileImageView.swift */,
+				53BC4F422E4D6F9100ED7EEE /* chatButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -347,9 +354,10 @@
 		5393036D2E23AB41000B88FB /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				53A862902E27431100280C2F /* ProfileSettingView.swift */,
-				536BA19A2E275775005B25F1 /* ProfileView.swift */,
 				53F2DD7C2E28B786003A9EE8 /* CautionView.swift */,
+				536BA19A2E275775005B25F1 /* ProfileView.swift */,
+				53BC4F402E4D58A900ED7EEE /* ProfileElementView.swift */,
+				53A862902E27431100280C2F /* ProfileSettingView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -422,6 +430,7 @@
 				53F2DDAC2E2A2CF1003A9EE8 /* ChatViewModel.swift */,
 				5353BE892E2B794600C2FEAE /* SubletsViewModel.swift */,
 				532DAEB82E39C4100074C97F /* StoresViewModel.swift */,
+				53BC4F442E4D833100ED7EEE /* ViewModelManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -531,7 +540,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1630;
-				LastUpgradeCheck = 1630;
+				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					53A989B02DD8001E00FADC05 = {
 						CreatedOnToolsVersion = 16.3;
@@ -618,7 +627,9 @@
 				53F2DDAB2E2A1CD0003A9EE8 /* ChatService.swift in Sources */,
 				532DAEBD2E39CF420074C97F /* DropDownMenuTreeView.swift in Sources */,
 				53F2DDAD2E2A2CF1003A9EE8 /* ChatViewModel.swift in Sources */,
+				53BC4F452E4D833100ED7EEE /* ViewModelManager.swift in Sources */,
 				53A8628B2E2714C700280C2F /* Users.swift in Sources */,
+				53BC4F412E4D58A900ED7EEE /* ProfileElementView.swift in Sources */,
 				53F2DDB02E2A3BE1003A9EE8 /* Constants.swift in Sources */,
 				532DAEB52E39B8D50074C97F /* StorePhotoPostView.swift in Sources */,
 				533B24972E31E65100D773CB /* SubletPhotoPostView.swift in Sources */,
@@ -629,6 +640,7 @@
 				53F2DDA92E2A1A90003A9EE8 /* Messages.swift in Sources */,
 				53F2DD9F2E29BE95003A9EE8 /* AuthService.swift in Sources */,
 				53E249A62E26262A00068C1B /* DeveloperPreview.swift in Sources */,
+				53BC4F432E4D6F9100ED7EEE /* chatButton.swift in Sources */,
 				53F2DDA72E29FF36003A9EE8 /* MessagesViewModel.swift in Sources */,
 				532DAEC12E39D2440074C97F /* PostDropDownMenuView.swift in Sources */,
 				5317BF462E25F70D00DE0BD2 /* TreeListingModifier.swift in Sources */,
@@ -725,6 +737,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6466Z7F327;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -787,6 +800,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6466Z7F327;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -815,6 +829,7 @@
 				CODE_SIGN_ENTITLEMENTS = TREE/TREE.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6466Z7F327;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -854,6 +869,7 @@
 				CODE_SIGN_ENTITLEMENTS = TREE/TREE.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6466Z7F327;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -891,6 +907,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6466Z7F327;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
@@ -914,6 +931,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6466Z7F327;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
@@ -936,6 +954,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6466Z7F327;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
@@ -958,6 +977,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6466Z7F327;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.4;

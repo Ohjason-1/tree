@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StorePostView: View {
-    @ObservedObject var viewModel = StoresViewModel()
+    @ObservedObject var viewModel: StoresViewModel
     let productType = ["Microwave", "Television", "Shoes", "Sofa", "Chair", "Desk", "Others"]
     @Binding var tabIndex: Int
     private var isFormValid: Bool {
@@ -228,5 +228,5 @@ struct StorePostView: View {
 }
 
 #Preview {
-    StorePostView(tabIndex: .constant(1), selectedType: .constant(.stores))
+    StorePostView(viewModel: StoresViewModel(), tabIndex: .constant(1), selectedType: .constant(.stores))
 }

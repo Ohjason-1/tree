@@ -10,6 +10,7 @@ protocol Tree: Identifiable, Codable, Hashable {
     var title: String { get }
     var description: String { get }
     var zipcode: String { get }
+    var timeStamp: Timestamp { get }
 }
 
 // add timestamp

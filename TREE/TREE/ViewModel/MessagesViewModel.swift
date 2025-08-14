@@ -26,6 +26,7 @@ class MessagesViewModel: ObservableObject {
     init() {
         setupMessages()
         service.observeRecentMessages()
+        updateBadgeCount()
     }
     
     func deleteRecentMessage(_ message: Messages) async {
@@ -95,15 +96,13 @@ class MessagesViewModel: ObservableObject {
     // find message inbox from the recent messages, remove it, and update it, place it at index 0
     private func updateMessagesFromExistingConversation(_ change: DocumentChange) {
         guard var message = try? change.document.data(as: Messages.self) else { return }
-        guard let index = self.recentMessages.firstIndex(where: { $0.message.user?.id == message.chatPartnerId }) else { return }
+        guard let index = self.recentMessages.firstIndex(where: { $0.message.id == message.id }) else { return }
         
         
         message.user = recentMessages[index].message.user
         let isIncoming = !message.isFromCurrentUser
-        recentMessages.remove(at: index)
+        recentMessages.removeAll { $0.message.id == message.id }
         recentMessages.insert(RecentMessage(message: message, unread: isIncoming), at: 0)
-        var seen = Set<String>()
-        recentMessages = recentMessages.filter { seen.insert($0.message.id).inserted }
         
         // Only send notification if the message was from other user
         if isIncoming { sendNewMessageNotification(message: message) }
@@ -114,7 +113,7 @@ class MessagesViewModel: ObservableObject {
     private func sendNewMessageNotification(message: Messages) {
         guard let user = UserService().currentUser else { return }
         let content = UNMutableNotificationContent()
-        content.title = user.userName
+        content.title = message.user?.userName ?? "New Message"
         content.body = message.messageText
         content.sound = .default
         content.badge = NSNumber(value: getUnreadMessageCount())

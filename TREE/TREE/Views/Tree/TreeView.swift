@@ -9,8 +9,8 @@ import SwiftUI
 
 struct TreeView: View {
     @State private var selectedType: DropDownMenuTreeView.TreeType = .sublets
-    @StateObject var storeViewModel = StoresViewModel()
-    @StateObject var subletViewModel = SubletsViewModel()
+    @EnvironmentObject var storeViewModel: StoresViewModel
+    @EnvironmentObject var subletViewModel: SubletsViewModel
     
     var body: some View {
         NavigationStack {

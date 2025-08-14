@@ -19,3 +19,7 @@ struct FirestoreConstants {
 struct UserInfo {
     static var currentUserId = ""
 }
+
+struct TreeArray {
+    static var list: [any Tree] = []
+}

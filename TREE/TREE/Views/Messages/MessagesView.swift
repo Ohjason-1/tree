@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MessagesView: View {
-    @StateObject var viewModel = MessagesViewModel()
+    @EnvironmentObject var viewModel: MessagesViewModel
     
     // list of all users; fix it
     var body: some View {
@@ -34,7 +34,7 @@ struct MessagesView: View {
                             }
                             .opacity(0.0)
                             
-                            MessageRowView(viewModel: viewModel, message: recentMessage.message)
+                            MessageRowView(message: recentMessage.message)
                                 .onTapGesture {
                                     print("tapped")
                                     viewModel.markMessageAsRead(messageId: recentMessage.message.id)

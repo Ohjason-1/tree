@@ -31,6 +31,8 @@ class SubletsViewModel: ObservableObject {
     @Published var description: String = ""
     @Published var images = [UIImage]()
     
+    private let profile = ProfileViewModel.shared
+    
     let service = SubletsService()
     
     init() {
@@ -60,24 +62,53 @@ class SubletsViewModel: ObservableObject {
         service.$subletChanges.sink { [weak self] changes in
             guard let self else { return }
             
-            // Clear existing data when new changes arrive
-            self.sublets.removeAll()
-            
-            let subletData = changes.compactMap({ try? $0.document.data(as: Sublets.self )})
-            
-            // Sort by timestamp to ensure consistent order
-            let sortedSublets = subletData.sorted { $0.timeStamp.dateValue() > $1.timeStamp.dateValue() }
-            
-            for sublet in sortedSublets {
-                self.sublets.append(sublet)
-                UserService.fetchUser(withUid: sublet.ownerUid) { [weak self] user in
-                    guard let self else { return }
-                    if let index = self.sublets.firstIndex(where: { $0.id == sublet.id }) {
-                        self.sublets[index].user = user
-                    }
+            for change in changes {
+                switch change.type {
+                case .added:
+                    self.handleAddedSublet(change)
+                case .modified:
+                    self.handleModifiedSublet(change)
+                case .removed:
+                    self.handleRemovedSublet(change)
                 }
             }
             
         }.store(in: &cancellables)
+    }
+
+    private func handleAddedSublet(_ change: DocumentChange) {
+        guard let sublet = try? change.document.data(as: Sublets.self) else { return }
+        
+        // Check if already exists to avoid duplicates
+        guard !sublets.contains(where: { $0.id == sublet.id }) else { return }
+        
+        sublets.append(sublet)
+        sublets.sort { $0.timeStamp.dateValue() > $1.timeStamp.dateValue() }
+        
+        UserService.fetchUser(withUid: sublet.ownerUid) { [weak self] user in
+            guard let self else { return }
+            if let index = self.sublets.firstIndex(where: { $0.id == sublet.id }) {
+                self.sublets[index].user = user
+            }
+            if user.id == UserInfo.currentUserId {
+                profile.addUserPost(sublet)
+            }
+        }
+    }
+
+    private func handleModifiedSublet(_ change: DocumentChange) {
+        guard let modifiedSublet = try? change.document.data(as: Sublets.self) else { return }
+        
+        if let index = sublets.firstIndex(where: { $0.id == modifiedSublet.id }) {
+            sublets[index] = modifiedSublet
+            // Update in profile as well
+        }
+    }
+
+    private func handleRemovedSublet(_ change: DocumentChange) {
+        guard let removedSublet = try? change.document.data(as: Sublets.self) else { return }
+        
+        sublets.removeAll { $0.id == removedSublet.id }
+        // Remove from profile as well
     }
 }

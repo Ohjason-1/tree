@@ -1,34 +1,40 @@
 //
-//  BoxRow.swift
+//  ProfileElementView.swift
 //  TREE
 //
-//  Created by Jaewon Oh on 7/15/25.
+//  Created by Jaewon Oh on 8/13/25.
 //
 
 import SwiftUI
+import Kingfisher
 
-struct MessageRowView: View {
-    @EnvironmentObject var viewModel: MessagesViewModel
+struct ProfileElementView: View {
+    @EnvironmentObject var viewModel: ProfileViewModel
+    let tree: any Tree
     
-    let message: Messages
     var body: some View {
-        HStack(alignment: .top, spacing: 12) {
-            CircularProfileImageView(user: message.user, size: .small)
+        HStack(alignment: .top, spacing: 16) {
+            KFImage(URL(string: tree.imageURLs[0]))
+                .resizable()
+                .scaledToFill()
+                .frame(width: 64, height: 64)
+                .clipShape(.circle)
                 
-            // username
+            
             VStack(alignment: .leading, spacing: 4) {
-                Text(message.user?.userName ?? "unknown boy")
+                Text(tree.title)
                     .font(.subheadline)
                     .fontWeight(.semibold)
                 
-                Text(message.messageText)
+                Text(tree.description)
                     .font(.subheadline)
                     .lineLimit(2)
                     .frame(maxWidth: UIScreen.main.bounds.width - 100, alignment: .leading)
             }
             
             HStack {
-                Text(message.timestampString)
+                // if tree is sublet -> subletlistingdetailview
+                Text(tree.timeStamp.dateValue().dateString())
                 
                 Image(systemName: "chevron.right")
             }
@@ -44,16 +50,15 @@ struct MessageRowView: View {
             }
             .tint(Color(.systemRed))
         }
-        
     }
 }
 
-private extension MessageRowView {
+private extension ProfileElementView {
     func onDelete() {
-        Task { await viewModel.deleteRecentMessage(message)}
+        Task { await viewModel.deleteTreeFeed(tree) }
     }
 }
 
 #Preview {
-    MessageRowView(message: DeveloperPreview.shared.message)
+    ProfileElementView(tree: DeveloperPreview.shared.sublets[0])
 }

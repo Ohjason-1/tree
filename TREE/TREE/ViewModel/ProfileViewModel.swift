@@ -14,8 +14,15 @@ import SwiftUICore
 @MainActor
 class ProfileViewModel: ObservableObject {
     @Published var currentUser: Users?
-    
+    @Published var treeFeed = [any Tree]()
     private var cancellable = Set<AnyCancellable>()
+    @Published var selectedItem: PhotosPickerItem? {
+        didSet { Task { try await loadImage() } }  // without didset, we need to manually call loadimage in UI .onChange
+    }
+    
+    @Published var profileImage: Image?
+    
+    static let shared = ProfileViewModel()
     
     init() {
         setupScribers()
@@ -27,16 +34,27 @@ class ProfileViewModel: ObservableObject {
             self?.currentUser = user
         }.store(in:&cancellable)
     }
-}
- 
-// MARK:  - profile image viewmodel
-@MainActor
-class ProfileImageViewModel: ObservableObject {
-    @Published var selectedItem: PhotosPickerItem? {
-        didSet { Task { try await loadImage() } }  // without didset, we need to manually call loadimage in UI .onChange
+    
+    func addUserPost(_ post: any Tree) {
+        print("2")
+        treeFeed.append(post)
+        sort()
+        print("\(treeFeed) 3")
     }
     
-    @Published var profileImage: Image?
+    func deleteTreeFeed(_ feed: any Tree) async {
+        do {
+            guard let index = treeFeed.firstIndex(where: { $0.id == feed.id }) else { return }
+            treeFeed.remove(at: index)
+            try await UserService.shared.deleteFeed(treeFeed: feed)
+        } catch {
+            print("DEBUG: Failed to delete message \(error.localizedDescription)")
+        }
+    }
+    
+    func sort() {
+        treeFeed.sort { $0.timeStamp.dateValue() > $1.timeStamp.dateValue() }
+    }
     
     func loadImage() async throws {
         guard let item = selectedItem else { return }
@@ -48,3 +66,4 @@ class ProfileImageViewModel: ObservableObject {
         try await UserService.shared.updateUserProfileImage(imageUrl)
     }
 }
+ 

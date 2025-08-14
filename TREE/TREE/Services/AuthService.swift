@@ -48,11 +48,13 @@ class AuthService {
     }
     
     // synchronous function - does not need @mainactor
-    func signOut() {
+    func signOut() async {
         do {
             try Auth.auth().signOut() // sign out on backend
             self.userSession = nil // sign out on frontend
             UserService.shared.currentUser = nil
+            await ViewModelManager.shared.resetAllViewModels()
+            
         } catch {
             print("DEBUG: Failed to signout with error \(error.localizedDescription)")
         }

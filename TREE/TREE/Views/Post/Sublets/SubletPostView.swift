@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SubletPostView: View {
-    @ObservedObject var viewModel = SubletsViewModel()
+    @ObservedObject var viewModel: SubletsViewModel
     let propertyTypes = ["Shared", "Not Shared"]
     var sharedBinding: Binding<String> {
             Binding(
@@ -295,5 +295,5 @@ struct SubletPostView: View {
 }
 
 #Preview {
-    SubletPostView(tabIndex: .constant(0), selectedType: .constant(.sublets))
+    SubletPostView(viewModel: SubletsViewModel(), tabIndex: .constant(0), selectedType: .constant(.sublets))
 }

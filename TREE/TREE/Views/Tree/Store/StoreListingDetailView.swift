@@ -62,18 +62,9 @@ struct StoreListingDetailView: View {
                     
                     
                     NavigationLink {
-                        ChatView(user: store.user!)
+                        if let user = store.user { ChatView(user: user) }
                     } label: {
-                        Text("Chat with Seller !")
-                            .font(.subheadline)
-                            .foregroundStyle(Color("AccentColor"))
-                            .fontWeight(.semibold)
-                            .frame(width: 360, height: 32)
-                            .foregroundStyle(Color(UIColor.label))
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 6)
-                                    .stroke(Color("AccentColor"), lineWidth: 1)
-                            }
+                        chatButton(label: "Seller")
                     }
                     .disabled(UserInfo.currentUserId == store.ownerUid)
                     
@@ -85,6 +76,8 @@ struct StoreListingDetailView: View {
         }
     }
 }
+
+
 
 #Preview {
     StoreListingDetailView(store: DeveloperPreview.shared.stores[0])

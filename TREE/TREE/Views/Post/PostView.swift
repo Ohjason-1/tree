@@ -15,9 +15,9 @@ struct PostView: View {
     var body: some View {
         NavigationStack {
             if selectedType == .sublets {
-                SubletPostView(tabIndex: $tabIndex, selectedType: $selectedType)
+                SubletPostView(viewModel: subletViewModel, tabIndex: $tabIndex, selectedType: $selectedType)
             } else {
-                StorePostView(tabIndex: $tabIndex, selectedType: $selectedType)
+                StorePostView(viewModel: storeViewModel, tabIndex: $tabIndex, selectedType: $selectedType)
             }
         }
     }
