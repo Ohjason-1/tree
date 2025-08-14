@@ -62,7 +62,12 @@ struct ProfileView: View {
             
             List {
                 ForEach(viewModel.treeFeed, id: \.id) { tree in
-                    NavigationLink(value: tree) {
+                    ZStack {
+                        NavigationLink(value: tree) {
+                            EmptyView()
+                        }
+                        .opacity(0)
+                        
                         ProfileElementView(tree: tree)
                     }
                 }

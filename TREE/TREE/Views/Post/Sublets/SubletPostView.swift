@@ -295,5 +295,8 @@ struct SubletPostView: View {
 }
 
 #Preview {
-    SubletPostView(viewModel: SubletsViewModel(), tabIndex: .constant(0), selectedType: .constant(.sublets))
+    // Preview with a minimal DI container
+    let profile = ProfileViewModel()
+    let subletsVM = SubletsViewModel(profile: profile)
+    SubletPostView(viewModel: subletsVM, tabIndex: .constant(0), selectedType: .constant(.sublets))
 }

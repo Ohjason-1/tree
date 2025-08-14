@@ -9,8 +9,8 @@ import SwiftUI
 
 struct PostView: View {
     @State private var selectedType: PostDropDownMenuView.TreeType = .sublets
-    @StateObject var storeViewModel = StoresViewModel()
-    @StateObject var subletViewModel = SubletsViewModel()
+    @EnvironmentObject var storeViewModel: StoresViewModel
+    @EnvironmentObject var subletViewModel: SubletsViewModel
     @Binding var tabIndex: Int
     var body: some View {
         NavigationStack {

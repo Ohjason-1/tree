@@ -31,14 +31,15 @@ class SubletsViewModel: ObservableObject {
     @Published var description: String = ""
     @Published var images = [UIImage]()
     
-    private let profile = ProfileViewModel.shared
+    private let profile: ProfileViewModel
     
     let service = SubletsService()
     
-    init() {
-          setupSublets()
-          service.observeSublets()
-      }
+    init(profile: ProfileViewModel) {
+        self.profile = profile
+        setupSublets()
+        service.observeSublets()
+    }
     
     @Published var selectedImage: [PhotosPickerItem] = [] {
         didSet {Task { await loadImage(fromItems: selectedImage) }  }

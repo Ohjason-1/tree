@@ -230,5 +230,7 @@ struct SubletPhotoPostView: View {
 
 
 #Preview {
-    SubletPhotoPostView(viewModel: SubletsViewModel(), tabIndex: .constant(0), shouldNavigateToPhotos: .constant(false))
+    let profile = ProfileViewModel()
+    let subletsVM = SubletsViewModel(profile: profile)
+    SubletPhotoPostView(viewModel: subletsVM, tabIndex: .constant(0), shouldNavigateToPhotos: .constant(false))
 }

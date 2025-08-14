@@ -27,11 +27,12 @@ class StoresViewModel: ObservableObject {
     @Published var description: String = ""
     @Published var images = [UIImage]()
     
-    private let profile = ProfileViewModel.shared
+    private let profile: ProfileViewModel
     
     let service = StoresService()
     
-    init() {
+    init(profile: ProfileViewModel) {
+        self.profile = profile
         setupStores()
         service.observeStores()
     }

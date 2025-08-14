@@ -228,5 +228,7 @@ struct StorePostView: View {
 }
 
 #Preview {
-    StorePostView(viewModel: StoresViewModel(), tabIndex: .constant(1), selectedType: .constant(.stores))
+    let profile = ProfileViewModel()
+    let storesVM = StoresViewModel(profile: profile)
+    StorePostView(viewModel: storesVM, tabIndex: .constant(1), selectedType: .constant(.stores))
 }

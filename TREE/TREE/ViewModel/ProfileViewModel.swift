@@ -22,7 +22,6 @@ class ProfileViewModel: ObservableObject {
     
     @Published var profileImage: Image?
     
-    static let shared = ProfileViewModel()
     
     init() {
         setupScribers()
@@ -39,7 +38,7 @@ class ProfileViewModel: ObservableObject {
         print("2")
         treeFeed.append(post)
         sort()
-        print("\(treeFeed) 3")
+        print("treefeed: \(treeFeed)")
     }
     
     func deleteTreeFeed(_ feed: any Tree) async {

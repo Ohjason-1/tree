@@ -175,5 +175,7 @@ struct StorePhotoPostView: View {
 }
 
 #Preview {
-    StorePhotoPostView(viewModel: StoresViewModel(), tabIndex: .constant(1), shouldNavigateToPhotos: .constant(false))
+    let profile = ProfileViewModel()
+    let storesVM = StoresViewModel(profile: profile)
+    StorePhotoPostView(viewModel: storesVM, tabIndex: .constant(1), shouldNavigateToPhotos: .constant(false))
 }
