@@ -24,8 +24,8 @@ class MessagesViewModel: ObservableObject {
     private let notificationManager = NotificationManager.shared
     
     init() {
-        setupMessages()
         service.observeRecentMessages()
+        setupMessages()
         updateBadgeCount()
     }
     
@@ -38,6 +38,7 @@ class MessagesViewModel: ObservableObject {
             print("DEBUG: Failed to delete message \(error.localizedDescription)")
         }
     }
+    
     
     private func setupMessages() {
         service.$documentChanges.sink { [weak self] changes in

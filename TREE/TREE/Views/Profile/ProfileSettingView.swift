@@ -85,11 +85,12 @@ struct ProfileSettingView: View {
                     
                     Section {
                         Button("Log Out") {
-                            Task { await AuthService.shared.signOut() }
+                            AuthService.shared.signOut() 
                         }
                         
                         Button("Delete Account") {
-                            
+                            Task { try await UserService.shared.deleteUser(user: user) }
+                            AuthService.shared.signOut()
                         }
                     }
                     .foregroundStyle(.red)

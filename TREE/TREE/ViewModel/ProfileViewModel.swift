@@ -27,12 +27,16 @@ class ProfileViewModel: ObservableObject {
         setupScribers()
     }
     
-    @MainActor
+    
     private func setupScribers() {
-        UserService.shared.$currentUser.sink { [weak self] user in
-            self?.currentUser = user
-        }.store(in:&cancellable)
-    }
+            UserService.shared.$currentUser
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] user in
+                    self?.currentUser = user
+                    
+                }
+                .store(in: &cancellable)
+        }
     
     func addUserPost(_ post: any Tree) {
         print("2")

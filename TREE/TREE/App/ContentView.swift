@@ -10,7 +10,6 @@ import UserNotifications
 
 struct ContentView: View {
     @State private var showingLogo = true
-    @StateObject var viewModel = ContentViewModel()
     @ObservedObject var viewModelManager = ViewModelManager.shared
     
     // hard coded to show logo screen >,<
@@ -18,7 +17,7 @@ struct ContentView: View {
         Group {
             if showingLogo {
                 LogoScreen()
-            } else if viewModel.userSession != nil {
+            } else if viewModelManager.userSession != nil {
                 MainTabView()
                     .environmentObject(viewModelManager.profileViewModel)
                     .environmentObject(viewModelManager.subletsViewModel)

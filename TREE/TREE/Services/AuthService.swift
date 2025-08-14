@@ -20,7 +20,9 @@ class AuthService {
     // only called when first auth initialization, after killing the app.
     init() {
         self.userSession = Auth.auth().currentUser
+        UserInfo.currentUserId = self.userSession?.uid ?? ""
         loadCurrentUserData()
+        print("starting authservice")
     }
     
     
@@ -29,7 +31,9 @@ class AuthService {
         do {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
             self.userSession = result.user
+            print("logging in")
             loadCurrentUserData()
+            
         } catch {
             print("DEBUG: failed to sign in user with error \(error.localizedDescription)")
         }
@@ -48,12 +52,11 @@ class AuthService {
     }
     
     // synchronous function - does not need @mainactor
-    func signOut() async {
+    @MainActor func signOut() {
         do {
             try Auth.auth().signOut() // sign out on backend
             self.userSession = nil // sign out on frontend
-            UserService.shared.currentUser = nil
-            await ViewModelManager.shared.resetAllViewModels()
+            ViewModelManager.shared.userSession = nil
             
         } catch {
             print("DEBUG: Failed to signout with error \(error.localizedDescription)")

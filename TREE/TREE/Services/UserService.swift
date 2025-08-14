@@ -22,7 +22,7 @@ class UserService {
         let userData = try await FirestoreConstants.UserCollection.document(uid).getDocument()
         let user = try userData.data(as: Users.self) //decode
         self.currentUser = user
-        UserInfo.currentUserId = uid
+        print("fetchcurrentuser")
     }
     
     static func fetchAllUsers() async throws -> [Users] {
@@ -75,5 +75,13 @@ class UserService {
                 .document(treeFeed.id)
                 .delete()
         }
+    }
+    
+    func deleteUser(user: Users) async throws {
+        
+        try await FirestoreConstants
+            .UserCollection
+            .document(user.id)
+            .delete()
     }
 }

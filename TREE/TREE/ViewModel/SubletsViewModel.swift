@@ -9,7 +9,7 @@ import Foundation
 import _PhotosUI_SwiftUI
 import SwiftUICore
 import FirebaseAuth
-import FirebaseFirestore
+import Firebase
 import Combine
 
 @MainActor
@@ -91,6 +91,7 @@ class SubletsViewModel: ObservableObject {
             if let index = self.sublets.firstIndex(where: { $0.id == sublet.id }) {
                 self.sublets[index].user = user
             }
+            print("1")
             if user.id == UserInfo.currentUserId {
                 profile.addUserPost(sublet)
             }
