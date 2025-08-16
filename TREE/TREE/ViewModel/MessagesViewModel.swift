@@ -68,6 +68,8 @@ class MessagesViewModel: ObservableObject {
                     self.recentMessages[idx].user = user
                     if !self.recentMessages[idx].isFromCurrentUser {
                         self.sendNewMessageNotification(message: message)
+                    } else {
+                        self.recentMessages[idx].badge = 0
                     }
                 }
             }

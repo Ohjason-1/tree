@@ -70,7 +70,7 @@ class AuthService {
         if let token = try? await Messaging.messaging().token() {
             do {
                 try await Firestore.firestore().collection("users").document(uid).updateData([
-                    "fcmTokens": FieldValue.arrayRemove([token])
+                    "fcmToken": FieldValue.arrayRemove([token])
                 ])
             } catch {
                 print("DEBUG: Failed to remove FCM token on signout: \(error.localizedDescription)")

@@ -69,7 +69,7 @@ class UserService {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         do {
             let token = try await Messaging.messaging().token()
-            try await FirestoreConstants.UserCollection.document(uid).setData(["fcmTokens": FieldValue.arrayUnion([token])], merge: true)
+            try await FirestoreConstants.UserCollection.document(uid).setData(["fcmToken": FieldValue.arrayUnion([token])], merge: true)
 
             // Update local user object if it exists
             if currentUser != nil {

@@ -49,6 +49,7 @@ struct ChatView: View {
                     .background(Color(.systemGroupedBackground))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .font(.subheadline)
+                    .autocorrectionDisabled(true)
                 
                 Button {
                     viewModel.sendMessage()
