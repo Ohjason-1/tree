@@ -14,7 +14,7 @@ struct Users: Identifiable, Codable, Hashable {
     let userName: String
     let phoneNumber: String
     var userImageUrl: String? = nil
-    var fcmToken: [String?] = []
+    var fcmToken: [String] = []
     
     var id: String {
         return uid ?? NSUUID().uuidString
