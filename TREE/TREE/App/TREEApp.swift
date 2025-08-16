@@ -24,18 +24,18 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
-        Messaging.messaging().delegate = self
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-            if granted {
-                print("Notification authorization granted")
-                DispatchQueue.main.async {
-                    application.registerForRemoteNotifications()
-                        UNUserNotificationCenter.current().delegate = self
+        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+                if granted {
+                    print("Notification authorization granted")
+                } else {
+                    print("Notification authorization denied")
                 }
-            } else {
-                print("Notification authorization denied")
             }
+            UNUserNotificationCenter.current().delegate = self
+            Messaging.messaging().delegate = self
         }
+        application.registerForRemoteNotifications()
         return true
     }
     
@@ -52,27 +52,24 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping(UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.banner, .sound, .badge])
+        completionHandler([[.banner, .sound, .badge]])
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
             let userInfo = response.notification.request.content.userInfo
             
-            if let userId = userInfo["userId"] as? String {
-                // Navigate to chat with this user
-                NotificationCenter.default.post(
-                    name: .openChatFromNotification,
-                    object: nil,
-                    userInfo: ["userId": userId]
-                )
-            }
+        NotificationCenter.default.post(
+            name: .openChatFromNotification,
+            object: nil,
+            userInfo: userInfo
+        )
             
             completionHandler()
         }
-}
+    }
 
 extension AppDelegate: MessagingDelegate {
-    func messaging (_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+    @objc func messaging (_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         print("DEBUG: FCM Registration token: \(fcmToken ?? "")")
         Task {
             try? await UserService.shared.updateFCMToken()
