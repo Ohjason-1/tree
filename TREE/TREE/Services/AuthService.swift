@@ -53,13 +53,28 @@ class AuthService {
     
     // synchronous function - does not need @mainactor
     @MainActor func signOut() {
-        do {
-            try Auth.auth().signOut() // sign out on backend
-            self.userSession = nil // sign out on frontend
-            ViewModelManager.shared.userSession = nil
-            
-        } catch {
-            print("DEBUG: Failed to signout with error \(error.localizedDescription)")
+        Task {
+            await removeCurrentDeviceTokenFromUser()   
+            do {
+                try Auth.auth().signOut()
+                self.userSession = nil
+                ViewModelManager.shared.userSession = nil
+            } catch {
+                print("DEBUG: Failed to signout with error \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    private func removeCurrentDeviceTokenFromUser() async {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        if let token = try? await Messaging.messaging().token() {
+            do {
+                try await Firestore.firestore().collection("users").document(uid).updateData([
+                    "fcmTokens": FieldValue.arrayRemove([token])
+                ])
+            } catch {
+                print("DEBUG: Failed to remove FCM token on signout: \(error.localizedDescription)")
+            }
         }
     }
     
@@ -71,7 +86,7 @@ class AuthService {
             email: email,
             userName: userName,
             phoneNumber: phoneNumber,
-            fcmToken: fcmToken
+            fcmToken: [fcmToken]
         )
         guard let encodedUser = try? Firestore.Encoder().encode(user) else { return }
         try await Firestore.firestore().collection("users").document(id).setData(encodedUser)

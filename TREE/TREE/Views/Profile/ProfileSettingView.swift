@@ -63,24 +63,24 @@ struct ProfileSettingView: View {
                                     .font(.subheadline)
                             }
                         }
-                        HStack {
-                            Image(systemName: "bell.circle.fill")
-                                .resizable()
-                                .frame(width: 24, height: 24)
-                                .foregroundStyle(Color(.systemPurple))
-                            Text("Notifications")
-                                .font(.subheadline)
-                        }
-                        HStack {
-                            Image(systemName: "bell.circle.fill")
-                                .resizable()
-                                .frame(width: 24, height: 24)
-                                .foregroundStyle(Color(.systemPurple))
-                            Text("Notifications")
-                                .font(.subheadline)
-                        }
+//                        HStack {
+//                            Image(systemName: "bell.circle.fill")
+//                                .resizable()
+//                                .frame(width: 24, height: 24)
+//                                .foregroundStyle(Color(.systemPurple))
+//                            Text("Notifications")
+//                                .font(.subheadline)
+//                        }
+//                        HStack {
+//                            Image(systemName: "bell.circle.fill")
+//                                .resizable()
+//                                .frame(width: 24, height: 24)
+//                                .foregroundStyle(Color(.systemPurple))
+//                            Text("Notifications")
+//                                .font(.subheadline)
+//                        }
                     }
-                    
+                    .listRowBackground(Color(.systemOrange).opacity(0.2))
                     
                     
                     Section {
@@ -89,14 +89,17 @@ struct ProfileSettingView: View {
                         }
                         
                         Button("Delete Account") {
-                            Task { try await UserService.shared.deleteUser(user: user) }
-                            AuthService.shared.signOut()
+                            Task {
+                                try await UserService.shared.deleteUser(user: user, viewModel: viewModel)
+                                AuthService.shared.signOut()
+                            }
+                            
                         }
                     }
                     .foregroundStyle(.red)
+                    .listRowBackground(Color(.systemGray6))
                     
                 }
-                .background(Color("Color"))
                 .scrollContentBackground(.hidden)
             }
             .padding(.top)

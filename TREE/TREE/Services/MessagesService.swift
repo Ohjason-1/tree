@@ -22,7 +22,7 @@ class MessagesService {
             .collection("recent-messages")
             .order(by: "timeStamp", descending: true)
         query.addSnapshotListener { snapshot, error in
-            guard let changes = snapshot?.documentChanges.filter({ $0.type == .added || $0.type == .modified }) else { return }
+            guard let changes = snapshot?.documentChanges.filter({ $0.type == .added || $0.type == .modified || $0.type == .removed }) else { return }
             guard changes.count > 0 else { return }
             self.documentChanges = changes
         }
@@ -53,5 +53,24 @@ class MessagesService {
             .collection("recent-messages")
             .document(recentMessage.id)
             .delete()
+    }
+    
+    func markMessageAsRead(message: Messages) async throws {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        do {
+            try await FirestoreConstants
+                .MessagesCollection
+                .document(uid)
+                .collection("recent-messages")
+                .document(message.chatPartnerId)
+                .updateData([
+                    "badge": 0,
+                ])
+            print("Message badge updated successfully in Firebase")
+        } catch {
+            print("Error updating message badge in Firebase: \(error)")
+            throw error
+        }
     }
 }

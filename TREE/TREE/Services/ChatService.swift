@@ -34,13 +34,23 @@ struct ChatService {
             timeStamp: Timestamp()
         )
         
+        let recentmessage = Messages(
+            messageId: messageId,
+            fromId: currentUid,
+            toId: chatPartnerId,
+            messageText: messageText,
+            timeStamp: Timestamp(),
+            badge: 1
+        )
+        
         guard let messageData = try? Firestore.Encoder().encode(message) else { return } // try? instead of throwing error, if it tries and does not succeed, it just returns nil
+        guard let recentMessageData = try? Firestore.Encoder().encode(recentmessage) else { return }
         
         currentUserRef.setData(messageData)
         chatPartnerRef.document(messageId).setData(messageData)
         
-        recentCurrentUserRef.setData(messageData) 
-        recentPartnerRef.setData(messageData)
+        recentCurrentUserRef.setData(recentMessageData)
+        recentPartnerRef.setData(recentMessageData)
     }
     
     func observeMessages(completion: @escaping([Messages]) -> Void) {
@@ -59,14 +69,24 @@ struct ChatService {
          // - .removed  (document was deleted)
          */
         
-        query.addSnapshotListener { snapshot, _ in
-            guard let changes = snapshot?.documentChanges.filter({ $0.type == .added }) else { return }
-            var messages = changes.compactMap({ try? $0.document.data(as: Messages.self)})
-            for (index, message) in messages.enumerated() where message.fromId != currentUid {
-                messages[index].user = chatPartner
-                
+        query.addSnapshotListener { snapshot, error in
+            if let error = error {
+                print("DEBUG: Error observing messages: \(error.localizedDescription)")
+                return
             }
-            completion(messages)
+            
+            guard let changes = snapshot?.documentChanges.filter({ $0.type == .added }) else { return }
+            
+            DispatchQueue.global(qos: .userInitiated).async {
+                var messages = changes.compactMap({ try? $0.document.data(as: Messages.self)})
+                for (index, message) in messages.enumerated() where message.fromId != currentUid {
+                    messages[index].user = chatPartner
+                }
+                
+                DispatchQueue.main.async {
+                    completion(messages)
+                }
+            }
         }
     }
 }

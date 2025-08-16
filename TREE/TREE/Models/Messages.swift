@@ -17,6 +17,8 @@ struct Messages: Identifiable, Codable, Hashable {
     let timeStamp: Timestamp
     var user: Users?
     
+    var badge: Int = 0
+    
     var id: String {
         return messageId ?? NSUUID().uuidString
     }

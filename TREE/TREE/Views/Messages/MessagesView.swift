@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MessagesView: View {
     @EnvironmentObject var viewModel: MessagesViewModel
+    @State var selectedUser: Users?
     
     // list of all users; fix it
     var body: some View {
@@ -24,24 +25,26 @@ struct MessagesView: View {
                 .listRowSeparator(.hidden)
                 .padding(.vertical, 12)
                 
-                ForEach(viewModel.recentMessages, id: \.message.id) { recentMessage in
-                    if let user = recentMessage.message.user {
-                        ZStack {
-                            NavigationLink {
-                                ChatView(user: user)
-                            } label: {
-                                EmptyView()
+                ForEach(viewModel.recentMessages) { recentMessage in
+                    Button(action: {
+                        selectedUser = recentMessage.user
+                        if recentMessage.badge > 0 {
+                            if let index = viewModel.recentMessages.firstIndex(where: { $0.id == recentMessage.id } ) {
+                                viewModel.recentMessages[index].badge = 0
+                                viewModel.updateBadgeCount()
                             }
-                            .opacity(0.0)
-                            
-                            MessageRowView(message: recentMessage.message)
-                                .onTapGesture {
-                                    print("tapped")
-                                    viewModel.markMessageAsRead(messageId: recentMessage.message.id)
-                                }
+                            Task {
+                                await viewModel.markMessageAsRead(messageId: recentMessage.id)
+                            }
                         }
+                    }) {
+                        MessageRowView(message: recentMessage)
                     }
                 }
+            }
+            .navigationDestination(item: $selectedUser) { user in
+                ChatView(user: user)
+                    .toolbar(.hidden, for: .tabBar)
             }
             .listStyle(PlainListStyle())
         }

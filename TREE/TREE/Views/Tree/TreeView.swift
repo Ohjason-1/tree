@@ -39,9 +39,11 @@ struct TreeView: View {
             }
             .navigationDestination(for: Sublets.self) { sublet in
                 SubletListingDetailView(sublet: sublet)
+                    .toolbar(.hidden, for: .tabBar)
             }
             .navigationDestination(for: Stores.self) { store in
                 StoreListingDetailView(store: store)
+                    .toolbar(.hidden, for: .tabBar)
             }
         }
         .foregroundStyle(.primary)

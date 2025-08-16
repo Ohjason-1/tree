@@ -9,38 +9,30 @@ import SwiftUI
 
 struct MainTabView: View {
     @State private var selectedTab = 0
-    
+    @EnvironmentObject var messageViewModel: MessagesViewModel
     var body: some View {
         TabView(selection: $selectedTab) {
             TreeView()
                 .tabItem {
-                    VStack {
-                        Image(systemName: selectedTab == 0 ? "tree.fill" : "tree")
-                            .environment(\.symbolVariants, selectedTab == 0 ? .fill : .none)
-                        Text("Tree")
-                    }
+                    Label("Tree", systemImage: selectedTab == 0 ? "tree.fill" : "tree")
+                        .environment(\.symbolVariants, selectedTab == 0 ? .fill : .none)
                 }
                 .onAppear { selectedTab = 0 }
                 .tag(0)
             
             MessagesView()
                 .tabItem {
-                    VStack {
-                        Image(systemName: selectedTab == 1 ? "message.fill" : "message")
-                            .environment(\.symbolVariants, selectedTab == 1 ? .fill : .none)
-                        Text("Messages")
-                    }
+                    Label("Messages", systemImage: selectedTab == 1 ? "message.fill" : "message")
+                        .environment(\.symbolVariants, selectedTab == 1 ? .fill : .none)
                 }
+                .badge(messageViewModel.badgeCount)
                 .onAppear { selectedTab = 1 }
                 .tag(1)
             
             PostView(tabIndex: $selectedTab)
                 .tabItem {
-                    VStack {
-                        Image(systemName: selectedTab == 1 ? "plus.square" : "plus.square.fill")
-                            .environment(\.symbolVariants, selectedTab == 1 ? .fill : .none)
-                        Text("Post")
-                    }
+                    Label("Post", systemImage: selectedTab == 2 ? "plus.square.fill" : "plus.square")
+                        .environment(\.symbolVariants, selectedTab == 2 ? .fill : .none)
                 }
                 .onAppear { selectedTab = 2 }
                 .tag(2)
@@ -48,11 +40,8 @@ struct MainTabView: View {
             
             ProfileView()
                 .tabItem {
-                    VStack {
-                        Image(systemName: selectedTab == 3 ? "person.fill" : "person")
-                            .environment(\.symbolVariants, selectedTab == 3 ? .fill : .none)
-                        Text("Profile")
-                    }
+                    Label("Profile", systemImage: selectedTab == 3 ? "person.fill" : "person")
+                        .environment(\.symbolVariants, selectedTab == 3 ? .fill : .none)
                 }
                 .onAppear { selectedTab = 3 }
                 .tag(3)

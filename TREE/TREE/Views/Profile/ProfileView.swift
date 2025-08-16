@@ -10,6 +10,8 @@ import SwiftUI
 struct ProfileView: View {
     @EnvironmentObject var viewModel: ProfileViewModel
     var user: Users? { return viewModel.currentUser }
+    @State private var selectedSublet: Sublets?
+    @State private var selectedStore: Stores?
     
     var body: some View {
         NavigationStack {
@@ -35,6 +37,7 @@ struct ProfileView: View {
                 if let user = user {
                     NavigationLink {
                         ProfileSettingView(user: user)
+                            .toolbar(.hidden, for: .tabBar)
                     } label: {
                         Text("Edit Profile")
                             .font(.subheadline)
@@ -62,20 +65,23 @@ struct ProfileView: View {
             
             List {
                 ForEach(viewModel.treeFeed, id: \.id) { tree in
-                    ZStack {
-                        NavigationLink(value: tree) {
-                            EmptyView()
+                    Button(action: {
+                        // Handle navigation manually
+                        if let sublet = tree as? Sublets {
+                            selectedSublet = sublet
+                        } else if let store = tree as? Stores {
+                            selectedStore = store
                         }
-                        .opacity(0)
-                        
+                    }) {
                         ProfileElementView(tree: tree)
                     }
+                    .buttonStyle(PlainButtonStyle())
                 }
             }
-            .navigationDestination(for: Sublets.self) { sublet in
+            .navigationDestination(item: $selectedSublet) { sublet in
                 SubletListingDetailView(sublet: sublet)
             }
-            .navigationDestination(for: Stores.self) { store in
+            .navigationDestination(item: $selectedStore) { store in
                 StoreListingDetailView(store: store)
             }
         }

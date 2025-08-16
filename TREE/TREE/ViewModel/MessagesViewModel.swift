@@ -9,29 +9,27 @@ import Foundation
 import FirebaseFirestore
 import Combine
 import UserNotifications
+import FirebaseAuth
 
-struct RecentMessage {
-    var message: Messages
-    var unread: Bool
-}
 
+
+@MainActor
 class MessagesViewModel: ObservableObject {
-    @Published var recentMessages = [RecentMessage]() // (recent message, unread)
-    
+    @Published var recentMessages = [Messages]() { didSet { updateBadgeCount() } }
+    @Published var badgeCount = 0
+    @Published var read: Bool = false
     private var cancellables = Set<AnyCancellable>()
     private let service = MessagesService()
-    private var didCompleteInitialLoad = false
     private let notificationManager = NotificationManager.shared
     
     init() {
         service.observeRecentMessages()
         setupMessages()
-        updateBadgeCount()
     }
     
     func deleteRecentMessage(_ message: Messages) async {
         do {
-            guard let index = self.recentMessages.firstIndex(where: { $0.message.id == message.id }) else { return }
+            guard let index = self.recentMessages.firstIndex(where: { $0.id == message.id }) else { return }
             recentMessages.remove(at: index)
             try await service.deleteConversation(recentMessage: message)
         } catch {
@@ -43,32 +41,8 @@ class MessagesViewModel: ObservableObject {
     private func setupMessages() {
         service.$documentChanges.sink { [weak self] changes in
             guard let self else { return }
-            if didCompleteInitialLoad {
-                updateMessages(changes)
-            } else {
-                loadInitialMessages(fromChanges: changes)
-            }
+            updateMessages(changes)
         }.store(in: &cancellables)
-    }
-    
-    private func loadInitialMessages(fromChanges changes: [DocumentChange]) {
-        let messages = changes.compactMap({ try? $0.document.data(as: Messages.self )})
-        var loadedCount = 0
-        let totalCount = messages.count
-        for message in messages {
-            self.recentMessages.append(RecentMessage(message: message, unread: true))
-            UserService.fetchUser(withUid: message.chatPartnerId) { [weak self] user in
-                guard let self else { return }
-                if let index = self.recentMessages.firstIndex(where: { $0.message.id == message.id }) {
-                    self.recentMessages[index].message.user = user
-                }
-                loadedCount += 1
-                if loadedCount == totalCount {
-                    self.didCompleteInitialLoad = true
-                    
-                }
-            }
-        }
     }
     
     private func updateMessages(_ changes: [DocumentChange]) {
@@ -83,30 +57,46 @@ class MessagesViewModel: ObservableObject {
     
     // add new message inbox at index 0
     private func createNewConversation(_ change: DocumentChange) {
-        guard var message = try? change.document.data(as: Messages.self) else { return }
-        guard !recentMessages.contains(where: { $0.message.id == message.id }) else { return }
-        
+        guard let message = try? change.document.data(as: Messages.self) else { return }
+        guard !recentMessages.contains(where: { $0.id == message.id }) else { return }
+        self.recentMessages.append(message)
+        print(self.recentMessages)
         UserService.fetchUser(withUid: message.chatPartnerId) { [weak self] user in
-            message.user = user
-            let isIncoming = !message.isFromCurrentUser
-            self?.recentMessages.insert(RecentMessage(message: message, unread: isIncoming), at: 0)
-            if isIncoming { self?.sendNewMessageNotification(message: message) }
+            guard let self else { return }
+            DispatchQueue.main.async {
+                if let idx = self.recentMessages.firstIndex(where: { $0.id == message.id }) {
+                    self.recentMessages[idx].user = user
+                    if !self.recentMessages[idx].isFromCurrentUser {
+                        self.sendNewMessageNotification(message: message)
+                    }
+                }
+            }
         }
+        
     }
     
     // find message inbox from the recent messages, remove it, and update it, place it at index 0
     private func updateMessagesFromExistingConversation(_ change: DocumentChange) {
         guard var message = try? change.document.data(as: Messages.self) else { return }
-        guard let index = self.recentMessages.firstIndex(where: { $0.message.id == message.id }) else { return }
-        
-        
-        message.user = recentMessages[index].message.user
-        let isIncoming = !message.isFromCurrentUser
-        recentMessages.removeAll { $0.message.id == message.id }
-        recentMessages.insert(RecentMessage(message: message, unread: isIncoming), at: 0)
-        
-        // Only send notification if the message was from other user
-        if isIncoming { sendNewMessageNotification(message: message) }
+        guard let index = self.recentMessages.firstIndex(where: { $0.id == message.id }) else { return }
+        if read {
+            read = false
+            return
+        }
+        DispatchQueue.main.async {
+            let isIncoming = !message.isFromCurrentUser
+            message.user = self.recentMessages[index].user
+            // Only send notification if the message was from other user
+            print("isIncoming: \(isIncoming)")
+            if isIncoming {
+                message.badge = self.recentMessages[index].badge + 1
+                self.sendNewMessageNotification(message: message)
+            } else {
+                message.badge = 0
+            }
+            self.recentMessages.removeAll { $0.id == message.id }
+            self.recentMessages.insert(message, at: 0)
+        }
     }
     
     // MARK: - Notification Methods
@@ -117,7 +107,7 @@ class MessagesViewModel: ObservableObject {
         content.title = message.user?.userName ?? "New Message"
         content.body = message.messageText
         content.sound = .default
-        content.badge = NSNumber(value: getUnreadMessageCount())
+        content.badge = NSNumber(value: 1)
         content.userInfo = [
             "userId": user.id,
             "messageId": message.id
@@ -137,24 +127,28 @@ class MessagesViewModel: ObservableObject {
         }
     }
     
-    private func getUnreadMessageCount() -> Int {
-        let count = recentMessages.filter { $0.unread }.count
-        print("count of unread \(count)")
-        return count
+    private func getUnreadMessageCount() {
+        badgeCount = recentMessages.reduce(0) { $0 + $1.badge }
+        //print("count of unread \(badgeCount)")
     }
-    
-    func markMessageAsRead(messageId: String) {
-        if let index = recentMessages.firstIndex(where: { $0.message.id == messageId }) {
-            recentMessages[index].unread = false
-            print("it worked \(recentMessages)")
-            updateBadgeCount() // Update badge after marking as read
+    @MainActor
+    func markMessageAsRead(messageId: String) async {
+        if let index = recentMessages.firstIndex(where: { $0.id == messageId }) {
+            do {
+                read = true
+                try await service.markMessageAsRead(message: recentMessages[index])
+            } catch {
+                // If Firebase update fails, revert the local changes
+                print("Failed to update message in Firebase: \(error)")
+            }
+             // Update badge after marking as read
         }
     }
     
-    private func updateBadgeCount() {
-        let unreadCount = getUnreadMessageCount()
+    func updateBadgeCount() {
+        getUnreadMessageCount()
         DispatchQueue.main.async {
-            UNUserNotificationCenter.current().setBadgeCount(unreadCount) { error in
+            UNUserNotificationCenter.current().setBadgeCount(self.badgeCount) { error in
                 if let error = error {
                     print("DEBUG: Error updating badge count: \(error.localizedDescription)")
                 }
