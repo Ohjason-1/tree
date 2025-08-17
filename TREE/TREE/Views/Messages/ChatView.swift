@@ -10,36 +10,81 @@ import SwiftUI
 struct ChatView: View {
     @StateObject var viewModel: ChatViewModel
     let user: Users
+    let messageViewModel = ViewModelManager.shared.messagesViewModel
+    @Environment(\.dismiss) var dismiss
+    @Binding var shouldNavigateToChat: Bool
     
-    init(user: Users) {
+    init(user: Users, shouldNavigateToChat: Binding<Bool> = .constant(false)) {
         self.user = user
         self._viewModel = StateObject(wrappedValue: ChatViewModel(user: user))
+        self._shouldNavigateToChat = shouldNavigateToChat
     }
     
     var body: some View {
-        
         VStack {
-            ScrollView {
-                VStack {
-                    CircularProfileImageView(user: user, size: .medium)
-                    
-                    VStack(spacing: 4) {
-                        Text(user.userName)
-                            .font(.title3)
-                            .fontWeight(.semibold)
+            Button {
+                back()
+            } label: {
+                HStack() {
+                    Image(systemName: "chevron.left")
+                    Text("Back")
+                    Spacer()
+                }
+                .padding(.horizontal)
+            }
+
+            
+            ScrollViewReader { proxy in
+                ScrollView {
+                    VStack {
+                        CircularProfileImageView(user: user, size: .medium)
                         
-                        Text("TREE")
-                            .font(.footnote)
-                            .fontWeight(.semibold)
-                            .foregroundStyle(.secondary)
+                        VStack(spacing: 4) {
+                            Text(user.userName)
+                                .font(.title3)
+                                .fontWeight(.semibold)
+                            
+                            Text("TREE")
+                                .font(.footnote)
+                                .fontWeight(.semibold)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                    .padding(.bottom)
+                    .id("top")
+                    
+                    ForEach(viewModel.messages) { message in
+                        ChatCellView(message: message, user: user)
+                            .id(message.id)
+                    }
+                    
+                    // Invisible anchor at the bottom
+                    Color.clear
+                        .frame(height: 1)
+                        .id("bottom")
+                }
+                .defaultScrollAnchor(.bottom)
+                .onAppear {
+                    
+                    // Mark message as read
+                    Task {
+                        if let index = messageViewModel.recentMessages.firstIndex(where: { $0.user?.id == user.id }) {
+                            messageViewModel.recentMessages[index].badge = 0
+                            messageViewModel.updateBadgeCount()
+                            await messageViewModel.markMessageAsRead(messageId: messageViewModel.recentMessages[index].id)
+                        }
                     }
                 }
-                .padding(.bottom)
-                
-                ForEach(viewModel.messages) { message in
-                    ChatCellView(message: message, user: user)
+                .onChange(of: viewModel.messages.count) {
+                    // Scroll to bottom when new messages are added
+                    DispatchQueue.main.async {
+                        withAnimation(.easeOut(duration: 0.3)) {
+                            proxy.scrollTo("bottom", anchor: .bottom)
+                        }
+                    }
                 }
             }
+            
             Spacer()
             
             ZStack(alignment: .trailing) {
@@ -61,6 +106,21 @@ struct ChatView: View {
                 .padding(.horizontal)
             }
             .padding()
+        }
+        .gesture(
+            DragGesture()
+                .onEnded { value in
+                    if value.translation.width > 100 {
+                        back()
+                    }
+                }
+        )
+    }
+    private func back() {
+        if shouldNavigateToChat {
+            shouldNavigateToChat = false
+        } else {
+            dismiss()
         }
     }
 }

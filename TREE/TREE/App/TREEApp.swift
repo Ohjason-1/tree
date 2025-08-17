@@ -52,7 +52,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping(UNNotificationPresentationOptions) -> Void) {
-        completionHandler([[.banner, .sound, .badge]])
+        completionHandler([.banner, .sound, .badge])
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
@@ -70,7 +70,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
 extension AppDelegate: MessagingDelegate {
     @objc func messaging (_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        print("DEBUG: FCM Registration token: \(fcmToken ?? "")")
+        print("DEBUG: FCM Registration token: \(String(describing: fcmToken))")
         Task {
             try? await UserService.shared.updateFCMToken()
         }

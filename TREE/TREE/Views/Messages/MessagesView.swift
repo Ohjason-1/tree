@@ -28,15 +28,6 @@ struct MessagesView: View {
                 ForEach(viewModel.recentMessages) { recentMessage in
                     Button(action: {
                         selectedUser = recentMessage.user
-                        if recentMessage.badge > 0 {
-                            if let index = viewModel.recentMessages.firstIndex(where: { $0.id == recentMessage.id } ) {
-                                viewModel.recentMessages[index].badge = 0
-                                viewModel.updateBadgeCount()
-                            }
-                            Task {
-                                await viewModel.markMessageAsRead(messageId: recentMessage.id)
-                            }
-                        }
                     }) {
                         MessageRowView(message: recentMessage)
                     }
@@ -45,6 +36,7 @@ struct MessagesView: View {
             .navigationDestination(item: $selectedUser) { user in
                 ChatView(user: user)
                     .toolbar(.hidden, for: .tabBar)
+                    .navigationBarBackButtonHidden()
             }
             .listStyle(PlainListStyle())
         }
