@@ -11,7 +11,6 @@ struct ChatView: View {
     @StateObject var viewModel: ChatViewModel
     let user: Users
     let messageViewModel = ViewModelManager.shared.messagesViewModel
-    @Environment(\.dismiss) var dismiss
     @Binding var shouldNavigateToChat: Bool
     
     init(user: Users, shouldNavigateToChat: Binding<Bool> = .constant(false)) {
@@ -22,17 +21,18 @@ struct ChatView: View {
     
     var body: some View {
         VStack {
-            Button {
-                back()
-            } label: {
-                HStack() {
-                    Image(systemName: "chevron.left")
-                    Text("Back")
-                    Spacer()
+            if shouldNavigateToChat {
+                Button {
+                    shouldNavigateToChat = false
+                } label: {
+                    HStack() {
+                        Image(systemName: "chevron.left")
+                        Text("Back")
+                        Spacer()
+                    }
+                    .padding(.horizontal)
                 }
-                .padding(.horizontal)
             }
-
             
             ScrollViewReader { proxy in
                 ScrollView {
@@ -106,21 +106,6 @@ struct ChatView: View {
                 .padding(.horizontal)
             }
             .padding()
-        }
-        .gesture(
-            DragGesture()
-                .onEnded { value in
-                    if value.translation.width > 100 {
-                        back()
-                    }
-                }
-        )
-    }
-    private func back() {
-        if shouldNavigateToChat {
-            shouldNavigateToChat = false
-        } else {
-            dismiss()
         }
     }
 }

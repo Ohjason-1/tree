@@ -36,7 +36,6 @@ struct MessagesView: View {
             .navigationDestination(item: $selectedUser) { user in
                 ChatView(user: user)
                     .toolbar(.hidden, for: .tabBar)
-                    .navigationBarBackButtonHidden()
             }
             .listStyle(PlainListStyle())
         }
