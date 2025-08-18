@@ -10,6 +10,9 @@ import SwiftUI
 struct RegistrationView: View {
     @StateObject var viewModel = RegistrationViewModel()
     @Environment(\.dismiss) var dismiss
+    private var isFormValid: Bool {
+        return viewModel.email.contains("@") && viewModel.password.count > 5 && viewModel.phoneNumber.count == 10 && viewModel.userName.count > 0
+    }
     var body: some View {
         NavigationStack {
             VStack {
@@ -34,7 +37,7 @@ struct RegistrationView: View {
                     SecureField("Enter your password", text: $viewModel.password)
                         .modifier(TextFieldModifier())
                     
-                    Text("Your password must be at least 7 characters in length")
+                    Text("Your password must be at least 6 characters in length")
                         .font(.caption)
                         .foregroundStyle(Color(.systemGray))
                 }
@@ -51,6 +54,8 @@ struct RegistrationView: View {
                         .cornerRadius(10)
                 }
                 .padding(.vertical)
+                .opacity(!isFormValid ? 0.5: 1)
+                .disabled(!isFormValid)
                 
                 Spacer()
                 

@@ -15,8 +15,6 @@ import Combine
 @MainActor
 class StoresViewModel: ObservableObject {
     @Published var stores = [Stores]()
-    private var cancellables = Set<AnyCancellable>()
-    
     @Published var zipcode: String = ""
     @Published var address: String = ""
     @Published var city: String = ""
@@ -26,6 +24,9 @@ class StoresViewModel: ObservableObject {
     @Published var title: String = ""
     @Published var description: String = ""
     @Published var images = [UIImage]()
+    @Published var errorMessage = ""
+    @Published var showingAlert = false
+    private var cancellables = Set<AnyCancellable>()
     
     private let profile: ProfileViewModel
     
@@ -52,8 +53,16 @@ class StoresViewModel: ObservableObject {
     
     
     func uploadStore() async throws {
-        guard let imageURLs = try await ImageUploader().uploadPostImage(images, false) else { return }
-        try await service.createSubletsPost(zipcode: zipcode, imageURLs: imageURLs, address: address, city: city, state: state, price: price, productName: productName, title: title, description: description)
+        do {
+            guard let imageURLs = try await ImageUploader().uploadPostImage(images, false) else { return }
+            try await service.createSubletsPost(zipcode: zipcode, imageURLs: imageURLs, address: address, city: city, state: state, price: price, productName: productName, title: title, description: description)
+        } catch {
+            await MainActor.run {
+                errorMessage = service.errorMessage
+                showingAlert = true
+            }
+            throw error
+        }
     }
     
     private func setupStores() {

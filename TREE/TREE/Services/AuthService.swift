@@ -12,10 +12,9 @@ import FirebaseFirestore
 import FirebaseMessaging
 
 class AuthService {
-    
     @Published var userSession: FirebaseAuth.User?
-    
     static let shared = AuthService() // without this, we have multiple of usersession.
+    @Published var errorMessage: String = ""
     
     // only called when first auth initialization, after killing the app.
     init() {
@@ -33,9 +32,9 @@ class AuthService {
             self.userSession = result.user
             print("logging in")
             loadCurrentUserData()
-            
         } catch {
-            print("DEBUG: failed to sign in user with error \(error.localizedDescription)")
+            errorMessage = "Failed to login. Please check your email and password."
+            throw error
         }
     }
     

@@ -9,7 +9,9 @@ import SwiftUI
 
 struct LoginView: View {
     @StateObject var viewModel = LoginViewModel()
-    
+    private var isFormValid: Bool {
+        return viewModel.email.contains("@") && viewModel.password.count > 5
+    }
     var body: some View {
         NavigationStack {
             VStack {
@@ -24,7 +26,7 @@ struct LoginView: View {
                 VStack {
                     TextField("Enter your email", text: $viewModel.email)
                         .modifier(TextFieldModifier())
-                    
+                        
                     SecureField("Enter your password", text: $viewModel.password)
                         .modifier(TextFieldModifier())
                 }
@@ -45,7 +47,12 @@ struct LoginView: View {
 
                 // check whether the email and pw exist
                 Button {
-                    Task { try await viewModel.login() }
+                    Task {
+                        do {
+                            try await viewModel.login()
+                        } catch {
+                        }
+                    }
                 } label: {
                     Text("Login")
                         .font(.subheadline)
@@ -56,6 +63,11 @@ struct LoginView: View {
                         .cornerRadius(10)
                 }
                 .padding(.vertical)
+                .opacity(!isFormValid ? 0.5: 1)
+                .disabled(!isFormValid)
+                .alert(isPresented: $viewModel.showingAlert) {
+                    Alert(title: Text("Login Error"), message: Text(viewModel.errorMessage), dismissButton: .default(Text("OK")))
+                }
                 
                 Spacer()
                 

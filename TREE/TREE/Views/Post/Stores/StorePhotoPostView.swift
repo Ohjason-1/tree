@@ -15,6 +15,10 @@ struct StorePhotoPostView: View {
     // After upload, navigate to home view w/ errors
     @Binding var tabIndex: Int
     @Binding var shouldNavigateToPhotos: Bool
+    
+    // error
+    @State private var isUploading = false
+    
     var body: some View {
         ScrollView {
             HStack {
@@ -33,14 +37,25 @@ struct StorePhotoPostView: View {
                 
                 Button {
                     Task {
-                        
-                        try await viewModel.uploadStore()
-                        
-                        clearStorePostDataAndReturnToFeed() // inside task, make sure it runs after uploadsulet()
+                        isUploading = true
+                        do {
+                            try await viewModel.uploadStore()
+                            clearStorePostDataAndReturnToFeed()
+                        } catch {
+                        }
+                        isUploading = false
                     }
                 } label: {
-                    Text("Upload")
-                        .fontWeight(.semibold)
+                    if isUploading {
+                            isUploadingView()
+                        } else {
+                            Text("Upload")
+                                .fontWeight(.semibold)
+                        }
+                }
+                .disabled(viewModel.images.isEmpty || isUploading)
+                .alert(isPresented: $viewModel.showingAlert) {
+                    Alert(title: Text("Upload Error"), message: Text(viewModel.errorMessage), dismissButton: .default(Text("OK")))
                 }
 
             }

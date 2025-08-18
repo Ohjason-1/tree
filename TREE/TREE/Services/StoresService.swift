@@ -11,7 +11,7 @@ import FirebaseFirestore
 
 class StoresService {
     @Published var storeChanges = [DocumentChange]()
-    
+    @Published var errorMessage = ""
     func observeStores() {
         let query = FirestoreConstants
             .StoresCollection
@@ -24,13 +24,18 @@ class StoresService {
     }
     
     func createSubletsPost(zipcode: String, imageURLs: [String], address: String, city: String, state: String, price: Int, productName: String, title: String, description: String) async throws {
-        guard let currentUid = Auth.auth().currentUser?.uid else { return }
-        let ref = FirestoreConstants.StoresCollection.document()
-        let id = ref.documentID
-        let store = Stores(id: id, ownerUid: currentUid, zipcode: zipcode, imageURLs: imageURLs, address: address, city: city, state: state, price: price, productName: productName, title: title, description: description, timeStamp: Timestamp())
-        
-        guard let encodedSublet = try? Firestore.Encoder().encode(store) else { return }
-        
-        try await ref.setData(encodedSublet)
+        do {
+            guard let currentUid = Auth.auth().currentUser?.uid else { return }
+            let ref = FirestoreConstants.StoresCollection.document()
+            let id = ref.documentID
+            let store = Stores(id: id, ownerUid: currentUid, zipcode: zipcode, imageURLs: imageURLs, address: address, city: city, state: state, price: price, productName: productName, title: title, description: description, timeStamp: Timestamp())
+            
+            guard let encodedSublet = try? Firestore.Encoder().encode(store) else { return }
+            
+            try await ref.setData(encodedSublet)
+        } catch {
+            errorMessage = "Failed to create a store post"
+            throw error
+        }
     }
 }

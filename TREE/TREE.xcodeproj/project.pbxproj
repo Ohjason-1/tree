@@ -13,12 +13,12 @@
 		5317BF422E25D93300DE0BD2 /* SearchAndFilterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5317BF412E25D93300DE0BD2 /* SearchAndFilterBar.swift */; };
 		5317BF442E25F4A500DE0BD2 /* SubletListingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5317BF432E25F4A500DE0BD2 /* SubletListingDetailView.swift */; };
 		5317BF462E25F70D00DE0BD2 /* TreeListingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5317BF452E25F70D00DE0BD2 /* TreeListingModifier.swift */; };
+		531FF4592E52DAB700E777ED /* isUploadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531FF4582E52DAB700E777ED /* isUploadingView.swift */; };
 		532DAEB12E39A94C0074C97F /* StorePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532DAEB02E39A94C0074C97F /* StorePostView.swift */; };
 		532DAEB32E39B0950074C97F /* DropDownPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532DAEB22E39B0950074C97F /* DropDownPost.swift */; };
 		532DAEB52E39B8D50074C97F /* StorePhotoPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532DAEB42E39B8D50074C97F /* StorePhotoPostView.swift */; };
 		532DAEB72E39C4020074C97F /* StoresService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532DAEB62E39C4020074C97F /* StoresService.swift */; };
 		532DAEB92E39C4100074C97F /* StoresViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532DAEB82E39C4100074C97F /* StoresViewModel.swift */; };
-		532DAEBB2E39CB8B0074C97F /* ClearData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532DAEBA2E39CB8B0074C97F /* ClearData.swift */; };
 		532DAEBD2E39CF420074C97F /* DropDownMenuTreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532DAEBC2E39CF420074C97F /* DropDownMenuTreeView.swift */; };
 		532DAEBF2E39D08E0074C97F /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532DAEBE2E39D08E0074C97F /* PostView.swift */; };
 		532DAEC12E39D2440074C97F /* PostDropDownMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532DAEC02E39D2440074C97F /* PostDropDownMenuView.swift */; };
@@ -104,12 +104,12 @@
 		5317BF432E25F4A500DE0BD2 /* SubletListingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubletListingDetailView.swift; sourceTree = "<group>"; };
 		5317BF452E25F70D00DE0BD2 /* TreeListingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeListingModifier.swift; sourceTree = "<group>"; };
 		531FF4572E50486300E777ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		531FF4582E52DAB700E777ED /* isUploadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = isUploadingView.swift; sourceTree = "<group>"; };
 		532DAEB02E39A94C0074C97F /* StorePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorePostView.swift; sourceTree = "<group>"; };
 		532DAEB22E39B0950074C97F /* DropDownPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownPost.swift; sourceTree = "<group>"; };
 		532DAEB42E39B8D50074C97F /* StorePhotoPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorePhotoPostView.swift; sourceTree = "<group>"; };
 		532DAEB62E39C4020074C97F /* StoresService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresService.swift; sourceTree = "<group>"; };
 		532DAEB82E39C4100074C97F /* StoresViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresViewModel.swift; sourceTree = "<group>"; };
-		532DAEBA2E39CB8B0074C97F /* ClearData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearData.swift; sourceTree = "<group>"; };
 		532DAEBC2E39CF420074C97F /* DropDownMenuTreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownMenuTreeView.swift; sourceTree = "<group>"; };
 		532DAEBE2E39D08E0074C97F /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		532DAEC02E39D2440074C97F /* PostDropDownMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDropDownMenuView.swift; sourceTree = "<group>"; };
@@ -242,6 +242,7 @@
 				532DAEC02E39D2440074C97F /* PostDropDownMenuView.swift */,
 				533B24992E31EB6300D773CB /* Stores */,
 				533B24982E31EB5300D773CB /* Sublets */,
+				531FF4582E52DAB700E777ED /* isUploadingView.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -260,7 +261,6 @@
 			children = (
 				532DAEB02E39A94C0074C97F /* StorePostView.swift */,
 				532DAEB42E39B8D50074C97F /* StorePhotoPostView.swift */,
-				532DAEBA2E39CB8B0074C97F /* ClearData.swift */,
 			);
 			path = Stores;
 			sourceTree = "<group>";
@@ -631,6 +631,7 @@
 				53F2DDAD2E2A2CF1003A9EE8 /* ChatViewModel.swift in Sources */,
 				53BC4F452E4D833100ED7EEE /* ViewModelManager.swift in Sources */,
 				53A8628B2E2714C700280C2F /* Users.swift in Sources */,
+				531FF4592E52DAB700E777ED /* isUploadingView.swift in Sources */,
 				53BC4F412E4D58A900ED7EEE /* ProfileElementView.swift in Sources */,
 				53F2DDB02E2A3BE1003A9EE8 /* Constants.swift in Sources */,
 				532DAEB52E39B8D50074C97F /* StorePhotoPostView.swift in Sources */,
@@ -647,7 +648,6 @@
 				532DAEC12E39D2440074C97F /* PostDropDownMenuView.swift in Sources */,
 				5317BF462E25F70D00DE0BD2 /* TreeListingModifier.swift in Sources */,
 				53F2DD7B2E287A3E003A9EE8 /* StoreListingView.swift in Sources */,
-				532DAEBB2E39CB8B0074C97F /* ClearData.swift in Sources */,
 				53A8628D2E271B6100280C2F /* MessagesView.swift in Sources */,
 				539303742E23AC94000B88FB /* ContentView.swift in Sources */,
 				5317BF3B2E24EA8600DE0BD2 /* SubletListingView.swift in Sources */,

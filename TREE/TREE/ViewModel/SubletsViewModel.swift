@@ -30,9 +30,9 @@ class SubletsViewModel: ObservableObject {
     @Published var title: String = ""
     @Published var description: String = ""
     @Published var images = [UIImage]()
-    
+    @Published var errorMessage = ""
     private let profile: ProfileViewModel
-    
+    @Published var showingAlert = false
     let service = SubletsService()
     
     init(profile: ProfileViewModel) {
@@ -55,8 +55,16 @@ class SubletsViewModel: ObservableObject {
     }
     
     func uploadSublet() async throws {
-        guard let imageURLs = try await ImageUploader().uploadPostImage(images, true) else { return }
-        try await service.createSubletsPost(numberOfBedrooms: numberOfBedrooms, numberOfBathrooms: numberOfBathrooms, zipcode: zipcode, imageURLs: imageURLs, address: address, city: city, state: state, shared: shared, leaseStartDate: leaseStartDate, leaseEndDate: leaseEndDate, rentFee: rentFee, title: title, description: description)
+        do {
+            guard let imageURLs = try await ImageUploader().uploadPostImage(images, true) else { return }
+            try await service.createSubletsPost(numberOfBedrooms: numberOfBedrooms, numberOfBathrooms: numberOfBathrooms, zipcode: zipcode, imageURLs: imageURLs, address: address, city: city, state: state, shared: shared, leaseStartDate: leaseStartDate, leaseEndDate: leaseEndDate, rentFee: rentFee, title: title, description: description)
+        } catch {
+            await MainActor.run {
+                errorMessage = service.errorMessage
+                showingAlert = true
+            }
+            throw error
+        }
     }
     
     private func setupSublets() {

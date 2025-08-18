@@ -15,6 +15,7 @@ struct TextFieldModifier: ViewModifier {
             .background(Color(.systemGray6))
             .cornerRadius(10)
             .padding(.horizontal, 24)
+            .autocorrectionDisabled()
     }
 }
 
