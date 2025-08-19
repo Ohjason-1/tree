@@ -12,9 +12,11 @@ import FirebaseFirestore
 class StoresService {
     @Published var storeChanges = [DocumentChange]()
     @Published var errorMessage = ""
-    func observeStores() {
+    @MainActor func observeStores() {
         let query = FirestoreConstants
             .StoresCollection
+            .document(ViewModelManager.shared.state)
+            .collection(ViewModelManager.shared.city)
             .order(by: "timeStamp", descending: true)
         
         query.addSnapshotListener { snapshot, error in
@@ -26,7 +28,7 @@ class StoresService {
     func createSubletsPost(zipcode: String, imageURLs: [String], address: String, city: String, state: String, price: Int, productName: String, title: String, description: String) async throws {
         do {
             guard let currentUid = Auth.auth().currentUser?.uid else { return }
-            let ref = FirestoreConstants.StoresCollection.document()
+            let ref = FirestoreConstants.StoresCollection.document(state).collection(city).document()
             let id = ref.documentID
             let store = Stores(id: id, ownerUid: currentUid, zipcode: zipcode, imageURLs: imageURLs, address: address, city: city, state: state, price: price, productName: productName, title: title, description: description, timeStamp: Timestamp())
             

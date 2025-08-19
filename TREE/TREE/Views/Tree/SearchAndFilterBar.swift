@@ -12,8 +12,8 @@ struct SearchAndFilterBar: View {
     var body: some View {
         HStack {
             VStack {
-                Text("Berkeley,")
-                Text("California")
+                Text("\(ViewModelManager.shared.city),")
+                Text(ViewModelManager.shared.state)
             }
             .font(.system(size: 20))
             .fontWeight(.bold)

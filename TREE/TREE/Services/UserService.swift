@@ -16,7 +16,9 @@ class UserService {
     @Published var currentUser: Users?
     
     static let shared = UserService()
+    @Published var errorMessage = ""
     
+    // MARK: - Fetch
     @MainActor
     func fetchCurrentUser() async throws {
         guard let uid = Auth.auth().currentUser?.uid else {
@@ -34,11 +36,13 @@ class UserService {
             }
             let user = try snap.data(as: Users.self)
             self.currentUser = user
+            ViewModelManager.shared.state = user.state
+            ViewModelManager.shared.city = user.city
         } catch {
             // Any decoding / fetch error -> treat as no user
             self.currentUser = nil
             ViewModelManager.shared.userSession = nil
-            print("DEBUG: fetchCurrentUser failed: \(error.localizedDescription)")
+            errorMessage = "Failed to fetch current user."
             throw error
         }
     }
@@ -55,6 +59,7 @@ class UserService {
         }
     }
     
+    // MARK: - Update
     func updateUserProfileImage(_ imageUrl: String) async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
@@ -81,22 +86,41 @@ class UserService {
             }
             
         } catch {
-            print("DEBUG: Error getting FCM token: \(error.localizedDescription)")
+            errorMessage = "Failed to update FCM token"
             throw error
         }
     }
     
+    func updateLocation(state: String, city: String) async throws {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        do {
+            try await FirestoreConstants.UserCollection.document(uid).setData(["state": state, "city": city])
+            await MainActor.run {
+                ViewModelManager.shared.state = state
+                ViewModelManager.shared.city = city
+            }
+        } catch {
+            errorMessage = "Failed to update state and city"
+            throw error
+        }
+    }
+    
+    // MARK: - Delete
     func deleteFeed(treeFeed: any Tree) async throws {
-        if treeFeed is Sublets {
-            try await FirestoreConstants
-                .SubletsCollection
-                .document(treeFeed.id)
-                .delete()
-        } else {
-            try await FirestoreConstants
-                .StoresCollection
-                .document(treeFeed.id)
-                .delete()
+        let storage = Storage.storage()
+        let collection = treeFeed is Sublets ?
+            FirestoreConstants.SubletsCollection :
+            FirestoreConstants.StoresCollection
+        
+        try await collection
+            .document(treeFeed.state)
+            .collection(treeFeed.city)
+            .document(treeFeed.id)
+            .delete()
+        
+        for imageUrl in treeFeed.imageURLs {
+            let imageRef = storage.reference(forURL: imageUrl)
+            try await imageRef.delete()
         }
     }
     
@@ -113,21 +137,7 @@ class UserService {
         
         // tree posts
         for tree in await viewModel.treeFeed {
-            if tree is Sublets {
-                try await FirestoreConstants
-                    .SubletsCollection
-                    .document(tree.id)
-                    .delete()
-            } else {
-                try await FirestoreConstants
-                    .StoresCollection
-                    .document(tree.id)
-                    .delete()
-            }
-            for imageUrl in tree.imageURLs {
-                let imageRef = storage.reference(forURL: imageUrl)
-                try await imageRef.delete()
-            }
+            try await deleteFeed(treeFeed: tree)
         }
         
         for message in await messagesViewModel.recentMessages {

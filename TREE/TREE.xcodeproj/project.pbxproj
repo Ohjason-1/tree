@@ -14,6 +14,7 @@
 		5317BF442E25F4A500DE0BD2 /* SubletListingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5317BF432E25F4A500DE0BD2 /* SubletListingDetailView.swift */; };
 		5317BF462E25F70D00DE0BD2 /* TreeListingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5317BF452E25F70D00DE0BD2 /* TreeListingModifier.swift */; };
 		531FF4592E52DAB700E777ED /* isUploadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531FF4582E52DAB700E777ED /* isUploadingView.swift */; };
+		531FF45B2E5416ED00E777ED /* LocationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531FF45A2E5416ED00E777ED /* LocationData.swift */; };
 		532DAEB12E39A94C0074C97F /* StorePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532DAEB02E39A94C0074C97F /* StorePostView.swift */; };
 		532DAEB32E39B0950074C97F /* DropDownPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532DAEB22E39B0950074C97F /* DropDownPost.swift */; };
 		532DAEB52E39B8D50074C97F /* StorePhotoPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532DAEB42E39B8D50074C97F /* StorePhotoPostView.swift */; };
@@ -105,6 +106,7 @@
 		5317BF452E25F70D00DE0BD2 /* TreeListingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeListingModifier.swift; sourceTree = "<group>"; };
 		531FF4572E50486300E777ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		531FF4582E52DAB700E777ED /* isUploadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = isUploadingView.swift; sourceTree = "<group>"; };
+		531FF45A2E5416ED00E777ED /* LocationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationData.swift; sourceTree = "<group>"; };
 		532DAEB02E39A94C0074C97F /* StorePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorePostView.swift; sourceTree = "<group>"; };
 		532DAEB22E39B0950074C97F /* DropDownPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownPost.swift; sourceTree = "<group>"; };
 		532DAEB42E39B8D50074C97F /* StorePhotoPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorePhotoPostView.swift; sourceTree = "<group>"; };
@@ -206,6 +208,9 @@
 				53E249B32E26498D00068C1B /* TextFieldModifier.swift */,
 				53F2DD822E29711A003A9EE8 /* CircularProfileImageView.swift */,
 				53BC4F422E4D6F9100ED7EEE /* chatButton.swift */,
+				532DAEB22E39B0950074C97F /* DropDownPost.swift */,
+				532DAEBC2E39CF420074C97F /* DropDownMenuTreeView.swift */,
+				531FF4582E52DAB700E777ED /* isUploadingView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -238,11 +243,9 @@
 			isa = PBXGroup;
 			children = (
 				532DAEBE2E39D08E0074C97F /* PostView.swift */,
-				532DAEB22E39B0950074C97F /* DropDownPost.swift */,
 				532DAEC02E39D2440074C97F /* PostDropDownMenuView.swift */,
 				533B24992E31EB6300D773CB /* Stores */,
 				533B24982E31EB5300D773CB /* Sublets */,
-				531FF4582E52DAB700E777ED /* isUploadingView.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -377,7 +380,6 @@
 			isa = PBXGroup;
 			children = (
 				5317BF312E24E00900DE0BD2 /* TreeView.swift */,
-				532DAEBC2E39CF420074C97F /* DropDownMenuTreeView.swift */,
 				5317BF412E25D93300DE0BD2 /* SearchAndFilterBar.swift */,
 				53F2DD712E281DDA003A9EE8 /* Store */,
 				5393036E2E23AB52000B88FB /* Sublets */,
@@ -459,6 +461,7 @@
 			isa = PBXGroup;
 			children = (
 				53F2DDAF2E2A3BE1003A9EE8 /* Constants.swift */,
+				531FF45A2E5416ED00E777ED /* LocationData.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -634,6 +637,7 @@
 				531FF4592E52DAB700E777ED /* isUploadingView.swift in Sources */,
 				53BC4F412E4D58A900ED7EEE /* ProfileElementView.swift in Sources */,
 				53F2DDB02E2A3BE1003A9EE8 /* Constants.swift in Sources */,
+				531FF45B2E5416ED00E777ED /* LocationData.swift in Sources */,
 				532DAEB52E39B8D50074C97F /* StorePhotoPostView.swift in Sources */,
 				533B24972E31E65100D773CB /* SubletPhotoPostView.swift in Sources */,
 				53E249B22E26490000068C1B /* RegistrationView.swift in Sources */,

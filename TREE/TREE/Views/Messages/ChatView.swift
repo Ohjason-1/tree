@@ -111,5 +111,5 @@ struct ChatView: View {
 }
 
 #Preview {
-    ChatView(user: Users(uid: NSUUID().uuidString, email: "oho@gmail.com", userName: "Dog", phoneNumber: "1232142", userImageUrl: "Profile"))
+    ChatView(user: DeveloperPreview.shared.user)
 }

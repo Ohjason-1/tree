@@ -11,10 +11,12 @@ import FirebaseFirestore
 struct Users: Identifiable, Codable, Hashable {
     @DocumentID var uid: String?
     let email: String
-    let userName: String
-    let phoneNumber: String
+    var userName: String
+    var phoneNumber: String
     var userImageUrl: String? = nil
     var fcmToken: [String] = []
+    var state: String
+    var city: String
     
     var id: String {
         return uid ?? NSUUID().uuidString

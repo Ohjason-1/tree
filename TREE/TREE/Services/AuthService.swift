@@ -39,11 +39,11 @@ class AuthService {
     }
     
     @MainActor
-    func createUser(withEmail email: String, password: String, userName: String, phoneNumber: String) async throws {
+    func createUser(withEmail email: String, password: String, userName: String, phoneNumber: String, state: String, city: String) async throws {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
-            try await self.uploadUserData(email: email, userName: userName, phoneNumber: phoneNumber, id: result.user.uid)
+            try await self.uploadUserData(email: email, userName: userName, phoneNumber: phoneNumber, id: result.user.uid, state: state, city: city)
             loadCurrentUserData()
         } catch {
             print("DEBUG: failed to create user with error \(error.localizedDescription)")
@@ -78,14 +78,16 @@ class AuthService {
     }
     
     // populates data into database
-    private func uploadUserData(email: String, userName: String, phoneNumber: String, id: String) async throws {
+    private func uploadUserData(email: String, userName: String, phoneNumber: String, id: String, state: String, city: String) async throws {
         let fcmToken = try await Messaging.messaging().token()
         let user = Users(
             uid: id,
             email: email,
             userName: userName,
             phoneNumber: phoneNumber,
-            fcmToken: [fcmToken]
+            fcmToken: [fcmToken],
+            state: state,
+            city: city
         )
         guard let encodedUser = try? Firestore.Encoder().encode(user) else { return }
         try await Firestore.firestore().collection("users").document(id).setData(encodedUser)

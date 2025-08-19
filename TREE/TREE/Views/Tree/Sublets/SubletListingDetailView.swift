@@ -49,15 +49,15 @@ struct SubletListingDetailView: View {
                     .font(.footnote)
                     
                     
-                    HStack(spacing: 24) {
-                        HStack {
+                    HStack(spacing: 12) {
+                        HStack(spacing: 4) {
                             Image(systemName: "bed.double")
                             
                             
                             Text("**\(sublet.numberOfBedrooms)** bedrooms")
                         }
                         
-                        HStack {
+                        HStack(spacing: 4) {
                             Image(systemName: "bathtub")
                             
                             Text("**\(sublet.numberOfBathrooms)** bathrooms")
@@ -66,13 +66,13 @@ struct SubletListingDetailView: View {
                         
                         Spacer()
                         
-                        Text(sublet.shared ? "Shared \(Image(systemName: "person.2.fill"))" : "Not shared \(Image(systemName: "person.fill"))")
+                        Text(sublet.shared ? "Shared \(Image(systemName: "person.2.fill"))" : "Not Shared \(Image(systemName: "person.fill"))")
                         
                     }
                     .font(.footnote)
                     
                     Text("$ **\(sublet.rentFee)** /month")
-                        .foregroundStyle(Color("AccentColor"))
+                        .foregroundStyle(.primary)
                         .frame(height: 50)
                         .padding(.leading, 15)
                         .frame(maxWidth: .infinity, alignment: .leading)

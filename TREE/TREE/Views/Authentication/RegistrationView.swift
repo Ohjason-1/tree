@@ -40,6 +40,30 @@ struct RegistrationView: View {
                     Text("Your password must be at least 6 characters in length")
                         .font(.caption)
                         .foregroundStyle(Color(.systemGray))
+                    
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("State")
+                                .font(.headline)
+                                .fontWeight(.semibold)
+                            
+                            DropDownPost(menus: LocationData.allStates, selected: $viewModel.state)
+                                .frame(height: 48)
+                        }
+                        
+                        Spacer()
+                            .frame(width: 16)
+                        
+                        VStack(alignment: .leading) {
+                            Text("City")
+                                .font(.headline)
+                                .fontWeight(.semibold)
+                            
+                            DropDownPost(menus: LocationData.cities(for: viewModel.state), selected: $viewModel.city)
+                                .frame(height: 48)
+                        }
+                        
+                    }
                 }
                 
                 Button {

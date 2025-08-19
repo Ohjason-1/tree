@@ -48,5 +48,5 @@ struct CircularProfileImageView: View {
 }
 
 #Preview {
-    CircularProfileImageView(user: Users(uid: NSUUID().uuidString, email: "o@gmail.com", userName: "bob", phoneNumber: "2131242213", userImageUrl: "Profile"), size: .xSmall)
+    CircularProfileImageView(user: DeveloperPreview.shared.user, size: .small)
 }

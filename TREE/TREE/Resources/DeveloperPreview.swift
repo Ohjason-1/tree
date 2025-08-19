@@ -12,7 +12,7 @@ class DeveloperPreview {
     
     static let shared = DeveloperPreview()
     
-    var user: Users = Users(uid: "T7MJJoZBPEVio2gjr7vFDJZnJkX2", email: "J2@gmail.com", userName: "Bob2", phoneNumber: "1231231", userImageUrl: "Profile")
+    var user: Users = Users(uid: "T7MJJoZBPEVio2gjr7vFDJZnJkX2", email: "J2@gmail.com", userName: "Bob2", phoneNumber: "1231231", userImageUrl: "Profile", state: "California", city: "Berkeley")
     
     let message: Messages = Messages(messageId: "OIuGpNNjVV2N6HBVjlTC", fromId: "T7MJJoZBPEVio2gjr7vFDJZnJkX2", toId: "hn2l21rN2KgbjX1bXtcr0jO1qSo1", messageText: "Hoya?", timeStamp: Timestamp(), badge: 2)
     
