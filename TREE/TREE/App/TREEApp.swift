@@ -9,6 +9,8 @@ import SwiftUI
 import FirebaseCore
 import UserNotifications
 import FirebaseMessaging
+import GoogleSignIn
+import FirebaseAuth
 
 @main
 struct TREEApp: App {
@@ -16,13 +18,23 @@ struct TREEApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .onOpenURL { url in
+                    handleDeepLink(url: url)
+                }
         }
     }
+    
+    private func handleDeepLink(url: URL) {
+           // Handle your custom treeapp:// scheme
+           if url.scheme == "treeapp" {
+               delegate.handleEmailLinkSignIn(url: url)
+           }
+       }
 }
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
-                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
         if #available(iOS 10.0, *) {
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
@@ -41,6 +53,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
+        Auth.auth().setAPNSToken(deviceToken, type: .prod) // phone number verification
+        
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         print("Device Token: \(token)")
     }
@@ -48,8 +62,118 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("DEBUG: Failed to register for remote notifications: \(error.localizedDescription)")
     }
+    
+    func application(_ application: UIApplication,
+                     didReceiveRemoteNotification notification: [AnyHashable : Any],
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        if Auth.auth().canHandleNotification(notification) {
+            completionHandler(.noData)
+            return
+        }
+        // This notification is not auth related; it should be handled separately.
+    }
+    
+    // MARK: - email auth
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        if Auth.auth().isSignIn(withEmailLink: url.absoluteString) {
+            handleEmailLinkSignIn(url: url)
+            return true
+        }
+        
+        // Google Sign-In
+        if GIDSignIn.sharedInstance.handle(url) {
+            return true
+        }
+        return false
+    }
+    
+    func handleEmailLinkSignIn(url: URL) {
+        guard let email = UserDefaults.standard.string(forKey: "PendingEmail"),
+              let password = UserDefaults.standard.string(forKey: "PendingPassword"),
+              let userName = UserDefaults.standard.string(forKey: "PendingUserName"),
+              let phoneNumber = UserDefaults.standard.string(forKey: "PendingPhoneNumber"),
+              let state = UserDefaults.standard.string(forKey: "PendingState"),
+              let city = UserDefaults.standard.string(forKey: "PendingCity") else {
+            print("Missing registration data for email link sign-in")
+            return
+        }
+        // Sign in with email link
+        Auth.auth().signIn(withEmail: email, link: url.absoluteString) { result, error in
+            if let error = error {
+                print("Email link sign-in failed: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let user = result?.user else {
+                print("No user returned from email link sign-in")
+                return
+            }
+            
+            print("Email link sign-in succeeded for: \(user.email ?? "unknown")")
+            
+            Task {
+                do {
+                    try await user.updatePassword(to: password)
+                    print("Password set successfully")
+                    
+                    // Save user profile data to Firestore
+                    try await AuthService.shared.uploadUserData(
+                        email: email,
+                        userName: userName,
+                        phoneNumber: phoneNumber,
+                        id: user.uid,
+                        state: state,
+                        city: city
+                    )
+                    print("User data uploaded successfully")
+                    await MainActor.run {
+                        AuthService.shared.userSession = user
+                    }
+                    AuthService.shared.loadCurrentUserData()
+                    self.clearRegistrationData()
+                    
+                    // Notify UI that registration is complete
+                    await MainActor.run {
+                        NotificationCenter.default.post(
+                            name: .emailLinkSignInCompleted,
+                            object: nil
+                        )
+                    }
+                    
+                } catch {
+                    print("Failed to complete registration after email link sign-in: \(error.localizedDescription)")
+                    
+                    // Notify UI of error
+                    await MainActor.run {
+                        NotificationCenter.default.post(
+                            name: .emailLinkSignInFailed,
+                            object: nil,
+                            userInfo: ["error": error.localizedDescription]
+                        )
+                    }
+                }
+            }
+        }
+    }
+    
+    private func clearRegistrationData() {
+        UserDefaults.standard.removeObject(forKey: "PendingEmail")
+        UserDefaults.standard.removeObject(forKey: "PendingPassword")
+        UserDefaults.standard.removeObject(forKey: "PendingUserName")
+        UserDefaults.standard.removeObject(forKey: "PendingPhoneNumber")
+        UserDefaults.standard.removeObject(forKey: "PendingState")
+        UserDefaults.standard.removeObject(forKey: "PendingCity")
+        print("Registration data cleared")
+    }
 }
 
+// MARK: - Notification Names
+extension Notification.Name {
+    static let emailLinkSignInCompleted = Notification.Name("emailLinkSignInCompleted")
+    static let emailLinkSignInFailed = Notification.Name("emailLinkSignInFailed")
+}
+
+    
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping(UNNotificationPresentationOptions) -> Void) {
         completionHandler([.banner, .sound, .badge])

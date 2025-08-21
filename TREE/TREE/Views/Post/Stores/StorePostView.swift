@@ -115,7 +115,7 @@ struct StorePostView: View {
                                 .font(.headline)
                                 .fontWeight(.semibold)
                             
-                            DropDownPost(menus: productType, selected: $viewModel.productName)
+                            DropDownPost(menus: productType, selected: $viewModel.productName, wantBlack: false)
                                 .frame(height: 48)
                         }
                     }

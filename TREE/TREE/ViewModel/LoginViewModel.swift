@@ -12,7 +12,7 @@ class LoginViewModel: ObservableObject {
     @Published var password = ""
     @Published var errorMessage = ""
     @Published var showingAlert = false
-    
+    @Published var isLoading = false
     
     func login() async throws {
         do {
@@ -26,5 +26,21 @@ class LoginViewModel: ObservableObject {
         }
     }
     
+    func isValidEmail() -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: email)
+    }
     
+    func sendPasswordReset() async throws {
+        do {
+            isLoading = true
+            try await AuthService.shared.resetPassword(email: email)
+            isLoading = false
+        } catch {
+            isLoading = false
+            errorMessage = "Failed to reset password"
+            throw error
+        }
+    }
 }

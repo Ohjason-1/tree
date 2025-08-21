@@ -24,7 +24,6 @@ class AuthService {
         print("starting authservice")
     }
     
-    
     @MainActor
     func login(withEmail email: String, password: String) async throws {
         do {
@@ -38,22 +37,9 @@ class AuthService {
         }
     }
     
-    @MainActor
-    func createUser(withEmail email: String, password: String, userName: String, phoneNumber: String, state: String, city: String) async throws {
-        do {
-            let result = try await Auth.auth().createUser(withEmail: email, password: password)
-            self.userSession = result.user
-            try await self.uploadUserData(email: email, userName: userName, phoneNumber: phoneNumber, id: result.user.uid, state: state, city: city)
-            loadCurrentUserData()
-        } catch {
-            print("DEBUG: failed to create user with error \(error.localizedDescription)")
-        }
-    }
-    
-    // synchronous function - does not need @mainactor
     @MainActor func signOut() {
         Task {
-            await removeCurrentDeviceTokenFromUser()   
+            await removeCurrentDeviceTokenFromUser()
             do {
                 try Auth.auth().signOut()
                 self.userSession = nil
@@ -78,7 +64,7 @@ class AuthService {
     }
     
     // populates data into database
-    private func uploadUserData(email: String, userName: String, phoneNumber: String, id: String, state: String, city: String) async throws {
+    func uploadUserData(email: String, userName: String, phoneNumber: String, id: String, state: String, city: String) async throws {
         let fcmToken = try await Messaging.messaging().token()
         let user = Users(
             uid: id,
@@ -94,10 +80,87 @@ class AuthService {
     }
     
     // call it in login and createuser as well
-    private func loadCurrentUserData() {
+    func loadCurrentUserData() {
         Task {
             try await UserService.shared.fetchCurrentUser()
             try await UserService.shared.updateFCMToken()
         }
     }
+    
+}
+
+// MARK: - Sign In Email
+extension AuthService {
+    @MainActor
+    func createUser(withEmail email: String, password: String, userName: String, phoneNumber: String, state: String, city: String) async throws {
+        do {
+            let result = try await Auth.auth().createUser(withEmail: email, password: password)
+            self.userSession = result.user
+            try await self.uploadUserData(email: email, userName: userName, phoneNumber: phoneNumber, id: result.user.uid, state: state, city: city)
+            loadCurrentUserData()
+        } catch {
+            errorMessage = "Failed to create account"
+            print("DEBUG: failed to create user with error \(error.localizedDescription)")
+            throw error
+        }
+    }
+    
+    func sendSignInLink(email: String) async throws {
+        let actionCodeSettings = ActionCodeSettings()
+        actionCodeSettings.handleCodeInApp = true
+        actionCodeSettings.url = URL(string: "https://tree-50227.firebaseapp.com")
+        actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
+        do {
+            try await Auth.auth().sendSignInLink(toEmail: email, actionCodeSettings: actionCodeSettings)
+            print("Sign-in link sent to \(email)")
+        } catch {
+            errorMessage = "Failed to send sign-in link: \(error.localizedDescription)"
+            throw error
+        }
+    }
+    
+    func setPassword(_ password: String) async throws {
+        guard let user = Auth.auth().currentUser else {
+            throw AuthError.noCurrentUser
+        }
+        do {
+            try await user.updatePassword(to: password)
+            print("Password set successfully")
+        } catch {
+            errorMessage = "Failed to set password: \(error.localizedDescription)"
+            throw error
+        }
+    }
+    func resetPassword(email: String) async throws {
+        do {
+            try await Auth.auth().sendPasswordReset(withEmail: email)
+        } catch {
+            throw error
+        }
+    }
+    
+}
+
+// MARK: - Sign In SSO
+
+extension AuthService {
+    func signInWithGoogle(userName: String, phoneNumber: String, state: String, city: String, password: String, credential: AuthCredential) async throws {
+        do {
+            let AuthDataResult = try await Auth.auth().signIn(with: credential)
+            try await setPassword(password)
+            try await self.uploadUserData(email: AuthDataResult.user.email!, userName: userName, phoneNumber: phoneNumber, id: AuthDataResult.user.uid, state: state, city: city)
+            loadCurrentUserData()
+            self.userSession = AuthDataResult.user
+        } catch {
+            throw AuthError.signInFailed(error.localizedDescription)
+        }
+    }
+}
+
+
+enum AuthError: Error {
+    case missingEmail
+    case emailNotVerified
+    case signInFailed(String)
+    case noCurrentUser
 }

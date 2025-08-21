@@ -12,11 +12,12 @@ import FirebaseFirestore
 class StoresService {
     @Published var storeChanges = [DocumentChange]()
     @Published var errorMessage = ""
-    @MainActor func observeStores() {
+    func observeStores(state: String, city: String) {
+        guard !state.isEmpty && !city.isEmpty else { return }
         let query = FirestoreConstants
             .StoresCollection
-            .document(ViewModelManager.shared.state)
-            .collection(ViewModelManager.shared.city)
+            .document(state)
+            .collection(city)
             .order(by: "timeStamp", descending: true)
         
         query.addSnapshotListener { snapshot, error in
@@ -25,6 +26,49 @@ class StoresService {
         }
     }
     
+//    func replace() {
+//        let db = Firestore.firestore()
+//
+//        let oldCollectionRef = db.collection("stores")
+//        let newCollectionRef = db
+//            .collection("stores")
+//            .document("California")
+//            .collection("Berkeley")
+//
+//        oldCollectionRef.getDocuments { (snapshot, error) in
+//            if let error = error {
+//                print("Error getting documents: \(error)")
+//                return
+//            }
+//
+//            guard let documents = snapshot?.documents else {
+//                print("No documents found in 'stores'")
+//                return
+//            }
+//
+//            for document in documents {
+//                let data = document.data()
+//                let docID = document.documentID
+//
+//                let newDocRef = newCollectionRef.document(docID)
+//                newDocRef.setData(data) { error in
+//                    if let error = error {
+//                        print("Error writing new document \(docID): \(error)")
+//                    } else {
+//                        // Delete the original document after copying
+//                        oldCollectionRef.document(docID).delete { error in
+//                            if let error = error {
+//                                print("Error deleting old document \(docID): \(error)")
+//                            } else {
+//                                print("Moved document \(docID) successfully.")
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+//    
     func createSubletsPost(zipcode: String, imageURLs: [String], address: String, city: String, state: String, price: Int, productName: String, title: String, description: String) async throws {
         do {
             guard let currentUid = Auth.auth().currentUser?.uid else { return }

@@ -11,7 +11,7 @@ struct TreeView: View {
     @State private var selectedType: DropDownMenuTreeView.TreeType = .sublets
     @EnvironmentObject var storeViewModel: StoresViewModel
     @EnvironmentObject var subletViewModel: SubletsViewModel
-    
+    @EnvironmentObject var profileViewModel: ProfileViewModel
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -23,10 +23,22 @@ struct TreeView: View {
                         
                         Spacer()
                         
-                        DropDownMenuTreeView(selectedType: $selectedType)
                     }
                     .padding(.bottom)
-                    SearchAndFilterBar()
+                    HStack {
+                        VStack {
+                            Text("\(profileViewModel.city),")
+                            Text(profileViewModel.state)
+                        }
+                        .font(.system(size: 20))
+                        .fontWeight(.bold)
+                        .foregroundStyle(Color("AccentColor").gradient)
+                        
+                        Spacer()
+                        
+                        DropDownMenuTreeView(selectedType: $selectedType)
+                    }
+                    
                 }
                 
                 .padding()

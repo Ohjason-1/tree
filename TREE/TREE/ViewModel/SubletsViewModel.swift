@@ -38,7 +38,8 @@ class SubletsViewModel: ObservableObject {
     init(profile: ProfileViewModel) {
         self.profile = profile
         setupSublets()
-        service.observeSublets()
+        print("user state \(profile.state)")
+        observeLocationChanges()
     }
     
     @Published var selectedImage: [PhotosPickerItem] = [] {
@@ -67,6 +68,19 @@ class SubletsViewModel: ObservableObject {
         }
     }
     
+    private func observeLocationChanges() {
+        profile.$city
+            .sink { [weak self] city in
+                guard let self = self else { return }
+                let state = self.profile.state
+                guard !state.isEmpty && !city.isEmpty else { return }
+                
+                self.service.observeSublets(state: state, city: city)
+            }
+            .store(in: &cancellables)
+    }
+    
+    // MARK: - setting up sublet posts
     private func setupSublets() {
         service.$subletChanges.sink { [weak self] changes in
             guard let self else { return }

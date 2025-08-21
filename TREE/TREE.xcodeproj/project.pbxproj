@@ -10,11 +10,16 @@
 		5317BF322E24E00900DE0BD2 /* TreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5317BF312E24E00900DE0BD2 /* TreeView.swift */; };
 		5317BF362E24E0FB00DE0BD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5317BF352E24E0FB00DE0BD2 /* Assets.xcassets */; };
 		5317BF3B2E24EA8600DE0BD2 /* SubletListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5317BF3A2E24EA8600DE0BD2 /* SubletListingView.swift */; };
-		5317BF422E25D93300DE0BD2 /* SearchAndFilterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5317BF412E25D93300DE0BD2 /* SearchAndFilterBar.swift */; };
 		5317BF442E25F4A500DE0BD2 /* SubletListingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5317BF432E25F4A500DE0BD2 /* SubletListingDetailView.swift */; };
 		5317BF462E25F70D00DE0BD2 /* TreeListingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5317BF452E25F70D00DE0BD2 /* TreeListingModifier.swift */; };
 		531FF4592E52DAB700E777ED /* isUploadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531FF4582E52DAB700E777ED /* isUploadingView.swift */; };
 		531FF45B2E5416ED00E777ED /* LocationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531FF45A2E5416ED00E777ED /* LocationData.swift */; };
+		531FF4602E543DBD00E777ED /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 531FF45F2E543DBD00E777ED /* GoogleSignIn */; };
+		531FF4622E543DBD00E777ED /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 531FF4612E543DBD00E777ED /* GoogleSignInSwift */; };
+		531FF4642E5443C700E777ED /* EmailRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531FF4632E5443C700E777ED /* EmailRegistrationView.swift */; };
+		531FF4662E54453800E777ED /* GoogleSignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531FF4652E54453800E777ED /* GoogleSignInViewController.swift */; };
+		531FF46A2E54665F00E777ED /* DropDownRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531FF4692E54665F00E777ED /* DropDownRegister.swift */; };
+		531FF46C2E550E1500E777ED /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 531FF46B2E550E1500E777ED /* GoogleService-Info.plist */; };
 		532DAEB12E39A94C0074C97F /* StorePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532DAEB02E39A94C0074C97F /* StorePostView.swift */; };
 		532DAEB32E39B0950074C97F /* DropDownPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532DAEB22E39B0950074C97F /* DropDownPost.swift */; };
 		532DAEB52E39B8D50074C97F /* StorePhotoPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532DAEB42E39B8D50074C97F /* StorePhotoPostView.swift */; };
@@ -66,7 +71,6 @@
 		53F2DD942E2987C9003A9EE8 /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 53F2DD932E2987C9003A9EE8 /* FirebaseFirestoreCombine-Community */; };
 		53F2DD962E2987C9003A9EE8 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 53F2DD952E2987C9003A9EE8 /* FirebaseStorage */; };
 		53F2DD982E2987C9003A9EE8 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 53F2DD972E2987C9003A9EE8 /* FirebaseStorageCombine-Community */; };
-		53F2DD992E298E74003A9EE8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 53F2DD882E298609003A9EE8 /* GoogleService-Info.plist */; };
 		53F2DD9B2E29BE64003A9EE8 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F2DD9A2E29BE64003A9EE8 /* LoginViewModel.swift */; };
 		53F2DD9D2E29BE80003A9EE8 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F2DD9C2E29BE80003A9EE8 /* RegistrationViewModel.swift */; };
 		53F2DD9F2E29BE95003A9EE8 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F2DD9E2E29BE95003A9EE8 /* AuthService.swift */; };
@@ -101,12 +105,15 @@
 		5317BF312E24E00900DE0BD2 /* TreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeView.swift; sourceTree = "<group>"; };
 		5317BF352E24E0FB00DE0BD2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5317BF3A2E24EA8600DE0BD2 /* SubletListingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubletListingView.swift; sourceTree = "<group>"; };
-		5317BF412E25D93300DE0BD2 /* SearchAndFilterBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAndFilterBar.swift; sourceTree = "<group>"; };
 		5317BF432E25F4A500DE0BD2 /* SubletListingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubletListingDetailView.swift; sourceTree = "<group>"; };
 		5317BF452E25F70D00DE0BD2 /* TreeListingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeListingModifier.swift; sourceTree = "<group>"; };
 		531FF4572E50486300E777ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		531FF4582E52DAB700E777ED /* isUploadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = isUploadingView.swift; sourceTree = "<group>"; };
 		531FF45A2E5416ED00E777ED /* LocationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationData.swift; sourceTree = "<group>"; };
+		531FF4632E5443C700E777ED /* EmailRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailRegistrationView.swift; sourceTree = "<group>"; };
+		531FF4652E54453800E777ED /* GoogleSignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInViewController.swift; sourceTree = "<group>"; };
+		531FF4692E54665F00E777ED /* DropDownRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownRegister.swift; sourceTree = "<group>"; };
+		531FF46B2E550E1500E777ED /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		532DAEB02E39A94C0074C97F /* StorePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorePostView.swift; sourceTree = "<group>"; };
 		532DAEB22E39B0950074C97F /* DropDownPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownPost.swift; sourceTree = "<group>"; };
 		532DAEB42E39B8D50074C97F /* StorePhotoPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorePhotoPostView.swift; sourceTree = "<group>"; };
@@ -153,7 +160,6 @@
 		53F2DD802E2970CA003A9EE8 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		53F2DD822E29711A003A9EE8 /* CircularProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProfileImageView.swift; sourceTree = "<group>"; };
 		53F2DD842E297E0B003A9EE8 /* ChatCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCellView.swift; sourceTree = "<group>"; };
-		53F2DD882E298609003A9EE8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		53F2DD9A2E29BE64003A9EE8 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		53F2DD9C2E29BE80003A9EE8 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		53F2DD9E2E29BE95003A9EE8 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -177,10 +183,12 @@
 				53F2DD982E2987C9003A9EE8 /* FirebaseStorageCombine-Community in Frameworks */,
 				53F2DD922E2987C9003A9EE8 /* FirebaseFirestore in Frameworks */,
 				53F2DD8C2E2987C9003A9EE8 /* FirebaseAuth in Frameworks */,
+				531FF4602E543DBD00E777ED /* GoogleSignIn in Frameworks */,
 				5353BE882E2B527000C2FEAE /* Kingfisher in Frameworks */,
 				53F2DD942E2987C9003A9EE8 /* FirebaseFirestoreCombine-Community in Frameworks */,
 				53F2DD8E2E2987C9003A9EE8 /* FirebaseAuthCombine-Community in Frameworks */,
 				53F2DD962E2987C9003A9EE8 /* FirebaseStorage in Frameworks */,
+				531FF4622E543DBD00E777ED /* GoogleSignInSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,6 +219,7 @@
 				532DAEB22E39B0950074C97F /* DropDownPost.swift */,
 				532DAEBC2E39CF420074C97F /* DropDownMenuTreeView.swift */,
 				531FF4582E52DAB700E777ED /* isUploadingView.swift */,
+				531FF4692E54665F00E777ED /* DropDownRegister.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -280,6 +289,7 @@
 			isa = PBXGroup;
 			children = (
 				531FF4572E50486300E777ED /* Info.plist */,
+				531FF46B2E550E1500E777ED /* GoogleService-Info.plist */,
 				539303672E23AAF7000B88FB /* App */,
 				539303692E23AB16000B88FB /* Models */,
 				5317BF3E2E25D66D00DE0BD2 /* Views */,
@@ -291,7 +301,6 @@
 				53F2DDAE2E2A3BCC003A9EE8 /* Utils */,
 				539303572E23AAED000B88FB /* TREE.entitlements */,
 				539303582E23AAED000B88FB /* TREE.xcdatamodeld */,
-				53F2DD882E298609003A9EE8 /* GoogleService-Info.plist */,
 			);
 			path = TREE;
 			sourceTree = "<group>";
@@ -380,7 +389,6 @@
 			isa = PBXGroup;
 			children = (
 				5317BF312E24E00900DE0BD2 /* TreeView.swift */,
-				5317BF412E25D93300DE0BD2 /* SearchAndFilterBar.swift */,
 				53F2DD712E281DDA003A9EE8 /* Store */,
 				5393036E2E23AB52000B88FB /* Sublets */,
 			);
@@ -444,6 +452,7 @@
 			children = (
 				53E249AF2E26423700068C1B /* LoginView.swift */,
 				53E249B12E26490000068C1B /* RegistrationView.swift */,
+				531FF4632E5443C700E777ED /* EmailRegistrationView.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -462,6 +471,7 @@
 			children = (
 				53F2DDAF2E2A3BE1003A9EE8 /* Constants.swift */,
 				531FF45A2E5416ED00E777ED /* LocationData.swift */,
+				531FF4652E54453800E777ED /* GoogleSignInViewController.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -492,6 +502,8 @@
 				53F2DD972E2987C9003A9EE8 /* FirebaseStorageCombine-Community */,
 				5353BE872E2B527000C2FEAE /* Kingfisher */,
 				53BE40252E46DE7200190947 /* FirebaseMessaging */,
+				531FF45F2E543DBD00E777ED /* GoogleSignIn */,
+				531FF4612E543DBD00E777ED /* GoogleSignInSwift */,
 			);
 			productName = TREE;
 			productReference = 53A989B12DD8001E00FADC05 /* TREE.app */;
@@ -572,6 +584,7 @@
 			packageReferences = (
 				53F2DD8A2E2987C9003A9EE8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				5353BE862E2B527000C2FEAE /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				531FF45E2E543DBD00E777ED /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 53A989B22DD8001E00FADC05 /* Products */;
@@ -590,8 +603,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				531FF46C2E550E1500E777ED /* GoogleService-Info.plist in Resources */,
 				5317BF362E24E0FB00DE0BD2 /* Assets.xcassets in Resources */,
-				53F2DD992E298E74003A9EE8 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -633,17 +646,19 @@
 				532DAEBD2E39CF420074C97F /* DropDownMenuTreeView.swift in Sources */,
 				53F2DDAD2E2A2CF1003A9EE8 /* ChatViewModel.swift in Sources */,
 				53BC4F452E4D833100ED7EEE /* ViewModelManager.swift in Sources */,
+				531FF46A2E54665F00E777ED /* DropDownRegister.swift in Sources */,
 				53A8628B2E2714C700280C2F /* Users.swift in Sources */,
 				531FF4592E52DAB700E777ED /* isUploadingView.swift in Sources */,
 				53BC4F412E4D58A900ED7EEE /* ProfileElementView.swift in Sources */,
 				53F2DDB02E2A3BE1003A9EE8 /* Constants.swift in Sources */,
+				531FF4662E54453800E777ED /* GoogleSignInViewController.swift in Sources */,
 				531FF45B2E5416ED00E777ED /* LocationData.swift in Sources */,
+				531FF4642E5443C700E777ED /* EmailRegistrationView.swift in Sources */,
 				532DAEB52E39B8D50074C97F /* StorePhotoPostView.swift in Sources */,
 				533B24972E31E65100D773CB /* SubletPhotoPostView.swift in Sources */,
 				53E249B22E26490000068C1B /* RegistrationView.swift in Sources */,
 				532DAEB32E39B0950074C97F /* DropDownPost.swift in Sources */,
 				53E249B42E26498D00068C1B /* TextFieldModifier.swift in Sources */,
-				5317BF422E25D93300DE0BD2 /* SearchAndFilterBar.swift in Sources */,
 				53F2DDA92E2A1A90003A9EE8 /* Messages.swift in Sources */,
 				53F2DD9F2E29BE95003A9EE8 /* AuthService.swift in Sources */,
 				53E249A62E26262A00068C1B /* DeveloperPreview.swift in Sources */,
@@ -1045,6 +1060,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		531FF45E2E543DBD00E777ED /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:google/GoogleSignIn-iOS.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
 		5353BE862E2B527000C2FEAE /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
@@ -1064,6 +1087,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		531FF45F2E543DBD00E777ED /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 531FF45E2E543DBD00E777ED /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		531FF4612E543DBD00E777ED /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 531FF45E2E543DBD00E777ED /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
 		5353BE872E2B527000C2FEAE /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5353BE862E2B527000C2FEAE /* XCRemoteSwiftPackageReference "Kingfisher" */;

@@ -21,20 +21,22 @@ class ProfileViewModel: ObservableObject {
     }
     
     @Published var profileImage: Image?
-    
+    @Published var state = ""
+    @Published var city = ""
     init() {
         setupScribers()
     }
     
     
     private func setupScribers() {
-            UserService.shared.$currentUser
-                .receive(on: DispatchQueue.main)
-                .sink { [weak self] user in
-                    self?.currentUser = user
-                    
-                }
-                .store(in: &cancellable)
+        UserService.shared.$currentUser
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] user in
+                self?.currentUser = user
+                self?.state = user?.state ?? "state"
+                self?.city = user?.city ?? "city"
+            }
+            .store(in: &cancellable)
         }
     
     func addUserPost(_ post: any Tree) {

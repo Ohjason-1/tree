@@ -119,7 +119,7 @@ struct SubletPostView: View {
                                 .font(.headline)
                                 .fontWeight(.semibold)
                             
-                            DropDownPost(menus: propertyTypes, selected: sharedBinding)
+                            DropDownPost(menus: propertyTypes, selected: sharedBinding, wantBlack: false)
                                 .frame(height: 48)
                         }
                     }
@@ -130,7 +130,7 @@ struct SubletPostView: View {
                                 .font(.headline)
                                 .fontWeight(.semibold)
                             
-                            DropDownPost(menus: bedandBaths, selected: $viewModel.numberOfBedrooms)
+                            DropDownPost(menus: bedandBaths, selected: $viewModel.numberOfBedrooms, wantBlack: false)
                                 .frame(height: 48)
                         }
                         
@@ -142,7 +142,7 @@ struct SubletPostView: View {
                                 .font(.headline)
                                 .fontWeight(.semibold)
                             
-                            DropDownPost(menus: bedandBaths, selected: $viewModel.numberOfBathrooms)
+                            DropDownPost(menus: bedandBaths, selected: $viewModel.numberOfBathrooms, wantBlack: false)
                                 .frame(height: 48)
                         }
                         

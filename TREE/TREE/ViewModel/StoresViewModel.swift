@@ -32,10 +32,11 @@ class StoresViewModel: ObservableObject {
     
     let service = StoresService()
     
+    
     init(profile: ProfileViewModel) {
         self.profile = profile
         setupStores()
-        service.observeStores()
+        observeLocationChanges()
     }
     
     @Published var selectedImage: [PhotosPickerItem] = [] {
@@ -65,6 +66,19 @@ class StoresViewModel: ObservableObject {
         }
     }
     
+    private func observeLocationChanges() {
+        profile.$city
+            .sink { [weak self] city in
+                guard let self = self else { return }
+                let state = self.profile.state
+                guard !state.isEmpty && !city.isEmpty else { return }
+                
+                self.service.observeStores(state: state, city: city)
+            }
+            .store(in: &cancellables)
+    }
+    
+    //MARK: - setting up store feeds
     private func setupStores() {
         service.$storeChanges.sink { [weak self] changes in
             guard let self else { return }

@@ -14,8 +14,6 @@ class ViewModelManager: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private var currentUserId: String?
     
-    @Published var state = ""
-    @Published var city = ""
     
     private init() {
         // Create initial view models
@@ -43,11 +41,12 @@ class ViewModelManager: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func locationDidChange() {
-        // Refresh all location-dependent data
-        subletsViewModel.service.observeSublets()
-        storesViewModel.service.observeStores()
-    }
+//    func locationDidChange() {
+//        // Refresh all location-dependent data
+//        guard !state.isEmpty && !city.isEmpty else { return }
+//        subletsViewModel.service.observeSublets(state: state, city: city)
+//        storesViewModel.service.observeStores(state: state, city: city)
+//    }
     
     private func recreateAllViewModels() {
         // Create completely fresh view model instances

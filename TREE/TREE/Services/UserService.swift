@@ -18,6 +18,8 @@ class UserService {
     static let shared = UserService()
     @Published var errorMessage = ""
     
+    
+    
     // MARK: - Fetch
     @MainActor
     func fetchCurrentUser() async throws {
@@ -36,8 +38,6 @@ class UserService {
             }
             let user = try snap.data(as: Users.self)
             self.currentUser = user
-            ViewModelManager.shared.state = user.state
-            ViewModelManager.shared.city = user.city
         } catch {
             // Any decoding / fetch error -> treat as no user
             self.currentUser = nil
@@ -95,10 +95,7 @@ class UserService {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         do {
             try await FirestoreConstants.UserCollection.document(uid).setData(["state": state, "city": city])
-            await MainActor.run {
-                ViewModelManager.shared.state = state
-                ViewModelManager.shared.city = city
-            }
+
         } catch {
             errorMessage = "Failed to update state and city"
             throw error

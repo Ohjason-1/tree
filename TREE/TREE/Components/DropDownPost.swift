@@ -10,6 +10,7 @@ import SwiftUI
 struct DropDownPost: View {
     var menus: [String]
     @Binding var selected: String
+    let wantBlack: Bool
     
     var body: some View {
         VStack {
@@ -34,7 +35,7 @@ struct DropDownPost: View {
                     Image(systemName: "chevron.down")
                         .padding(.trailing)
                 }
-                .foregroundColor(Color(UIColor.label))
+                .foregroundColor(wantBlack ? .black : Color(UIColor.label))
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
@@ -46,5 +47,5 @@ struct DropDownPost: View {
 }
 
 #Preview {
-    DropDownPost(menus: ["a", "b"], selected: .constant("Hello World"))
+    DropDownPost(menus: ["a", "b"], selected: .constant("Hello World"), wantBlack: false)
 }

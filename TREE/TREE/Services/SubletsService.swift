@@ -14,11 +14,12 @@ class SubletsService {
     @Published var subletChanges = [DocumentChange]()
     @Published var errorMessage = ""
     
-    @MainActor func observeSublets() {
+    func observeSublets(state: String, city: String) {
+        guard !state.isEmpty && !city.isEmpty else { return }
         let query = FirestoreConstants
             .SubletsCollection
-            .document(ViewModelManager.shared.state)
-            .collection(ViewModelManager.shared.city)
+            .document(state)
+            .collection(city)
             .order(by: "timeStamp", descending: true)
         
         query.addSnapshotListener { snapshot, error in
@@ -43,10 +44,46 @@ class SubletsService {
         }
     }
     
-    
-    // MARK: - Store service
-//    func fetchStores() async throws -> [Stores] {
-//        return DeveloperPreview.shared.stores
+//    func replace() {
+//        let db = Firestore.firestore()
+//        
+//        let oldCollectionRef = db.collection("sublets")
+//        let newCollectionRef = db
+//            .collection("sublets")
+//            .document("California")
+//            .collection("Berkeley")
+//        
+//        oldCollectionRef.getDocuments { (snapshot, error) in
+//            if let error = error {
+//                print("Error getting documents: \(error)")
+//                return
+//            }
+//            
+//            guard let documents = snapshot?.documents else {
+//                print("No documents found in 'sublets'")
+//                return
+//            }
+//            
+//            for document in documents {
+//                let data = document.data()
+//                let docID = document.documentID
+//                
+//                let newDocRef = newCollectionRef.document(docID)
+//                newDocRef.setData(data) { error in
+//                    if let error = error {
+//                        print("Error writing new document \(docID): \(error)")
+//                    } else {
+//                        // Delete the original document after copying
+//                        oldCollectionRef.document(docID).delete { error in
+//                            if let error = error {
+//                                print("Error deleting old document \(docID): \(error)")
+//                            } else {
+//                                print("Moved document \(docID) successfully.")
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
 //    }
-    
 }
