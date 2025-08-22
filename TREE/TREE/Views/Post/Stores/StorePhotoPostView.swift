@@ -46,13 +46,10 @@ struct StorePhotoPostView: View {
                         isUploading = false
                     }
                 } label: {
-                    if isUploading {
-                            isUploadingView()
-                        } else {
-                            Text("Upload")
-                                .fontWeight(.semibold)
-                        }
+                    Text("Upload")
+                        .fontWeight(.semibold)
                 }
+                .opacity(viewModel.images.isEmpty || isUploading ? 0.5 : 1)
                 .disabled(viewModel.images.isEmpty || isUploading)
                 .alert(isPresented: $viewModel.showingAlert) {
                     Alert(title: Text("Upload Error"), message: Text(viewModel.errorMessage), dismissButton: .default(Text("OK")))
@@ -172,6 +169,16 @@ struct StorePhotoPostView: View {
             imagePresented.toggle()
         }
         .photosPicker(isPresented: $imagePresented, selection: $viewModel.selectedImage, maxSelectionCount: 5, matching: .images)
+        .overlay {
+            if isUploading {
+                ZStack {
+                    Color(.systemBackground).opacity(0.7)
+                        .ignoresSafeArea()
+                    
+                    isUploadingView()
+                }
+            }
+        }
     }
     func clearStorePostDataAndReturnToFeed() {
         viewModel.zipcode = ""

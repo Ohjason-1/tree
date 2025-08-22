@@ -18,7 +18,7 @@
 		531FF4622E543DBD00E777ED /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 531FF4612E543DBD00E777ED /* GoogleSignInSwift */; };
 		531FF4642E5443C700E777ED /* EmailRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531FF4632E5443C700E777ED /* EmailRegistrationView.swift */; };
 		531FF4662E54453800E777ED /* GoogleSignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531FF4652E54453800E777ED /* GoogleSignInViewController.swift */; };
-		531FF46A2E54665F00E777ED /* DropDownRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531FF4692E54665F00E777ED /* DropDownRegister.swift */; };
+		531FF46A2E54665F00E777ED /* TextFieldRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531FF4692E54665F00E777ED /* TextFieldRegister.swift */; };
 		531FF46C2E550E1500E777ED /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 531FF46B2E550E1500E777ED /* GoogleService-Info.plist */; };
 		532DAEB12E39A94C0074C97F /* StorePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532DAEB02E39A94C0074C97F /* StorePostView.swift */; };
 		532DAEB32E39B0950074C97F /* DropDownPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532DAEB22E39B0950074C97F /* DropDownPost.swift */; };
@@ -51,6 +51,7 @@
 		53BC4F432E4D6F9100ED7EEE /* chatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC4F422E4D6F9100ED7EEE /* chatButton.swift */; };
 		53BC4F452E4D833100ED7EEE /* ViewModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC4F442E4D833100ED7EEE /* ViewModelManager.swift */; };
 		53BE40262E46DE7200190947 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 53BE40252E46DE7200190947 /* FirebaseMessaging */; };
+		53BECD952E5832BE00964883 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BECD942E5832BE00964883 /* ProfileService.swift */; };
 		53E249A42E26203C00068C1B /* Trees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E249A32E26203C00068C1B /* Trees.swift */; };
 		53E249A62E26262A00068C1B /* DeveloperPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E249A52E26262A00068C1B /* DeveloperPreview.swift */; };
 		53E249AB2E2629AC00068C1B /* SubletsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E249AA2E2629AC00068C1B /* SubletsService.swift */; };
@@ -112,7 +113,7 @@
 		531FF45A2E5416ED00E777ED /* LocationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationData.swift; sourceTree = "<group>"; };
 		531FF4632E5443C700E777ED /* EmailRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailRegistrationView.swift; sourceTree = "<group>"; };
 		531FF4652E54453800E777ED /* GoogleSignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInViewController.swift; sourceTree = "<group>"; };
-		531FF4692E54665F00E777ED /* DropDownRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownRegister.swift; sourceTree = "<group>"; };
+		531FF4692E54665F00E777ED /* TextFieldRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldRegister.swift; sourceTree = "<group>"; };
 		531FF46B2E550E1500E777ED /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		532DAEB02E39A94C0074C97F /* StorePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorePostView.swift; sourceTree = "<group>"; };
 		532DAEB22E39B0950074C97F /* DropDownPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownPost.swift; sourceTree = "<group>"; };
@@ -147,6 +148,7 @@
 		53BC4F402E4D58A900ED7EEE /* ProfileElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileElementView.swift; sourceTree = "<group>"; };
 		53BC4F422E4D6F9100ED7EEE /* chatButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatButton.swift; sourceTree = "<group>"; };
 		53BC4F442E4D833100ED7EEE /* ViewModelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelManager.swift; sourceTree = "<group>"; };
+		53BECD942E5832BE00964883 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		53E249A32E26203C00068C1B /* Trees.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trees.swift; sourceTree = "<group>"; };
 		53E249A52E26262A00068C1B /* DeveloperPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperPreview.swift; sourceTree = "<group>"; };
 		53E249AA2E2629AC00068C1B /* SubletsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubletsService.swift; sourceTree = "<group>"; };
@@ -219,7 +221,7 @@
 				532DAEB22E39B0950074C97F /* DropDownPost.swift */,
 				532DAEBC2E39CF420074C97F /* DropDownMenuTreeView.swift */,
 				531FF4582E52DAB700E777ED /* isUploadingView.swift */,
-				531FF4692E54665F00E777ED /* DropDownRegister.swift */,
+				531FF4692E54665F00E777ED /* TextFieldRegister.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -352,6 +354,7 @@
 				5353BE842E2B4E8B00C2FEAE /* ImageUploader.swift */,
 				53E249AA2E2629AC00068C1B /* SubletsService.swift */,
 				532DAEB62E39C4020074C97F /* StoresService.swift */,
+				53BECD942E5832BE00964883 /* ProfileService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -646,7 +649,7 @@
 				532DAEBD2E39CF420074C97F /* DropDownMenuTreeView.swift in Sources */,
 				53F2DDAD2E2A2CF1003A9EE8 /* ChatViewModel.swift in Sources */,
 				53BC4F452E4D833100ED7EEE /* ViewModelManager.swift in Sources */,
-				531FF46A2E54665F00E777ED /* DropDownRegister.swift in Sources */,
+				531FF46A2E54665F00E777ED /* TextFieldRegister.swift in Sources */,
 				53A8628B2E2714C700280C2F /* Users.swift in Sources */,
 				531FF4592E52DAB700E777ED /* isUploadingView.swift in Sources */,
 				53BC4F412E4D58A900ED7EEE /* ProfileElementView.swift in Sources */,
@@ -658,6 +661,7 @@
 				533B24972E31E65100D773CB /* SubletPhotoPostView.swift in Sources */,
 				53E249B22E26490000068C1B /* RegistrationView.swift in Sources */,
 				532DAEB32E39B0950074C97F /* DropDownPost.swift in Sources */,
+				53BECD952E5832BE00964883 /* ProfileService.swift in Sources */,
 				53E249B42E26498D00068C1B /* TextFieldModifier.swift in Sources */,
 				53F2DDA92E2A1A90003A9EE8 /* Messages.swift in Sources */,
 				53F2DD9F2E29BE95003A9EE8 /* AuthService.swift in Sources */,

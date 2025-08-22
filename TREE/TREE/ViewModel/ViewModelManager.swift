@@ -41,15 +41,18 @@ class ViewModelManager: ObservableObject {
             .store(in: &cancellables)
     }
     
-//    func locationDidChange() {
-//        // Refresh all location-dependent data
-//        guard !state.isEmpty && !city.isEmpty else { return }
-//        subletsViewModel.service.observeSublets(state: state, city: city)
-//        storesViewModel.service.observeStores(state: state, city: city)
-//    }
+    func locationDidChange(state: String, city: String) {
+            // Clear existing data and refresh for new location
+        subletsViewModel.refreshForNewLocation(state: state, city: city)
+        storesViewModel.refreshForNewLocation(state: state, city: city)
+    }
     
     private func recreateAllViewModels() {
         // Create completely fresh view model instances
+        self.subletsViewModel.sublets.removeAll()
+        self.storesViewModel.stores.removeAll()
+        self.profileViewModel.treeFeed.removeAll()
+        
         let newProfile = ProfileViewModel()
         let newSublets = SubletsViewModel(profile: newProfile)
         let newStores = StoresViewModel(profile: newProfile)

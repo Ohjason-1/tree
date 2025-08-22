@@ -70,9 +70,9 @@ struct StoreListingDetailView: View {
                     
                     
                 }
-                .padding(.horizontal, 8)
             }
             .padding()
+            .padding(.horizontal)
         }
     }
 }

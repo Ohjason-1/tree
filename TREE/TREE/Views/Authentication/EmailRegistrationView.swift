@@ -37,9 +37,9 @@ struct EmailRegistrationView: View {
             
             VStack {
                 VStack(alignment: .leading, spacing: 8) {
-                    DropDownRegister(placeHolder: "Email", text: $viewModel.email, rightIcon: "apple.meditate.circle")
+                    TextFieldRegister(placeHolder: "Email", text: $viewModel.email, rightIcon: "apple.meditate.circle")
                         .textContentType(.emailAddress)
-                    Text("Your password must be at least 6 characters in length")
+                    Text("It might have gone to your spam folder.")
                         .font(.caption)
                         .foregroundStyle(Color(.systemGray))
                 }

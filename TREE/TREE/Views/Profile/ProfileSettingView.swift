@@ -45,8 +45,57 @@ struct ProfileSettingView: View {
                         .font(.title2)
                         .fontWeight(.bold)
                 }
-                // list
                 
+                Divider().scaleEffect(y: 1)
+                
+                HStack {
+                    VStack(spacing: 12) {
+                        HStack {
+                            Text("State: ")
+                                .font(.headline)
+                                .fontWeight(.semibold)
+                                .padding(.trailing)
+                            
+                            DropDownPost(menus: LocationData.allStates, selected: $viewModel.newState, wantBlack: false)
+                                .frame(height: 36)
+                            
+                        }
+                        HStack {
+                            Text("City:   ")
+                                .font(.headline)
+                                .fontWeight(.semibold)
+                                .padding(.trailing)
+                            
+                            DropDownPost(menus: LocationData.cities(for: viewModel.state), selected: $viewModel.newCity, wantBlack: false)
+                                .frame(height: 36)
+                                .foregroundStyle(.black)
+                        }
+                    }
+                    
+                    
+                    Button {
+                        Task { try await viewModel.updateLocation() }
+                    } label: {
+                        Text("Update ")
+                            .font(.footnote)
+                            .fontWeight(.bold)
+                            .foregroundStyle(Color(UIColor.label))
+                            .frame(width: 72, height: 60)
+                            .background(.green.gradient)
+                            .cornerRadius(16)
+                    }
+                    .opacity((viewModel.newState.isEmpty || viewModel.newCity.isEmpty) ? 0.5 : 1)
+                    .disabled(viewModel.newState.isEmpty || viewModel.newCity.isEmpty)
+                    .alert(isPresented: $viewModel.showAlert) {
+                        Alert(title: Text("Update Error"), message: Text(viewModel.errorMessage), dismissButton: .default(Text("OK")))
+                    }
+                    .padding(.leading, 24)
+                }
+                .padding(.horizontal)
+                
+                Divider().scaleEffect(y: 1)
+                
+                // list
                 List {
                     Section {
                         NavigationLink {

@@ -25,11 +25,11 @@ struct TREEApp: App {
     }
     
     private func handleDeepLink(url: URL) {
-           // Handle your custom treeapp:// scheme
-           if url.scheme == "treeapp" {
-               delegate.handleEmailLinkSignIn(url: url)
-           }
-       }
+        if (url.scheme == "https" && url.host == "tree-50227.web.app") ||
+            Auth.auth().isSignIn(withEmailLink: url.absoluteString) {
+            delegate.handleEmailLinkSignIn(url: url)
+        }
+    }
 }
 
 class AppDelegate: NSObject, UIApplicationDelegate {
@@ -75,7 +75,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     
     // MARK: - email auth
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        if Auth.auth().isSignIn(withEmailLink: url.absoluteString) {
+        if url.scheme == "https" && url.host == "tree-50227.web.app" || Auth.auth().isSignIn(withEmailLink: url.absoluteString) {
             handleEmailLinkSignIn(url: url)
             return true
         }

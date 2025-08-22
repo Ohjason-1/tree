@@ -21,6 +21,7 @@ struct StorePostView: View {
     }
     @State private var shouldNavigateToPhotos = false
     @Binding var selectedType: PostDropDownMenuView.TreeType
+   
     
     var body: some View {
         NavigationStack {
@@ -78,7 +79,9 @@ struct StorePostView: View {
                 
                 
                 VStack(alignment: .leading, spacing: 16) {
-                    
+                    Text("For your second picture, make sure your name and the date are clearly displayed.")
+                        .font(.caption)
+                        .foregroundStyle(.green.gradient)
                     // MARK: - Product Details
                     VStack(alignment: .leading, spacing: 8) {
                         HStack {
@@ -171,24 +174,26 @@ struct StorePostView: View {
                         
                         HStack {
                             VStack(alignment: .leading) {
-                                Text("City \(Text("*").foregroundColor(.red))")
+                                Text("State \(Text("*").foregroundColor(.red))")
                                     .font(.headline)
                                     .fontWeight(.semibold)
                                 
-                                TextField("City", text: $viewModel.city)
-                                    .modifier(PostModifier())
+                                DropDownPost(menus: LocationData.allStates, selected: $viewModel.state, wantBlack: false)
+                                    .frame(height: 48)
+                                
                             }
                             
                             Spacer()
                                 .frame(width: 16)
                             
                             VStack(alignment: .leading) {
-                                Text("State \(Text("*").foregroundColor(.red))")
+                                Text("City \(Text("*").foregroundColor(.red))")
                                     .font(.headline)
                                     .fontWeight(.semibold)
                                 
-                                TextField("State", text: $viewModel.state)
-                                    .modifier(PostModifier())
+                                DropDownPost(menus: LocationData.cities(for: viewModel.state), selected: $viewModel.city, wantBlack: false)
+                                    .frame(height: 48)
+                                    .foregroundStyle(.black)
                             }
                             
                             Spacer()

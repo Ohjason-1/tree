@@ -41,6 +41,7 @@ class AuthService {
         Task {
             await removeCurrentDeviceTokenFromUser()
             do {
+                
                 try Auth.auth().signOut()
                 self.userSession = nil
                 ViewModelManager.shared.userSession = nil
@@ -108,7 +109,7 @@ extension AuthService {
     func sendSignInLink(email: String) async throws {
         let actionCodeSettings = ActionCodeSettings()
         actionCodeSettings.handleCodeInApp = true
-        actionCodeSettings.url = URL(string: "https://tree-50227.firebaseapp.com")
+        actionCodeSettings.url = URL(string: "https://tree-50227.web.app")
         actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
         do {
             try await Auth.auth().sendSignInLink(toEmail: email, actionCodeSettings: actionCodeSettings)

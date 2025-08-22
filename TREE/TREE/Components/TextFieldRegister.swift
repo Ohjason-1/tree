@@ -7,13 +7,12 @@
 
 import SwiftUI
 
-struct DropDownRegister: View {
+struct TextFieldRegister: View {
     // MARK: - Variable
         private let textFieldHeight: CGFloat = 40
         private let placeHolderText: String
         @Binding private var text: String
         @FocusState private var isFieldFocused: Bool
-        let leftIcon: String?
         let rightIcon: String?
         let isSecure: Bool
         private var shouldPlaceHolderMove: Bool {
@@ -22,10 +21,9 @@ struct DropDownRegister: View {
         
         // MARK: - init
         public init(placeHolder: String,
-                    text: Binding<String>, leftIcon: String? = nil, rightIcon: String? = nil, isSecure: Bool = false) {
+                    text: Binding<String>, rightIcon: String? = nil, isSecure: Bool = false) {
             self._text = text
             self.placeHolderText = placeHolder
-            self.leftIcon = leftIcon
             self.rightIcon = rightIcon
             self.isSecure = isSecure
         }
@@ -57,7 +55,7 @@ struct DropDownRegister: View {
                             }
                             .fontWeight(.semibold)
                             .foregroundStyle(.blue)
-                            .padding(.trailing, 12)
+                            .padding(.trailing, 8)
                         }
                     }
                 }
@@ -101,5 +99,5 @@ struct DropDownRegister: View {
 }
 
 #Preview {
-    DropDownRegister(placeHolder: "Name", text: .constant(""), rightIcon: "person.fill")
+    TextFieldRegister(placeHolder: "Name", text: .constant(""), rightIcon: "person.fill")
 }

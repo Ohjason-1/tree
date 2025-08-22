@@ -23,7 +23,7 @@ class SubletsService {
             .order(by: "timeStamp", descending: true)
         
         query.addSnapshotListener { snapshot, error in
-            guard let changes = snapshot?.documentChanges.filter({ $0.type == .added }) else { return }
+            guard let changes = snapshot?.documentChanges else { return }
             self.subletChanges = changes
         }
     }
@@ -37,6 +37,9 @@ class SubletsService {
             
             guard let encodedSublet = try? Firestore.Encoder().encode(sublet) else { return }
             
+            // for treefeed
+            let userRef = FirestoreConstants.UserCollection.document(currentUid).collection("treeFeed").document(id)
+            try await userRef.setData(encodedSublet)
             try await ref.setData(encodedSublet)
         } catch {
             errorMessage = "Failed to create a sublet post."
@@ -44,46 +47,4 @@ class SubletsService {
         }
     }
     
-//    func replace() {
-//        let db = Firestore.firestore()
-//        
-//        let oldCollectionRef = db.collection("sublets")
-//        let newCollectionRef = db
-//            .collection("sublets")
-//            .document("California")
-//            .collection("Berkeley")
-//        
-//        oldCollectionRef.getDocuments { (snapshot, error) in
-//            if let error = error {
-//                print("Error getting documents: \(error)")
-//                return
-//            }
-//            
-//            guard let documents = snapshot?.documents else {
-//                print("No documents found in 'sublets'")
-//                return
-//            }
-//            
-//            for document in documents {
-//                let data = document.data()
-//                let docID = document.documentID
-//                
-//                let newDocRef = newCollectionRef.document(docID)
-//                newDocRef.setData(data) { error in
-//                    if let error = error {
-//                        print("Error writing new document \(docID): \(error)")
-//                    } else {
-//                        // Delete the original document after copying
-//                        oldCollectionRef.document(docID).delete { error in
-//                            if let error = error {
-//                                print("Error deleting old document \(docID): \(error)")
-//                            } else {
-//                                print("Moved document \(docID) successfully.")
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
 }

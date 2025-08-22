@@ -18,8 +18,6 @@ class UserService {
     static let shared = UserService()
     @Published var errorMessage = ""
     
-    
-    
     // MARK: - Fetch
     @MainActor
     func fetchCurrentUser() async throws {
@@ -94,16 +92,18 @@ class UserService {
     func updateLocation(state: String, city: String) async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         do {
-            try await FirestoreConstants.UserCollection.document(uid).setData(["state": state, "city": city])
-
+            try await FirestoreConstants.UserCollection.document(uid).updateData(["state": state, "city": city])
         } catch {
             errorMessage = "Failed to update state and city"
             throw error
         }
     }
     
+    
+    
     // MARK: - Delete
     func deleteFeed(treeFeed: any Tree) async throws {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
         let storage = Storage.storage()
         let collection = treeFeed is Sublets ?
             FirestoreConstants.SubletsCollection :
@@ -114,6 +114,8 @@ class UserService {
             .collection(treeFeed.city)
             .document(treeFeed.id)
             .delete()
+        
+        try await FirestoreConstants.UserCollection.document(currentUid).collection("treeFeed").document(treeFeed.id).delete()
         
         for imageUrl in treeFeed.imageURLs {
             let imageRef = storage.reference(forURL: imageUrl)
@@ -137,6 +139,8 @@ class UserService {
             try await deleteFeed(treeFeed: tree)
         }
         
+        
+        // message
         for message in await messagesViewModel.recentMessages {
             // user from chatpartner's recent message
             try await FirestoreConstants
@@ -169,6 +173,8 @@ class UserService {
         for document in userRecentSnapshot.documents {
             try await document.reference.delete()
         }
+        
+        
         
         // // chat contents from me to chatpartner
         try await FirestoreConstants

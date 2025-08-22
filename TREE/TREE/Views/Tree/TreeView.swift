@@ -22,8 +22,8 @@ struct TreeView: View {
                             .frame(width: selectedType == .sublets ? 120 : 100, height: 24)
                         
                         Spacer()
-                        
                     }
+                    
                     .padding(.bottom)
                     HStack {
                         VStack {
@@ -40,8 +40,8 @@ struct TreeView: View {
                     }
                     
                 }
-                
-                .padding()
+                .padding(.top)
+                .padding(.horizontal)
                 
                 if selectedType == .sublets {
                     SubletsContentView(viewModel: subletViewModel)

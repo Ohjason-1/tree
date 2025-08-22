@@ -111,9 +111,9 @@ struct SubletListingDetailView: View {
                     }
                     .disabled(UserInfo.currentUserId == sublet.ownerUid)
                 }
-                .padding(.horizontal, 8)
             }
             .padding()
+            .padding(.horizontal)
         }
     }
 }

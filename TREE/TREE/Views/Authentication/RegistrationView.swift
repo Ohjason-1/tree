@@ -46,11 +46,11 @@ struct RegistrationView: View {
                         .padding(.bottom)
                 }
                 VStack(spacing: 20) {
-                    DropDownRegister(placeHolder: "Username", text: $viewModel.userName, rightIcon: "person")
+                    TextFieldRegister(placeHolder: "Username", text: $viewModel.userName, rightIcon: "person")
                         
                     
                     VStack(spacing: 8) {
-                        DropDownRegister(placeHolder: "Password", text: $viewModel.password, rightIcon: "person.badge.key")
+                        TextFieldRegister(placeHolder: "Password", text: $viewModel.password, rightIcon: "person.badge.key")
                             .textContentType(.password)
                             
                         
@@ -61,7 +61,7 @@ struct RegistrationView: View {
                     
                     
                     HStack(spacing: 12) {
-                        DropDownRegister(placeHolder: "Mobile number", text: $viewModel.phoneNumber, rightIcon: "phone")
+                        TextFieldRegister(placeHolder: "Mobile number", text: $viewModel.phoneNumber, rightIcon: "phone")
                             .textContentType(.telephoneNumber)
                             .keyboardType(.numberPad)
                         
@@ -84,27 +84,32 @@ struct RegistrationView: View {
                     }
                     .padding(.bottom, -8)
                     
-                    HStack(spacing: 64) {
-                        DropDownRegister(placeHolder: "Code", text: $viewModel.verificationCode, rightIcon: "lock")
-                            .keyboardType(.numberPad)
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack(spacing: 64) {
+                            TextFieldRegister(placeHolder: "Code", text: $viewModel.verificationCode, rightIcon: "lock")
+                                .keyboardType(.numberPad)
                             
-                        
-                        Button {
-                            verifyCode()
-                        } label: {
-                            Text(phoneNumberVerified ? "Verified" : "Verify")
-                                .font(.footnote)
-                                .fontWeight(.semibold)
-                                .foregroundStyle(.black)
-                                .frame(width: 80, height: 48)
-                                .background(.orange.gradient)
-                                .cornerRadius(10)
+                            
+                            Button {
+                                verifyCode()
+                            } label: {
+                                Text(phoneNumberVerified ? "Verified" : "Verify")
+                                    .font(.footnote)
+                                    .fontWeight(.semibold)
+                                    .foregroundStyle(.black)
+                                    .frame(width: 80, height: 48)
+                                    .background(.orange.gradient)
+                                    .cornerRadius(10)
+                            }
+                            .opacity(codeInvalid ? 0.5: 1)
+                            .disabled(codeInvalid)
+                            .alert(isPresented: $viewModel.showAlert) {
+                                Alert(title: Text("Wrong Code"), message: Text(viewModel.errorMessage), dismissButton: .default(Text("OK")))
+                            }
                         }
-                        .opacity(codeInvalid ? 0.5: 1)
-                        .disabled(codeInvalid)
-                        .alert(isPresented: $viewModel.showAlert) {
-                            Alert(title: Text("Wrong Code"), message: Text(viewModel.errorMessage), dismissButton: .default(Text("OK")))
-                        }
+                        Text("You may request the code up to two times only.")
+                            .font(.caption)
+                            .foregroundStyle(Color(.systemGray))
                     }
                     
                     HStack {

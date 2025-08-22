@@ -74,10 +74,14 @@ class SubletsViewModel: ObservableObject {
                 guard let self = self else { return }
                 let state = self.profile.state
                 guard !state.isEmpty && !city.isEmpty else { return }
-                
                 self.service.observeSublets(state: state, city: city)
             }
             .store(in: &cancellables)
+    }
+    
+    func refreshForNewLocation(state: String, city: String) {
+        sublets.removeAll()
+        service.observeSublets(state: state, city: city)
     }
     
     // MARK: - setting up sublet posts
@@ -114,9 +118,6 @@ class SubletsViewModel: ObservableObject {
                 self.sublets[index].user = user
             }
             //print("1")
-            if user.id == UserInfo.currentUserId {
-                profile.addUserPost(sublet)
-            }
         }
     }
 

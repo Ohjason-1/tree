@@ -43,10 +43,10 @@ struct LoginView: View {
                 
                 VStack {
                     VStack(spacing: 20) {
-                        DropDownRegister(placeHolder: "Email", text: $viewModel.email, rightIcon: "apple.meditate.circle")
+                        TextFieldRegister(placeHolder: "Email", text: $viewModel.email, rightIcon: "apple.meditate.circle")
                         
                           
-                        DropDownRegister(placeHolder: "Password", text: $viewModel.password, rightIcon: "person.badge.key", isSecure: true)
+                        TextFieldRegister(placeHolder: "Password", text: $viewModel.password, rightIcon: "person.badge.key", isSecure: true)
                             .textContentType(.password)
                         }
                     
@@ -129,7 +129,7 @@ struct LoginView: View {
                         .multilineTextAlignment(.center)
                     
                     
-                    DropDownRegister(placeHolder: "Email", text: $viewModel.email, rightIcon: "apple.meditate.circle")
+                    TextFieldRegister(placeHolder: "Email", text: $viewModel.email, rightIcon: "apple.meditate.circle")
                         .padding(.top, 16)
                     
                     Spacer()

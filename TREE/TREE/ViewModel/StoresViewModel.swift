@@ -66,6 +66,11 @@ class StoresViewModel: ObservableObject {
         }
     }
     
+    func refreshForNewLocation(state: String, city: String) {
+        stores.removeAll()
+        service.observeStores(state: state, city: city)
+    }
+    
     private func observeLocationChanges() {
         profile.$city
             .sink { [weak self] city in
@@ -110,9 +115,6 @@ class StoresViewModel: ObservableObject {
             guard let self else { return }
             if let index = self.stores.firstIndex(where: { $0.id == store.id }) {
                 self.stores[index].user = user
-            }
-            if user.id == UserInfo.currentUserId {
-                profile.addUserPost(store)
             }
         }
     }

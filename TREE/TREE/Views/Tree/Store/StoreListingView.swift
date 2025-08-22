@@ -47,10 +47,11 @@ struct StoreListingView: View {
                     }
                     
                 }
-                
+                .padding(.vertical)
+                Spacer()
             }
             .foregroundStyle(.primary)
-            .frame(maxHeight: 120)
+            .frame(maxWidth: .infinity, maxHeight: 120)
             .padding()
         }
     }
