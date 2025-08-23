@@ -12,17 +12,10 @@ struct SubletListingView: View {
     
     var body: some View {
         VStack(spacing: 8) {
-            // images
-//            Divider()
-//                .frame(maxWidth: UIScreen.main.bounds.width - 30)
-//                .background(.primary)
-                
-            
             TreeListingModifier(tree: sublet)
                 .frame(height: 320)
             
             // listing details
-            
             HStack(spacing: 24) {
                 VStack(alignment: .center, spacing: 6) {
                     Text("$\(sublet.rentFee)")
@@ -35,7 +28,7 @@ struct SubletListingView: View {
                     .background(.primary)
                 
                 
-                VStack(alignment: .leading, spacing: 10) {
+                VStack(alignment: .leading, spacing: 8) {
                     
                     Text("\(sublet.address), \(sublet.city), \(sublet.state)")
                         .font(.subheadline)
@@ -55,11 +48,19 @@ struct SubletListingView: View {
                     
                 }
             }
-            .padding(.horizontal, 8)
+            .padding(.horizontal, 12)
+            .padding(.bottom, 12)
             
         }
         .foregroundStyle(.primary)
+        .background(Color(.systemBackground))
         .clipShape(RoundedRectangle(cornerRadius: 10))
+        .background {
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color(.systemBackground))
+                .shadow(color: .primary.opacity(0.1), radius: 6, x: 0, y: 4)
+        }
+        
     }
 }
 

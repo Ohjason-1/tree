@@ -178,7 +178,7 @@ struct SubletPostView: View {
                             .font(.title2)
                             .fontWeight(.semibold)
                             
-                            Text("Where are you selling this item?")
+                            Text("Where is your property located?")
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
                         }

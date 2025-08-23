@@ -12,7 +12,7 @@ struct StoreListingView: View {
     
     var body: some View {
         ZStack {
-            Color(.gray).opacity(0.05)
+            Color(.systemBackground)
             
             HStack(alignment: .top, spacing: 16) {
                 // images
@@ -52,7 +52,13 @@ struct StoreListingView: View {
             }
             .foregroundStyle(.primary)
             .frame(maxWidth: .infinity, maxHeight: 120)
-            .padding()
+            .padding(8)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .background {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color(.systemBackground))
+                    .shadow(color: .primary.opacity(0.1), radius: 6, x: 0, y: 4)
+            }
         }
     }
 }

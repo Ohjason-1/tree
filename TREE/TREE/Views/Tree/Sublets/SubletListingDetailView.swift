@@ -17,10 +17,14 @@ struct SubletListingDetailView: View {
                 .frame(height: 320)
             
             VStack(alignment: .leading, spacing: 16) {
-                Text("\(sublet.title)")
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                    .multilineTextAlignment(.center)
+                HStack {
+                    Spacer()
+                    Text("\(sublet.title)")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .multilineTextAlignment(.center)
+                    Spacer()
+                }
                 
                 Divider()
                     .background(.primary)
@@ -43,7 +47,6 @@ struct SubletListingDetailView: View {
                         }
                         
                         Spacer()
-                        
                         CircularProfileImageView(user: sublet.user, size: .small)
                     }
                     .font(.footnote)

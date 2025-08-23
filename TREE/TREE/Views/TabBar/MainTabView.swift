@@ -43,7 +43,7 @@ struct MainTabView: View {
                 }
                 .tag(3)
         }
-        .tint(Color("AccentColor"))
+        .tint(Color("AccentColor").gradient)
     }
     
 }

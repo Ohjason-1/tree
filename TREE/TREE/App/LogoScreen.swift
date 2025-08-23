@@ -9,21 +9,29 @@ import SwiftUI
 
 struct LogoScreen: View {
     var body: some View {
-        VStack {
-            Spacer()
-            
-            Image("Appicon")
+        ZStack {
+            Image("LogoScreenBackground")
                 .resizable()
-                .frame(width:70, height: 75)
-            
-            Spacer()
-            
-            Image("TREE")
-                .resizable()
-                .frame(width:70, height: 25)
-                .padding(.bottom)
+                .scaledToFill()   // make it cover the whole screen
+                .ignoresSafeArea()
+            VStack {
+                Spacer()
+                Image("AppIconWhite")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width:64)
+                    .padding(.leading, 7)
+                    .padding(.top, 52)
+                
+                Spacer()
+                Text("TREE")
+                    .font(.system(size: 36, weight: .black, design: .rounded))
+                    .fontDesign(.rounded)
+                    .foregroundStyle(.white)
+                    .padding(.bottom, 38)
+                    .padding(.leading, 3)
+            }
         }
-        .frame(maxWidth: .infinity)
     }
 }
 

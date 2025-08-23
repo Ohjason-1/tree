@@ -47,7 +47,7 @@ struct DropDownMenuTreeView: View {
             }
         }
         .frame(width: 65, height: 35)
-        .background(Color(.systemGray2).gradient)
+        .background(Color("AccentColor").opacity(0.8).gradient)
         .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 }

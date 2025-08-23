@@ -59,6 +59,7 @@ class SubletsViewModel: ObservableObject {
         do {
             guard let imageURLs = try await ImageUploader().uploadPostImage(images, true) else { return }
             try await service.createSubletsPost(numberOfBedrooms: numberOfBedrooms, numberOfBathrooms: numberOfBathrooms, zipcode: zipcode, imageURLs: imageURLs, address: address, city: city, state: state, shared: shared, leaseStartDate: leaseStartDate, leaseEndDate: leaseEndDate, rentFee: rentFee, title: title, description: description)
+            selectedImage.removeAll()
         } catch {
             await MainActor.run {
                 errorMessage = service.errorMessage

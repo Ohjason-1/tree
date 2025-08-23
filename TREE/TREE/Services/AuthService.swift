@@ -109,8 +109,8 @@ extension AuthService {
     func sendSignInLink(email: String) async throws {
         let actionCodeSettings = ActionCodeSettings()
         actionCodeSettings.handleCodeInApp = true
-        actionCodeSettings.url = URL(string: "https://tree-50227.web.app")
-        actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
+        actionCodeSettings.url = URL(string: "https://tree-50227.firebaseapp.com")
+        actionCodeSettings.setIOSBundleID("com.Jasonpeter.TREE")
         do {
             try await Auth.auth().sendSignInLink(toEmail: email, actionCodeSettings: actionCodeSettings)
             print("Sign-in link sent to \(email)")

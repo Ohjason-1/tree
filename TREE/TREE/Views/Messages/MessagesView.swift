@@ -15,13 +15,10 @@ struct MessagesView: View {
     var body: some View {
         NavigationStack {
             List {
-                HStack {
-                    Image("Messages")
-                        .resizable()
-                        .frame(width: 140, height: 28)
-                    
-                    Spacer()
-                }
+               Text("Messages")
+                .font(.system(size: 36, weight: .black, design: .rounded))
+                .fontDesign(.rounded)
+                .foregroundStyle(Color("AccentColor").gradient)
                 .listRowSeparator(.hidden)
                 .padding(.vertical, 12)
                 

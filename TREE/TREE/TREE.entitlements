@@ -8,7 +8,7 @@
 	<string>development</string>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:tree-50227.web.app</string>
+		<string>applinks:tree-50227.firebaseapp.com</string>
 	</array>
 	<key>com.apple.security.app-sandbox</key>
 	<true/>

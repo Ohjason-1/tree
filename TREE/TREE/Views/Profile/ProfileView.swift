@@ -18,13 +18,13 @@ struct ProfileView: View {
             VStack(spacing: 16) {
                 VStack {
                     HStack {
-                        Image("Profile1")
-                            .resizable()
-                            .frame(width: 100, height: 24)
-                            .padding(.vertical)
-                        
+                        Text("Profile")
+                            .font(.system(size: 36, weight: .black, design: .rounded))
+                            .fontDesign(.rounded)
+                            .foregroundStyle(Color("AccentColor").gradient)
                         Spacer()
                     }
+                    .padding(.top, 24)
                     
                     CircularProfileImageView(user: user, size: .large)
                         

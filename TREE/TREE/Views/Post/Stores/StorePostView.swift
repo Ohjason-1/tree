@@ -158,7 +158,7 @@ struct StorePostView: View {
                             .font(.title2)
                             .fontWeight(.semibold)
                             
-                            Text("Where is your property located?")
+                            Text("Where are you selling this item?")
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
                         }

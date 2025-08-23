@@ -15,36 +15,49 @@ struct TreeView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading) {
-                    HStack {
-                        Image(selectedType == .sublets ? "Sublets" : "Store")
-                            .resizable()
-                            .frame(width: selectedType == .sublets ? 120 : 100, height: 24)
-                        
-                        Spacer()
-                    }
-                    
-                    .padding(.bottom)
-                    HStack {
-                        VStack {
-                            Text("\(profileViewModel.city),")
-                            Text(profileViewModel.state)
-                        }
-                        .font(.system(size: 20))
-                        .fontWeight(.bold)
+                VStack(alignment: .leading, spacing: 16) {
+                    Text(selectedType == .sublets ? "Sublets" : "Store")
+                        .font(.system(size: 36, weight: .black, design: .rounded))
+                        .fontDesign(.rounded)
                         .foregroundStyle(Color("AccentColor").gradient)
+                        .padding(.top)
+                    
+                    Text(selectedType == .sublets ? "Find your next home in \(profileViewModel.city)" : "Shop for great deals in \(profileViewModel.city)")
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.gray.gradient)
+                    
+                    
+                    
+                    HStack(spacing: 8) {
+                        Image(systemName: "mappin")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 7)
+                            .foregroundStyle(.red.gradient)
+                        
+                        Text("\(profileViewModel.city), \(profileViewModel.state)")
+                            .font(.title3)
+                            .fontWeight(.bold)
                         
                         Spacer()
-                        
                         DropDownMenuTreeView(selectedType: $selectedType)
                     }
-                    
+                    .padding(.horizontal)
+                    .padding(.vertical, 12)
+                    .foregroundStyle(Color(.systemBackground).gradient)
+                    .background {
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color("Color").gradient)
+                            .shadow(color: .primary.opacity(0.2), radius: 6, x: 0, y: 4)
+                    }
+
                 }
-                .padding(.top)
                 .padding(.horizontal)
                 
                 if selectedType == .sublets {
                     SubletsContentView(viewModel: subletViewModel)
+                        
                 } else {
                     StoresContentView(viewModel: storeViewModel)
                 }
@@ -72,12 +85,12 @@ struct SubletsContentView: View {
                 NavigationLink(value: sublet) {
                     SubletListingView(sublet: sublet)
                         .frame(height: 400)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        
                     
                 }
             }
         }
-        .padding()
+        .padding(.horizontal)
     }
 }
 
@@ -90,7 +103,7 @@ struct StoresContentView: View {
                 NavigationLink(value: store) {
                     StoreListingView(store: store)
                         .frame(height: 140)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        
                     
                 }
             }

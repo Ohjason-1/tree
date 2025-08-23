@@ -21,14 +21,52 @@ struct TREEApp: App {
                 .onOpenURL { url in
                     handleDeepLink(url: url)
                 }
+                .onContinueUserActivity(NSUserActivityTypeBrowsingWeb) { userActivity in
+                    handleUniversalLink(userActivity: userActivity)
+                }
         }
     }
-    
-    private func handleDeepLink(url: URL) {
-        if (url.scheme == "https" && url.host == "tree-50227.web.app") ||
-            Auth.auth().isSignIn(withEmailLink: url.absoluteString) {
-            delegate.handleEmailLinkSignIn(url: url)
+    private func handleUniversalLink(userActivity: NSUserActivity) {
+        guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+              let url = userActivity.webpageURL else {
+            return
         }
+        // Handle the new auth-complete path
+        if url.path == "/auth-complete" {
+            // Extract the original Firebase auth link from query parameters
+            if let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+               let linkParam = components.queryItems?.first(where: { $0.name == "link" })?.value,
+               let originalAuthURL = URL(string: linkParam) {
+                
+                if Auth.auth().isSignIn(withEmailLink: originalAuthURL.absoluteString) {
+                    delegate.handleEmailLinkSignIn(url: originalAuthURL)
+                } else {
+                    print("🔴 Extracted URL is not a valid Firebase sign-in link")
+                }
+            } else {
+                print("🔴 Could not extract original auth link from query parameters")
+            }
+            return
+        }
+        
+        // Fallback: Handle direct Firebase auth links
+        if Auth.auth().isSignIn(withEmailLink: url.absoluteString) {
+            print("🟢 Direct Firebase auth link detected")
+            delegate.handleEmailLinkSignIn(url: url)
+        } else {
+            print("🔴 NOT a valid Firebase sign-in link")
+        }
+    }
+    private func handleDeepLink(url: URL) {
+        print("Received custom URL: \(url)")
+            // Handle Google Sign-In URLs only
+            if GIDSignIn.sharedInstance.handle(url) {
+                return
+            }
+            // Fallback for email links via custom scheme
+            if Auth.auth().isSignIn(withEmailLink: url.absoluteString) {
+                delegate.handleEmailLinkSignIn(url: url)
+            }
     }
 }
 
@@ -75,15 +113,13 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     
     // MARK: - email auth
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        if url.scheme == "https" && url.host == "tree-50227.web.app" || Auth.auth().isSignIn(withEmailLink: url.absoluteString) {
-            handleEmailLinkSignIn(url: url)
-            return true
-        }
+        print("AppDelegate received URL: \(url)")
         
-        // Google Sign-In
+        // Handle Google Sign-In only
         if GIDSignIn.sharedInstance.handle(url) {
             return true
         }
+        
         return false
     }
     

@@ -19,7 +19,6 @@ struct StoreListingDetailView: View {
                 Text("\(store.title)")
                     .font(.title2)
                     .fontWeight(.semibold)
-                    .multilineTextAlignment(.leading)
                 
                 Divider()
                     .background(.primary)
@@ -42,7 +41,6 @@ struct StoreListingDetailView: View {
                         }
                         
                         Spacer()
-                        
                         CircularProfileImageView(user: store.user, size: .small)
 
                     }

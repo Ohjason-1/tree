@@ -57,6 +57,7 @@ class StoresViewModel: ObservableObject {
         do {
             guard let imageURLs = try await ImageUploader().uploadPostImage(images, false) else { return }
             try await service.createSubletsPost(zipcode: zipcode, imageURLs: imageURLs, address: address, city: city, state: state, price: price, productName: productName, title: title, description: description)
+            selectedImage.removeAll()
         } catch {
             await MainActor.run {
                 errorMessage = service.errorMessage
